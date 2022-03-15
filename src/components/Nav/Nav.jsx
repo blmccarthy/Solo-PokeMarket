@@ -38,7 +38,7 @@ function Nav() {
               <GridViewIcon sx={{ fontSize: 35 }}/>
             </Link>
 
-            <Link className="navLink" to="/about">
+            <Link className="navLink" to="/profile">
               <AccountCircleIcon sx={{ fontSize: 35 }}/>
             </Link>
 

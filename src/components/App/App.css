@@ -31,7 +31,7 @@ Container
 Button
 -------------------------------------------------------------------------------- */
 
-.btn {
+/* .btn {
   display: inline-block;
   padding: 10px 20px;
   border-color: #014041;
@@ -62,7 +62,7 @@ Button
 .btn:hover {
   background-color: #008183;
   text-decoration: none;
-}
+} */
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .btn_asLink {
@@ -114,8 +114,4 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
-}
-
-.mui-text {
-  padding: 20px;
 }

@@ -2,17 +2,9 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import LoginForm from '../LoginForm/LoginForm';
-
 import TextField from '@mui/material/TextField';
-import { createTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-
-
-const theme = createTheme({
-
-})
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -49,12 +41,12 @@ function LoginPage() {
         sx={{
           mb: '20px'
         }}
-        required
         id="outlined-required"
         label="Username"
         autoComplete="off"
         value={username}
         onChange={(event) => setUsername(event.target.value)}
+        required
         fullWidth
       />
       <TextField
@@ -65,9 +57,9 @@ function LoginPage() {
         label="Password"
         type="password"
         autoComplete="current-password"
-        required
         value={password}
         onChange={(event) => setPassword(event.target.value)}
+        required
         fullWidth
       />
       <Button 

@@ -10,21 +10,22 @@ import Grid from '@mui/material/Grid';
 function SearchBar() {
 
     return (
-        <Paper
-            component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '88%' }}
-        >
+        <div className="searchbar">
+            <Paper
+                component="form"
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '88%' }}
+            >
+                <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Search ..."
+                    inputProps={{ 'aria-label': 'search google maps' }}
+                />
+                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                    <SearchIcon />
+                </IconButton>
 
-            <InputBase
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search ..."
-                inputProps={{ 'aria-label': 'search google maps' }}
-            />
-            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-                <SearchIcon />
-            </IconButton>
-
-        </Paper>
+            </Paper>
+        </div>
     )
 }
 
