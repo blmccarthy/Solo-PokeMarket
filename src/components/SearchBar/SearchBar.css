@@ -1,0 +1,13 @@
+.searchbar {
+    padding: 40px 0 15px 0;
+    display: flex;
+    background-color: #c4c4c4;
+    justify-content: center;
+    /* position: fixed; */
+    width: 100%
+}
+
+.search-input {
+    padding: 5px;
+    width: 80%
+}

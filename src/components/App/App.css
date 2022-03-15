@@ -9,6 +9,11 @@ body {
   margin: 0px;
 }
 
+.main {
+  /* Pushes content below Search Bar */
+  padding: 10px 20px 0 20px;
+}
+
 img {
   display: inline-block;
   max-width: 100%;
@@ -95,7 +100,7 @@ Alert
 Form Treatment
 -------------------------------------------------------------------------------- */
 
-.formPanel {
+/* .formPanel {
   box-sizing: border-box;
   width: 400px;
   max-width: 100%;
@@ -104,9 +109,13 @@ Form Treatment
   background-color: #efefef;
   border-radius: 3px;
   box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
-}
+} */
 
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+.mui-text {
+  padding: 20px;
 }

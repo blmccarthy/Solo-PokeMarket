@@ -1,14 +1,13 @@
 .nav {
   /* flex box layout */
   display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  align-items: center;
-  background-color: #00acb0;
+  background-color: #c4c4c4;
   overflow: hidden;
-
+  justify-content: space-evenly;
+  
   position: fixed;
   bottom: 0;
+  width: 100%;
 }
 
 .nav a {
@@ -25,10 +24,10 @@
 
 .navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: #4d4d4d;
+  background-color: #c4c4c4;
   text-align: center;
-  padding: 24px 10px;
+  padding: 20px 10px 10px 10px;
   text-decoration: none;
   font-size: 15px;
 
@@ -40,5 +39,5 @@
 }
 
 .navLink:hover {
-  background-color: #008183;
+  background-color: #acacac;
 }

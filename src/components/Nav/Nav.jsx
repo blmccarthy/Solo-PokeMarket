@@ -4,15 +4,17 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
+import HomeIcon from '@mui/icons-material/Home';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import GridViewIcon from '@mui/icons-material/GridView';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+
 function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
     <div className="nav">
-      <Link to="/home">
-        {/* <h2 className="nav-title">Prime Solo Project</h2> */}
-      </Link>
-      <div>
         {/* If no user is logged in, show these links */}
         {!user.id && (
           // If there's no user, show login/registration links
@@ -25,21 +27,26 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/user">
-              Home
+            <FilterListIcon sx={{ fontSize: 35 }}/>
             </Link>
 
             <Link className="navLink" to="/info">
-              Info Page
+              <HomeIcon sx={{ fontSize: 35 }}/>
+            </Link>
+
+            <Link className="navLink" to="/about">
+              <GridViewIcon sx={{ fontSize: 35 }}/>
+            </Link>
+
+            <Link className="navLink" to="/about">
+              <AccountCircleIcon sx={{ fontSize: 35 }}/>
             </Link>
 
             <LogOutButton className="navLink" />
           </>
         )}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-      </div>
+
     </div>
   );
 }
