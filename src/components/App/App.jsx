@@ -8,17 +8,17 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import SearchBar from '../SearchBar/SearchBar';
-import Nav from '../Nav/Nav';
+import SearchBar from '../Static_MenuBars/SearchBar/SearchBar';
+import Nav from '../Static_MenuBars/Nav/Nav';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
+import LoginPage from '../Login_Register/LoginPage';
+import RegisterPage from '../Login_Register/RegisterPage';
 import LandingPage from '../LandingPage/LandingPage';
-import FilterPage from '../Nav01_FilterPage/FilterPage';
-import HomePage from '../Nav02_HomePage/HomePage';
-import ListingsPage from '../Nav03_ListingsPage/ListingsPage';
-import ProfilePage from '../Nav04_ProfilePage/ProfilePage';
+import FilterPage from '../Main_Pages/01_FilterPage/FilterPage';
+import HomePage from '../Main_Pages/02_HomePage/HomePage';
+import ListingsPage from '../Main_Pages/03_ListingsPage/ListingsPage';
+import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
 
 import './App.css';
 
