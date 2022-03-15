@@ -13,13 +13,13 @@ import Nav from '../Nav/Nav';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import ListingsPage from '../Nav03_ListingsPage/ListingsPage';
+import FilterPage from '../Nav01_FilterPage/FilterPage';
+import HomePage from '../Nav02_HomePage/HomePage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import ProfilePage from '../ProfilePage/ProfilePage';
+import ProfilePage from '../Nav04_ProfilePage/ProfilePage';
 
 import './App.css';
 
@@ -43,31 +43,31 @@ function App() {
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
-            // shows AboutPage at all times (logged in or not)
+            // shows ListingsPage at all times (logged in or not)
             exact
             path="/about"
           >
-            <AboutPage />
+            <ListingsPage />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
+            Visiting localhost:3000/user will show the FilterPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // logged in shows FilterPage else shows LoginPage
             exact
             path="/user"
           >
-            <UserPage />
+            <FilterPage />
           </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/home"
           >
-            <InfoPage />
+            <HomePage />
           </ProtectedRoute>
 
           <ProtectedRoute

@@ -30,7 +30,7 @@ function Nav() {
             <FilterListIcon sx={{ fontSize: 35 }}/>
             </Link>
 
-            <Link className="navLink" to="/info">
+            <Link className="navLink" to="/home">
               <HomeIcon sx={{ fontSize: 35 }}/>
             </Link>
 
