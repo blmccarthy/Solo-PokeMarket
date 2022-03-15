@@ -1,16 +1,20 @@
 import React from 'react';
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 // This is one of our simplest components
 // It doesn't have local state
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is
 
-function InfoPage() {
+function ProfilePage() {
+
   return (
     <div className="container">
-      <p>Info Page</p>
+      <AccountCircleIcon sx={{ fontSize: 50 }}/>
+      <h1>PROFILE</h1>          
     </div>
   );
 }
 
-export default InfoPage;
+export default ProfilePage;
