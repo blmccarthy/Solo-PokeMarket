@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 
 // CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
+// import RegisterForm from '../RegisterForm/RegisterForm';
 
 function LandingPage() {
   const [heading, setHeading] = useState('Welcome');
@@ -52,7 +52,7 @@ function LandingPage() {
           </p>
         </div>
         <div className="grid-col grid-col_4">
-          <RegisterForm />
+          {/* <RegisterForm /> */}
 
           <center>
             <h4>Already a Member?</h4>

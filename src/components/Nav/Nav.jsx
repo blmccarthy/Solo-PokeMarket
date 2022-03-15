@@ -26,7 +26,7 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/filter">
             <FilterListIcon sx={{ fontSize: 35 }}/>
             </Link>
 
@@ -34,7 +34,7 @@ function Nav() {
               <HomeIcon sx={{ fontSize: 35 }}/>
             </Link>
 
-            <Link className="navLink" to="/about">
+            <Link className="navLink" to="/listings">
               <GridViewIcon sx={{ fontSize: 35 }}/>
             </Link>
 

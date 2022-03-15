@@ -12,13 +12,12 @@ import SearchBar from '../SearchBar/SearchBar';
 import Nav from '../Nav/Nav';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
-import ListingsPage from '../Nav03_ListingsPage/ListingsPage';
-import FilterPage from '../Nav01_FilterPage/FilterPage';
-import HomePage from '../Nav02_HomePage/HomePage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import LandingPage from '../LandingPage/LandingPage';
+import FilterPage from '../Nav01_FilterPage/FilterPage';
+import HomePage from '../Nav02_HomePage/HomePage';
+import ListingsPage from '../Nav03_ListingsPage/ListingsPage';
 import ProfilePage from '../Nav04_ProfilePage/ProfilePage';
 
 import './App.css';
@@ -45,7 +44,7 @@ function App() {
           <Route
             // shows ListingsPage at all times (logged in or not)
             exact
-            path="/about"
+            path="/listings"
           >
             <ListingsPage />
           </Route>
@@ -57,7 +56,7 @@ function App() {
           <ProtectedRoute
             // logged in shows FilterPage else shows LoginPage
             exact
-            path="/user"
+            path="/filter"
           >
             <FilterPage />
           </ProtectedRoute>
