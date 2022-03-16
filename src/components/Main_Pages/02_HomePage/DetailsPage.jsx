@@ -95,12 +95,13 @@ function Details() {
                 </Table>
             </TableContainer>
 
+            {/* NOTE: Button Positions set to 'static' due to them overlapping my navbar by default */}
             <Grid container spacing={2} sx={{ mb: 3, mt: 1 }}>
                 <Grid item xs={6}>
-                    <Button variant="outlined" onClick={handleBack} sx={{ width: "100%" }} >Go Back</Button>
+                    <Button variant="outlined" onClick={handleBack} sx={{ width: "100%", position: 'static' }} >Go Back</Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%" }}>Send Offer</Button>
+                    <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%", position: 'static' }}>Send Offer</Button>
                 </Grid>
             </Grid>
         </div>
