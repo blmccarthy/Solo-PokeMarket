@@ -15,6 +15,8 @@ function HomePage() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_LISTINGS' })
+    dispatch({ type: 'FETCH_CONDITIONS' })
+    dispatch({ type: 'FETCH_LISTING_IMAGES' })
   }, [])
 
   return (

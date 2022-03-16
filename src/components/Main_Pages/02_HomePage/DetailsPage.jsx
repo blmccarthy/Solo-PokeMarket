@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import './_HomePage.css';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -28,7 +29,10 @@ function Details() {
 
     const conditions = useSelector(store => store.conditions)
     const listings = useSelector(store => store.listings.listingReducer);
+    const images = useSelector(store => store.listings.imageReducer);
+
     const selectedItem = listings.filter(listing => listing.id == id)[0];
+    const selectedImage = images.filter(image => image.listing_id == id)[0];
 
     const handleBack = () => {
         console.log('in go back');
@@ -39,22 +43,20 @@ function Details() {
         console.log('I do nothing right now, stay tuned...');
     }
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_CONDITIONS' })
-    }, [])
-
-    console.log(conditions);
+    console.log('selectedImage:', selectedImage);
 
     return (
         <div>
-            <img src="https://i.imgur.com/tbsB1DK.png" alt="Zardo" />
+            <div className="detail-img">
+                <img src={selectedImage.url} alt={selectedItem.card_name} />
+            </div>
 
             {/* <Container sx={{ my: 2 }}>
                 <Typography variant="h4" sx={{ fontWeight: 100, letterSpacing: -1 }}>{selectedItem.card_name}</Typography>
                 <Typography variant="h6" sx={{ mt: 1 }}><b>${selectedItem.asking_price}</b></Typography>
             </Container> */}
 
-            <TableContainer /* component={Paper} */ sx={{ mt: 2}}>
+            <TableContainer /* component={Paper} */ sx={{ mt: 2 }}>
                 <Table aria-label="details-table" size="small">
                     <TableHead>
                         <TableRow >
@@ -63,14 +65,6 @@ function Details() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {/* <TableRow >
-                            <TableCell align="left" sx={{ py: 1.3 }}>Asking Price</TableCell>
-                            <TableCell align="right">${selectedItem.asking_price}</TableCell>
-                        </TableRow>
-                        <TableRow >
-                            <TableCell align="left" sx={{ py: 1.3 }}>Card Name</TableCell>
-                            <TableCell align="right">{selectedItem.card_name}</TableCell>
-                        </TableRow> */}
                         <TableRow >
                             <TableCell align="left" sx={{ py: 1.3 }}>Set</TableCell>
                             <TableCell align="right">{selectedItem.set}</TableCell>

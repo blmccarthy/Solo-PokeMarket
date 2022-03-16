@@ -1,7 +1,10 @@
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 function ListingItem({ listing }) {
+
+    const images = useSelector(store => store.listings.imageReducer)
 
     const history = useHistory();
 
@@ -15,7 +18,9 @@ function ListingItem({ listing }) {
             onClick={handleListingClick}
         >
             <br />
-            {/* <img src={(images.filter(image => image.listing_id == listing.id)[0]).url} /> */}
+            <div className="home_img">
+                <img src={(images.filter(image => image.listing_id == listing.id)[0])?.url} />
+            </div>
             <div><b>{listing.card_name}</b></div>
             <div>Set: {listing.set}</div>
             <div>Condition: {listing.condition}</div>

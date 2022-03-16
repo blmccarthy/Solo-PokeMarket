@@ -36,7 +36,7 @@ function* fetchListingImages() {
       };
 
       const images = yield axios.get('/api/listings/images', config);
-      
+      yield console.log('in fetchListingImages');
       yield put({ type: 'SET_IMAGES', payload: images.data });
     } catch (error) {
       console.log('User get request failed', error);
