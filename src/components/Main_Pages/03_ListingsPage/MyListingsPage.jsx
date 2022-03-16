@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
+import MyListingsItem from './MyListingsItem';
+
 
 function ListingPage() {
 
@@ -16,7 +18,7 @@ function ListingPage() {
   return (
     <>
       {listings.map(listing => (
-        <ListingItem 
+        <MyListingsItem 
           key={listing.id} 
           listing={listing} 
         />

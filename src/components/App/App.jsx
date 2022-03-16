@@ -17,7 +17,7 @@ import RegisterPage from '../Login_Register/RegisterPage';
 import FilterPage from '../Main_Pages/01_FilterPage/FilterPage';
 import HomePage from '../Main_Pages/02_HomePage/HomePage';
 import DetailsPage from '../Main_Pages/02_HomePage/DetailsPage';
-import ListingsPage from '../Main_Pages/03_ListingsPage/ListingsPage';
+import MyListingsPage from '../Main_Pages/03_ListingsPage/MyListingsPage';
 import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
 
 import './App.css';
@@ -72,9 +72,9 @@ function App() {
           <ProtectedRoute
             // shows ListingsPage at all times (logged in or not)
             exact
-            path="/listings"
+            path="/my-listings"
           >
-            <ListingsPage />
+            <MyListingsPage />
           </ProtectedRoute>
 
           <ProtectedRoute
