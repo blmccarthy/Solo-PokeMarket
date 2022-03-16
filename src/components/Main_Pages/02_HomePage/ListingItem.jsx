@@ -13,6 +13,7 @@ function ListingItem({ listing }) {
     }
 
     return (
+        
         <div
             value={listing.id}
             onClick={handleListingClick}
