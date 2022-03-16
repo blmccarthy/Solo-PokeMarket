@@ -4,11 +4,10 @@ import LogOutButton from '../../Login_Register/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
-import HomeIcon from '@mui/icons-material/Home';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import GridViewIcon from '@mui/icons-material/GridView';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -31,7 +30,7 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/home">
-              <HomeIcon sx={{ fontSize: 35 }}/>
+              <HomeOutlinedIcon sx={{ fontSize: 35 }}/>
             </Link>
 
             <Link className="navLink" to="/listings">
@@ -39,7 +38,7 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/profile">
-              <AccountCircleIcon sx={{ fontSize: 35 }}/>
+              <AccountCircleOutlinedIcon sx={{ fontSize: 35 }}/>
             </Link>
 
             <LogOutButton className="navLink" />

@@ -24,7 +24,9 @@ function Details() {
     // store page params
     const { id } = useParams();
     const history = useHistory();
+    const dispatch = useDispatch();
 
+    const conditions = useSelector(store => store.conditions)
     const listings = useSelector(store => store.listings.listingReducer);
     const selectedItem = listings.filter(listing => listing.id == id)[0];
 
@@ -37,45 +39,57 @@ function Details() {
         console.log('I do nothing right now, stay tuned...');
     }
 
-    console.log(selectedItem);
+    useEffect(() => {
+        dispatch({ type: 'FETCH_CONDITIONS' })
+    }, [])
+
+    console.log(conditions);
 
     return (
         <div>
             <img src="https://i.imgur.com/tbsB1DK.png" alt="Zardo" />
 
-            <Container sx={{ my: 2 }}>
+            {/* <Container sx={{ my: 2 }}>
                 <Typography variant="h4" sx={{ fontWeight: 100, letterSpacing: -1 }}>{selectedItem.card_name}</Typography>
-                <Typography variant="h5">${selectedItem.asking_price}</Typography>
-            </Container>
+                <Typography variant="h6" sx={{ mt: 1 }}><b>${selectedItem.asking_price}</b></Typography>
+            </Container> */}
 
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
+            <TableContainer /* component={Paper} */ sx={{ mt: 2}}>
+                <Table aria-label="details-table" size="small">
                     <TableHead>
                         <TableRow >
-                            <TableCell align="left"><b>Details</b></TableCell>
-                            <TableCell></TableCell>
+                            <TableCell align="left" sx={{ fontSize: 24, pb: 2 }}><b>{selectedItem.card_name}</b></TableCell>
+                            <TableCell align="right" sx={{ fontSize: 24, pb: 2 }}>${selectedItem.asking_price}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                            <TableCell align="left">Set</TableCell>
+                        {/* <TableRow >
+                            <TableCell align="left" sx={{ py: 1.3 }}>Asking Price</TableCell>
+                            <TableCell align="right">${selectedItem.asking_price}</TableCell>
+                        </TableRow>
+                        <TableRow >
+                            <TableCell align="left" sx={{ py: 1.3 }}>Card Name</TableCell>
+                            <TableCell align="right">{selectedItem.card_name}</TableCell>
+                        </TableRow> */}
+                        <TableRow >
+                            <TableCell align="left" sx={{ py: 1.3 }}>Set</TableCell>
                             <TableCell align="right">{selectedItem.set}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="left">Condition</TableCell>
-                            <TableCell align="right">{selectedItem.condition}</TableCell>
+                            <TableCell align="left" sx={{ py: 1.3 }}>Condition</TableCell>
+                            <TableCell align="right">{(conditions.filter(c => c.id == selectedItem.condition)[0]).description}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="left">Graded</TableCell>
-                            <TableCell align="right">{selectedItem.graded ? <CheckCircleRoundedIcon/> : <RadioButtonUncheckedRoundedIcon/> }</TableCell>
+                            <TableCell align="left" sx={{ py: 1.3 }}>Graded</TableCell>
+                            <TableCell align="right">{selectedItem.graded ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="left">Offer Eligible</TableCell>
-                            <TableCell align="right">{selectedItem.offer_eligible ? <CheckCircleRoundedIcon/> : <RadioButtonUncheckedRoundedIcon/> }</TableCell>
+                            <TableCell align="left" sx={{ py: 1.3 }}>Open to Offers</TableCell>
+                            <TableCell align="right">{selectedItem.offer_eligible ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="left">Trade Eligible</TableCell>
-                            <TableCell align="right">{selectedItem.trade_eligible ? <CheckCircleRoundedIcon/> : <RadioButtonUncheckedRoundedIcon/> }</TableCell>
+                            <TableCell align="left" sx={{ py: 1.3 }}>Open to Trades</TableCell>
+                            <TableCell align="right">{selectedItem.trade_eligible ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
