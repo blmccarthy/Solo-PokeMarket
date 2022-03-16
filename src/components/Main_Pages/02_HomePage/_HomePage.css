@@ -1,0 +1,20 @@
+
+
+
+.detail-img {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 30px 0;
+}
+
+.home_img{
+    display: flex;
+    justify-content: left;
+    margin: 10px 0 30px 0; 
+    height: 13rem;
+    width: auto;
+}
+
+hr {
+    margin-top: 10px
+}

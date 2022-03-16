@@ -1,5 +1,5 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import LogOutButton from '../../Login_Register/LogOutButton';
 import {useSelector} from 'react-redux';
 
 import FilterListIcon from '@mui/icons-material/FilterList';
