@@ -85,6 +85,10 @@ function Details() {
                             <TableCell align="left" sx={{ py: 1.3 }}>Open to Trades</TableCell>
                             <TableCell align="right">{selectedItem.trade_eligible ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
                         </TableRow>
+                        <TableRow>
+                            <TableCell align="left" sx={{ py: 1.3}}>Seller Notes:</TableCell>
+                            <TableCell align="left">{selectedItem.notes}</TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>
