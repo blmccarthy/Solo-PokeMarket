@@ -16,6 +16,7 @@ import LoginPage from '../Login_Register/LoginPage';
 import RegisterPage from '../Login_Register/RegisterPage';
 import FilterPage from '../Main_Pages/01_FilterPage/FilterPage';
 import HomePage from '../Main_Pages/02_HomePage/HomePage';
+import DetailsPage from '../Main_Pages/02_HomePage/DetailsPage';
 import ListingsPage from '../Main_Pages/03_ListingsPage/ListingsPage';
 import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
 
@@ -82,6 +83,14 @@ function App() {
             path="/profile"
           >
             <ProfilePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows DetailsPage else shows LoginPage
+            exact
+            path="/details/:id"
+          >
+            <DetailsPage />
           </ProtectedRoute>
 
           <Route

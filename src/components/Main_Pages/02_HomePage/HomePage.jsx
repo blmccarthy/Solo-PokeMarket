@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
-import HomeIcon from '@mui/icons-material/Home';
+import ListingItem from './ListingItem';
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -11,7 +11,7 @@ import HomeIcon from '@mui/icons-material/Home';
 function HomePage() {
 
   const dispatch = useDispatch();
-  const listings = useSelector(store => store.listings)
+  const listings = useSelector(store => store.listings.listingReducer)
 
   useEffect(() => {
     dispatch({ type: 'FETCH_LISTINGS' })
@@ -20,17 +20,10 @@ function HomePage() {
   return (
     <>
       {listings.map(listing => (
-        <>
-          <br></br>
-          <div><b>{listing.card_name}</b></div>
-          <div>Set: {listing.set}</div>
-          <div>Condition: {listing.condition}</div>
-          <div>Graded: {listing.graded}</div>
-          <div>Asking Price: {listing.asking_price}</div>
-          <div>Notes: {listing.notes}</div>
-          <br />
-          <hr />
-        </>
+        <ListingItem 
+          key={listing.id} 
+          listing={listing} 
+        />
       ))}
     </>
   );

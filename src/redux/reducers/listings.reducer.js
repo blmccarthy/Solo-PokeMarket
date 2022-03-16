@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const listingReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_LISTINGS':
@@ -6,8 +8,18 @@ const listingReducer = (state = [], action) => {
         return state;
     }
   };
+
+  const imageReducer = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_IMAGES':
+        return action.payload;
+      default:
+        return state;
+    }
+  };
   
-  // user will be on the redux state at:
-  // state.user
-  export default listingReducer;
+  export default combineReducers({
+    listingReducer,
+    imageReducer,
+  });
   
