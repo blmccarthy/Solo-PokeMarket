@@ -28,6 +28,21 @@ function* fetchListings() {
 
 
 
+function* fetchMyListings() {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+
+      const myListings = yield axios.get('/api/listings/my-listings', config);
+      yield put({ type: 'SET_MY_LISTINGS', payload: myListings.data });
+
+    } catch (error) {
+      console.log('User get request failed', error);
+    }
+  }
+
 function* fetchListingImages() {
     try {
       const config = {
@@ -47,6 +62,7 @@ function* fetchListingImages() {
 
 function* listingSaga() {
   yield takeLatest('FETCH_LISTINGS', fetchListings);
+  yield takeLatest('FETCH_MY_LISTINGS', fetchMyListings);
   yield takeLatest('FETCH_LISTING_IMAGES', fetchListingImages);
 }
 
