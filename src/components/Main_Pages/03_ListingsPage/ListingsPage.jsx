@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 
-import GridViewIcon from '@mui/icons-material/GridView';
 
+function ListingPage() {
 
-// This is one of our simplest components
-// It doesn't have local state,
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is'
+  const dispatch = useDispatch();
+  const listings = useSelector(store => store.listings.listingReducer)
 
-function AboutPage() {
+  useEffect(() => {
+    // dispatch({ type: 'FETCH_MY_LISTINGS' })
+    dispatch({ type: 'FETCH_CONDITIONS' })
+    dispatch({ type: 'FETCH_LISTING_IMAGES' })
+  }, [])
+
   return (
-    <div className="container">
-      <div>
-        <GridViewIcon sx={{ fontSize: 50 }}/>
-        <h1>LISTINGS</h1>
-        <p>This about page is for anyone to read!</p>
-      </div>
-    </div>
+    <>
+      {listings.map(listing => (
+        <ListingItem 
+          key={listing.id} 
+          listing={listing} 
+        />
+      ))}
+    </>
   );
 }
 
-export default AboutPage;
+export default ListingPage;
+
