@@ -51,7 +51,20 @@ router.get('/images', (req, res) => {
 // ================================================================================================ //
 
 router.post('/', (req, res) => {
-  // POST route code here
+  console.log('in POST listing');
+  const listing = req.body;
+  const queryText = `
+    INSERT INTO listing (user_id, card_name, set, condition, graded, grading_service, asking_price, notes, offer_eligible, trade_eligible)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10 );
+  `
+  pool.query(queryText, [req.user.id, listing.card_name, listing.set, listing.condition, listing.graded, listing.grading_service, listing.asking_price, listing.notes, listing.offer_eligible, listing.trade_eligible])
+  .then(response => {
+    console.log('in POST listing .then');
+    res.sendStatus(200);
+  }).catch(err => {
+    console.log('in POST listing .catch', err);
+    res.sendStatus(500);
+  })
 });
 
 module.exports = router;

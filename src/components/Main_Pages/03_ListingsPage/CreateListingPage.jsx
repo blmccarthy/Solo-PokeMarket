@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './_ListingPage.css'
 
 import TextField from '@mui/material/TextField';
@@ -24,8 +25,10 @@ import Chip from '@mui/material/Chip';
 
 function CreateListingPage() {
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const conditions = useSelector(store => store.conditions)
+    const gradingServices = useSelector(store => store.gradingServices)
 
     const [newCardName, setNewCardName] = useState('');
     const [newSet, setNewSet] = useState('');
@@ -54,10 +57,23 @@ function CreateListingPage() {
                 trade_eligible: isTradeEligible
             }
         })
+        setNewCardName('');
+        setNewSet('');
+        setNewCondition('');
+        setNewAskingPrice('');
+        setIsGraded('');
+        setNewGradingService('');
+        setNewImage('');
+        setNewNotes('');
+        setIsOfferEligible('');
+        setIsTradeEligible('');
+        
+        history.pushState('/listings');
     }
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CONDITIONS' })
+        dispatch({ type: 'FETCH_GRADING_SERVICES' })
     }, [])
 
     return (
@@ -160,8 +176,8 @@ function CreateListingPage() {
                             onChange={(event) => setNewGradingService(event.target.value)}
                             required
                         >
-                            {conditions.map(condition => (
-                                <MenuItem key={condition.id} value={condition.id}>{condition.description}</MenuItem>
+                            {gradingServices.map(service => (
+                                <MenuItem key={service.id} value={service.id}>({service.code}) {service.description}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -244,6 +260,7 @@ function CreateListingPage() {
                         variant="contained" 
                         fullWidth 
                         sx={{ position: 'static' }}
+                        onClick={handleSubmit}
                     >
                         Submit
                     </Button>

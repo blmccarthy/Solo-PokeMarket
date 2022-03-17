@@ -27,6 +27,21 @@ function* fetchListings() {
 }
 
 
+function* postListing(action) {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+
+      axios.post('/api/listings', action.payload, config);
+      yield put({ type: 'FETCH_LISTINGS' });
+      yield put({ type: 'FETCH_MY_LISTINGS' });
+
+    } catch (error) {
+      console.log('User get request failed', error);
+    }
+  }
 
 function* fetchMyListings() {
     try {
@@ -62,6 +77,7 @@ function* fetchListingImages() {
 
 function* listingSaga() {
   yield takeLatest('FETCH_LISTINGS', fetchListings);
+  yield takeLatest('POST_LISTING', postListing);
   yield takeLatest('FETCH_MY_LISTINGS', fetchMyListings);
   yield takeLatest('FETCH_LISTING_IMAGES', fetchListingImages);
 }
