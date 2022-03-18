@@ -33,7 +33,7 @@ function Nav() {
               <HomeOutlinedIcon sx={{ fontSize: 35 }}/>
             </Link>
 
-            <Link className="navLink" to="/listings">
+            <Link className="navLink" to="/my-listings">
               <GridViewIcon sx={{ fontSize: 35 }}/>
             </Link>
 

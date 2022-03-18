@@ -27,6 +27,39 @@ function* fetchListings() {
 }
 
 
+function* postListing(action) {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+
+      const whatIsThisThing = yield axios.post('/api/listings', action.payload, config);
+      console.log('in POST Listing Saga, return:', whatIsThisThing);
+      
+      // yield axios.post('/api/listings/images', {action.})
+      // yield put({ type: 'FETCH_LISTINGS' });
+      // yield put({ type: 'FETCH_MY_LISTINGS' });
+
+    } catch (error) {
+      console.log('User get request failed', error);
+    }
+  }
+
+function* fetchMyListings() {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+
+      const myListings = yield axios.get('/api/listings/my-listings', config);
+      yield put({ type: 'SET_MY_LISTINGS', payload: myListings.data });
+
+    } catch (error) {
+      console.log('User get request failed', error);
+    }
+  }
 
 function* fetchListingImages() {
     try {
@@ -47,6 +80,8 @@ function* fetchListingImages() {
 
 function* listingSaga() {
   yield takeLatest('FETCH_LISTINGS', fetchListings);
+  yield takeLatest('POST_LISTING', postListing);
+  yield takeLatest('FETCH_MY_LISTINGS', fetchMyListings);
   yield takeLatest('FETCH_LISTING_IMAGES', fetchListingImages);
 }
 

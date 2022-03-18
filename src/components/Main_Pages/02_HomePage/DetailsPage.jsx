@@ -30,6 +30,7 @@ function Details() {
     const conditions = useSelector(store => store.conditions)
     const listings = useSelector(store => store.listings.listingReducer);
     const images = useSelector(store => store.listings.imageReducer);
+    const user = useSelector(store => store.user);
 
     const selectedItem = listings.filter(listing => listing.id == id)[0];
     const selectedImage = images.filter(image => image.listing_id == id)[0];
@@ -43,7 +44,19 @@ function Details() {
         console.log('I do nothing right now, stay tuned...');
     }
 
-    console.log('selectedImage:', selectedImage);
+    const isMyItem = () => {
+        if (selectedItem.user_id == user.id){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // useEffect(() => {
+    //     isMyItem
+    // }, [])
+
+    // console.log('is this my item?', isMyItem);
 
     return (
         <div>
@@ -99,7 +112,10 @@ function Details() {
                     <Button variant="outlined" onClick={handleBack} sx={{ width: "100%", position: 'static' }} >Go Back</Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%", position: 'static' }}>Send Offer</Button>
+                {/* If this listing belongs to signed-in user, they will see [EDIT], else [SEND OFFER] */}
+                {user.id == selectedItem.user_id 
+                    ? <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%", position: 'static' }}>Edit</Button>
+                    : <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%", position: 'static' }}>Send Offer</Button>}
                 </Grid>
             </Grid>
         </div>
