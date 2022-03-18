@@ -34,9 +34,12 @@ function* postListing(action) {
         withCredentials: true,
       };
 
-      axios.post('/api/listings', action.payload, config);
-      yield put({ type: 'FETCH_LISTINGS' });
-      yield put({ type: 'FETCH_MY_LISTINGS' });
+      const whatIsThisThing = yield axios.post('/api/listings', action.payload, config);
+      console.log('in POST Listing Saga, return:', whatIsThisThing);
+      
+      // yield axios.post('/api/listings/images', {action.})
+      // yield put({ type: 'FETCH_LISTINGS' });
+      // yield put({ type: 'FETCH_MY_LISTINGS' });
 
     } catch (error) {
       console.log('User get request failed', error);

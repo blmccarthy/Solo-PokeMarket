@@ -27,6 +27,7 @@ function CreateListingPage() {
 
     const history = useHistory();
     const dispatch = useDispatch();
+    const user = useSelector(store => store.user)
     const conditions = useSelector(store => store.conditions)
     const gradingServices = useSelector(store => store.gradingServices)
 
@@ -51,24 +52,24 @@ function CreateListingPage() {
                 asking_price: newAskingPrice,
                 graded: isGraded,
                 grading_service: newGradingService,
-                image_url: newImage,
                 notes: newNotes,
                 offer_eligible: isOfferEligible,
-                trade_eligible: isTradeEligible
+                trade_eligible: isTradeEligible,
+                image_url: newImage
             }
         })
-        setNewCardName('');
-        setNewSet('');
-        setNewCondition('');
-        setNewAskingPrice('');
-        setIsGraded('');
-        setNewGradingService('');
-        setNewImage('');
-        setNewNotes('');
-        setIsOfferEligible('');
-        setIsTradeEligible('');
-        
-        history.pushState('/listings');
+        // setNewCardName('');
+        // setNewSet('');
+        // setNewCondition('');
+        // setNewAskingPrice('');
+        // setIsGraded('');
+        // setNewGradingService('');
+        // setNewImage('');
+        // setNewNotes('');
+        // setIsOfferEligible('');
+        // setIsTradeEligible('');
+
+        // history.push('/my-listings');
     }
 
     useEffect(() => {
