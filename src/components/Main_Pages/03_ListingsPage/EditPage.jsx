@@ -44,6 +44,7 @@ function EditPage() {
         dispatch({
             type: 'UPDATE_LISTING',
             payload: {
+                id: id,
                 card_name: newCardName,
                 set: newSet,
                 condition: newCondition,
@@ -73,6 +74,10 @@ function EditPage() {
     const handleCancel = () => {
         history.push('/my-listings')
     }
+    
+    const handleDelete = () => {
+        dispatch({ type: 'DELETE_LISTING', payload: id})
+    }
 
     useEffect(() => {
         dispatch(
@@ -83,7 +88,7 @@ function EditPage() {
         )
     }, [])
 
-    console.log('selectedListing', selectedListing);
+    console.log('id', id);
 
     return (
         <>
@@ -247,7 +252,7 @@ function EditPage() {
                             labelId="is-trade-eligible"
                             id="is-trade-eligible"
                             value={isTradeEligible}
-                            label="is-trade-eligibl"
+                            label="is-trade-eligible"
                             onChange={(event) => setIsTradeEligible(event.target.value)}
                             required
                         >
@@ -263,7 +268,18 @@ function EditPage() {
 
 
 
-                {/* === SUBMIT BUTTON =================================================================================== */}
+                {/* === DELETE BUTTON =================================================================================== */}
+                <Grid item xs={12}>
+                    <Button 
+                        variant="outlined" 
+                        fullWidth 
+                        sx={{ position: 'static' }}
+                        onClick={handleDelete}
+                    >
+                        Delete
+                    </Button>
+                </Grid>
+                {/* === CANCEL BUTTON =================================================================================== */}
                 <Grid item xs={12}>
                     <Button 
                         variant="outlined" 

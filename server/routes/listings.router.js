@@ -88,7 +88,46 @@ router.post('/', (req, res) => {
       pool.query(imagesQueryText, [req.user.id, createdListingId, listing.image_url])
         .then(res.sendStatus(201))
         // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
-                                          // "Cannot set headers after they are sent to the client"
+                                          // Error: "Cannot set headers after they are sent to the client"
+    }).catch(err => {
+      console.log('in POST listing .catch', err);
+      res.sendStatus(500);
+    })
+});
+
+
+// ================================================================================================ //
+//     UPDATE
+// ================================================================================================ //
+
+router.put('/:id', (req, res) => {
+  console.log('in UPDATE listing');
+  const listing = req.body;
+  const queryText = `
+    UPDATE listing 
+    SET 
+      card_name = $2, 
+      set = $3, 
+      condition = $4, 
+      graded = $5, 
+      grading_service = $6, 
+      asking_price = $7, 
+      notes = $8, 
+      offer_eligible = $9, 
+      trade_eligible = $10 
+    WHERE 
+      id = $1;
+  `;
+  pool.query(queryText, [listing.id, listing.card_name, listing.set, listing.condition, listing.graded, listing.grading_service, listing.asking_price, listing.notes, listing.offer_eligible, listing.trade_eligible])
+    .then(response => {
+      console.log('in POST listing .then');
+
+      const imagesQueryText = `UPDATE image SET url = $1 WHERE listing_id = $2`
+
+      pool.query(imagesQueryText, [listing.image_url, listing.id])
+        .then(res.sendStatus(201))
+        // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
+                                          // Error: "Cannot set headers after they are sent to the client"
     }).catch(err => {
       console.log('in POST listing .catch', err);
       res.sendStatus(500);

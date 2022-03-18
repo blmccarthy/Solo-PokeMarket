@@ -45,6 +45,7 @@ function Details() {
     }
 
     const handleEdit = () => {
+        dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
         history.push(`/edit/${selectedItem.id}`)
     }
 

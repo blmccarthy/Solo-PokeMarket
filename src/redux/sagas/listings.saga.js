@@ -90,8 +90,29 @@ function* postListing(action) {
       withCredentials: true,
     };
 
-    const whatIsThisThing = yield axios.post('/api/listings', action.payload, config);
-    console.log('in POST Listing Saga, return:', whatIsThisThing);
+    axios.post('/api/listings', action.payload, config);
+
+    // yield axios.post('/api/listings/images', {action.})
+    // yield put({ type: 'FETCH_LISTINGS' });
+    // yield put({ type: 'FETCH_MY_LISTINGS' });
+
+  } catch (error) {
+    console.log('User get request failed', error);
+  }
+}
+
+// ====================================================================================================================================
+//    UPDATE LISTING
+// ====================================================================================================================================
+
+function* updateListing(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    axios.put(`/api/listings/${action.payload.id}`, action.payload, config);
 
     // yield axios.post('/api/listings/images', {action.})
     // yield put({ type: 'FETCH_LISTINGS' });
@@ -112,6 +133,7 @@ function* listingSaga() {
   yield takeLatest('FETCH_MY_LISTINGS', fetchMyListings);
   yield takeLatest('FETCH_LISTING_IMAGES', fetchListingImages);
   yield takeLatest('POST_LISTING', postListing);
+  yield takeLatest('UPDATE_LISTING', updateListing);
 }
 
 export default listingSaga;
