@@ -40,6 +40,25 @@ function* fetchSelectedListing(action) {
 }
 
 // ====================================================================================================================================
+//    FETCH SELECTED IMAGE
+// ====================================================================================================================================
+
+function* fetchSelectedImage(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    
+    const selectedImage = yield axios.get(`/api/listings/images/${action.payload}`, config);
+    yield put({ type: 'SET_SELECTED_IMAGE', payload: selectedListing.data[0] });
+
+  } catch (error) {
+    console.log('User get request failed', error);
+  }
+}
+
+// ====================================================================================================================================
 //    FETCH ONLY MY LISTINGS
 // ====================================================================================================================================
 
@@ -146,9 +165,11 @@ function* deleteListing(action) {
 
 function* listingSaga() {
   yield takeLatest('FETCH_LISTINGS', fetchListings);
-  yield takeLatest('FETCH_SELECTED_LISTING', fetchSelectedListing);
-  yield takeLatest('FETCH_MY_LISTINGS', fetchMyListings);
   yield takeLatest('FETCH_LISTING_IMAGES', fetchListingImages);
+  yield takeLatest('FETCH_MY_LISTINGS', fetchMyListings);
+  yield takeLatest('FETCH_SELECTED_LISTING', fetchSelectedListing);
+  yield takeLatest('FETCH_SELECTED_IMAGES', fetchSelectedImage);
+
   yield takeLatest('POST_LISTING', postListing);
   yield takeLatest('UPDATE_LISTING', updateListing);
   yield takeLatest('DELETE_LISTING', deleteListing);

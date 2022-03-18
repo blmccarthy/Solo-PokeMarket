@@ -47,7 +47,10 @@ function Details() {
     }
 
     const handleEdit = () => {
-        // dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
+        dispatch(
+            { type: 'FETCH_SELECTED_LISTING', payload: id },
+            { type: 'FETCH_SELECTED_IMAGES', payload: id }
+        );
         history.push(`/edit/${selectedItem.id}`)
     }
 

@@ -62,6 +62,19 @@ router.get('/images', (req, res) => {
   })
 });
 
+// GET SELECTED IMAGES
+router.get('/images/:id', (req, res) => {
+  const listingId = req.params.id
+  const queryText = `SELECT * FROM image WHERE listing_id = $1;`;
+  pool.query(queryText, [listingId]).then(response => {
+    console.log('in SELECTED IMAGE .get.then');
+    res.send(response.rows);
+  }).catch(err => {
+    console.log('in SELECTED IMAGE.get.catch');
+    res.sendStatus(500);
+  })
+});
+
 // ================================================================================================ //
 //     POST
 // ================================================================================================ //
