@@ -18,6 +18,8 @@ import Typography from '@mui/material/Typography';
 
 function EditPage() {
 
+    const { id } = useParams();
+
     useEffect(() => {
         dispatch(
             { type: 'FETCH_SELECTED_LISTING', payload: id },
@@ -27,7 +29,6 @@ function EditPage() {
         )
     }, []);
 
-    const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(store => store.user)
@@ -44,7 +45,7 @@ function EditPage() {
     const [newAskingPrice, setNewAskingPrice] = useState(selectedListing.asking_price);
     const [isGraded, setIsGraded] = useState(selectedListing.graded);
     const [newGradingService, setNewGradingService] = useState(selectedListing.grading_service);
-    const [newImage, setNewImage] = useState(selectedImage.url);
+    // const [newImage, setNewImage] = useState(selectedImage.url);
     const [newNotes, setNewNotes] = useState(selectedListing.notes);
     const [isOfferEligible, setIsOfferEligible] = useState(selectedListing.offer_eligible);
     const [isTradeEligible, setIsTradeEligible] = useState(selectedListing.trade_eligible);
@@ -102,16 +103,19 @@ function EditPage() {
             </div>
             <Grid container rowSpacing={2} columnSpacing={2} sx={{ mb: 4 }}>
                 {/* === CARD NAME ====================================================================================== */}
-                <Grid item xs={12}>
+                
+                <input value={selectedListing.card_name} />
+
+                {/* <Grid item xs={12}>
                     <TextField
                         label="Card Name"
                         autoComplete="off"
-                        value={newCardName}
+                        defaultValue={newCardName}
                         onChange={(event) => setNewCardName(event.target.value)}
                         required
                         fullWidth
                     />
-                </Grid>
+                </Grid> */}
                 {/* === SET ============================================================================================ */}
                 <Grid item xs={12}>
                     <TextField
@@ -205,7 +209,7 @@ function EditPage() {
                         id="outlined"
                         label="Image URL"
                         autoComplete="off"
-                        value={newImage}
+                        // value={newImage}
                         onChange={(event) => setNewImage(event.target.value)}
                         fullWidth
                     />

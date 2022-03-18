@@ -31,6 +31,8 @@ function Details() {
     const listings = useSelector(store => store.listings.listingReducer);
     const images = useSelector(store => store.listings.imageReducer);
     const user = useSelector(store => store.user);
+    const selectedListing = useSelector(store => store.listings.selectedListingReducer)
+
 
     const selectedItem = listings.filter(listing => listing.id == id)[0];
     const selectedImage = images.filter(image => image.listing_id == id)[0];
@@ -45,7 +47,7 @@ function Details() {
     }
 
     const handleEdit = () => {
-        dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
+        // dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
         history.push(`/edit/${selectedItem.id}`)
     }
 
