@@ -9,6 +9,15 @@ const listingReducer = (state = [], action) => {
     }
   };
 
+const selectedListingReducer = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_SELECTED_LISTING':
+        return action.payload;
+      default:
+        return state;
+    }
+  };
+
 const myListingReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_MY_LISTINGS':
@@ -29,6 +38,7 @@ const myListingReducer = (state = [], action) => {
   
   export default combineReducers({
     listingReducer,
+    selectedListingReducer,
     myListingReducer,
     imageReducer,
   });

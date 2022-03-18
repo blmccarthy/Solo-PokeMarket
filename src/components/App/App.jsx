@@ -19,6 +19,7 @@ import HomePage from '../Main_Pages/02_HomePage/HomePage';
 import DetailsPage from '../Main_Pages/02_HomePage/DetailsPage';
 import MyListingsPage from '../Main_Pages/03_ListingsPage/MyListingsPage';
 import CreateListingPage from '../Main_Pages/03_ListingsPage/CreateListingPage';
+import EditPage from '../Main_Pages/03_ListingsPage/EditPage';
 import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
 
 import './App.css';
@@ -100,6 +101,14 @@ function App() {
             path="/create-listing"
           >
             <CreateListingPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows DetailsPage else shows LoginPage
+            exact
+            path="/edit/:id"
+          >
+            <EditPage />
           </ProtectedRoute>
 
           <Route
