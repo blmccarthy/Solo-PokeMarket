@@ -58,18 +58,22 @@ function CreateListingPage() {
                 image_url: newImage
             }
         })
-        // setNewCardName('');
-        // setNewSet('');
-        // setNewCondition('');
-        // setNewAskingPrice('');
-        // setIsGraded('');
-        // setNewGradingService('');
-        // setNewImage('');
-        // setNewNotes('');
-        // setIsOfferEligible('');
-        // setIsTradeEligible('');
+        setNewCardName('');
+        setNewSet('');
+        setNewCondition('');
+        setNewAskingPrice('');
+        setIsGraded('');
+        setNewGradingService('');
+        setNewImage('');
+        setNewNotes('');
+        setIsOfferEligible('');
+        setIsTradeEligible('');
 
-        // history.push('/my-listings');
+        history.push('/my-listings');
+    }
+
+    const handleCancel = () => {
+        history.push('/my-listings')
     }
 
     useEffect(() => {
@@ -120,6 +124,7 @@ function CreateListingPage() {
                             onChange={(event) => setNewCondition(event.target.value)}
                             required
                         >
+                            <MenuItem hidden key={0} value={null}>Test</MenuItem>
                             {conditions.map(condition => (
                                 <MenuItem key={condition.id} value={condition.id}>{condition.description}</MenuItem>
                             ))}
@@ -216,7 +221,7 @@ function CreateListingPage() {
             <Grid container rowSpacing={2} columnSpacing={2} sx={{ mb: 4 }}>
                 {/* === OFFER ELIGIBLE ===================================================================================== */}
                 <Grid item xs={6}>
-                    <FormControl fullWidth sx={{ mb: 1 }}>
+                    <FormControl fullWidth sx={{ mb: 4 }}>
                         <InputLabel id="is-offer-eligible">Open to Offers?</InputLabel>
                         <Select
                             labelId="is-offer-eligible"
@@ -233,7 +238,7 @@ function CreateListingPage() {
                 </Grid>
                 {/* === TRADE ELIGIBLE ===================================================================================== */}
                 <Grid item xs={6}>
-                    <FormControl fullWidth sx={{ mb: 1 }}>
+                    <FormControl fullWidth sx={{ mb: 4 }}>
                         <InputLabel id="is-trade-eligible">Open to Trades?</InputLabel>
                         <Select
                             labelId="is-trade-eligible"
@@ -255,6 +260,17 @@ function CreateListingPage() {
 
 
 
+                {/* === SUBMIT BUTTON =================================================================================== */}
+                <Grid item xs={12}>
+                    <Button 
+                        variant="outlined" 
+                        fullWidth 
+                        sx={{ position: 'static' }}
+                        onClick={handleCancel}
+                    >
+                        Cancel
+                    </Button>
+                </Grid>
                 {/* === SUBMIT BUTTON =================================================================================== */}
                 <Grid item xs={12}>
                     <Button 
