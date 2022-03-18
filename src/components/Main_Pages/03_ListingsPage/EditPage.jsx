@@ -18,6 +18,15 @@ import Typography from '@mui/material/Typography';
 
 function EditPage() {
 
+    useEffect(() => {
+        dispatch(
+            { type: 'FETCH_SELECTED_LISTING', payload: id },
+            { type: 'FETCH_CONDITIONS' },
+            { type: 'FETCH_GRADING_SERVICES' },
+            { type: 'FETCH_LISTING_IMAGES' },
+        )
+    }, []);
+
     const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -79,16 +88,9 @@ function EditPage() {
         dispatch({ type: 'DELETE_LISTING', payload: id})
     }
 
-    useEffect(() => {
-        dispatch(
-            { type: 'FETCH_SELECTED_LISTING', payload: id },
-            { type: 'FETCH_CONDITIONS' },
-            { type: 'FETCH_GRADING_SERVICES' },
-            { type: 'FETCH_LISTING_IMAGES' },
-        )
-    }, [])
-
-    console.log('id', id);
+    console.log('selectedListing:', selectedListing);
+    console.log('selectedListing.card_name:', selectedListing.card_name);
+    console.log('newCardName:', newCardName);
 
     return (
         <>

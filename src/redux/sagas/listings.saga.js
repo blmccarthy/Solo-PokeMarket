@@ -30,8 +30,6 @@ function* fetchSelectedListing(action) {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
-
-    console.log('in FETCH SELECTED:', action.payload);
     
     const selectedListing = yield axios.get(`/api/listings/selected/${action.payload}`, config);
     yield put({ type: 'SET_SELECTED_LISTING', payload: selectedListing.data[0] });
