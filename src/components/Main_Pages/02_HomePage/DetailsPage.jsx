@@ -44,19 +44,9 @@ function Details() {
         console.log('I do nothing right now, stay tuned...');
     }
 
-    const isMyItem = () => {
-        if (selectedItem.user_id == user.id){
-            return true;
-        } else {
-            return false;
-        }
+    const handleEdit = () => {
+        history.push(`/edit/${selectedItem.id}`)
     }
-
-    // useEffect(() => {
-    //     isMyItem
-    // }, [])
-
-    // console.log('is this my item?', isMyItem);
 
     return (
         <div>
@@ -114,7 +104,7 @@ function Details() {
                 <Grid item xs={6}>
                 {/* If this listing belongs to signed-in user, they will see [EDIT], else [SEND OFFER] */}
                 {user.id == selectedItem.user_id 
-                    ? <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%", position: 'static' }}>Edit</Button>
+                    ? <Button variant="contained" onClick={handleEdit} sx={{ width: "100%", position: 'static' }}>Edit</Button>
                     : <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%", position: 'static' }}>Send Offer</Button>}
                 </Grid>
             </Grid>

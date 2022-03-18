@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './_ListingPage.css'
 
 import TextField from '@mui/material/TextField';
@@ -16,28 +16,33 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 
 
-function CreateListingPage() {
+function EditPage() {
 
+    const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(store => store.user)
     const conditions = useSelector(store => store.conditions)
     const gradingServices = useSelector(store => store.gradingServices)
+    const selectedListing = useSelector(store => store.listings.selectedListingReducer)
+    const images = useSelector(store => store.listings.imageReducer)
+    const selectedImage = images.filter(image => image.listing_id == id)[0];
 
-    const [newCardName, setNewCardName] = useState('');
-    const [newSet, setNewSet] = useState('');
-    const [newCondition, setNewCondition] = useState('');
-    const [newAskingPrice, setNewAskingPrice] = useState('');
-    const [isGraded, setIsGraded] = useState('');
-    const [newGradingService, setNewGradingService] = useState('');
-    const [newImage, setNewImage] = useState('');
-    const [newNotes, setNewNotes] = useState('');
-    const [isOfferEligible, setIsOfferEligible] = useState('');
-    const [isTradeEligible, setIsTradeEligible] = useState('');
 
-    const handleSubmit = () => {
+    const [newCardName, setNewCardName] = useState(selectedListing.card_name);
+    const [newSet, setNewSet] = useState(selectedListing.set);
+    const [newCondition, setNewCondition] = useState(selectedListing.condition);
+    const [newAskingPrice, setNewAskingPrice] = useState(selectedListing.asking_price);
+    const [isGraded, setIsGraded] = useState(selectedListing.graded);
+    const [newGradingService, setNewGradingService] = useState(selectedListing.grading_service);
+    const [newImage, setNewImage] = useState(selectedImage.url);
+    const [newNotes, setNewNotes] = useState(selectedListing.notes);
+    const [isOfferEligible, setIsOfferEligible] = useState(selectedListing.offer_eligible);
+    const [isTradeEligible, setIsTradeEligible] = useState(selectedListing.trade_eligible);
+
+    const handleUpdate = () => {
         dispatch({
-            type: 'POST_LISTING',
+            type: 'UPDATE_LISTING',
             payload: {
                 card_name: newCardName,
                 set: newSet,
@@ -71,10 +76,14 @@ function CreateListingPage() {
 
     useEffect(() => {
         dispatch(
+            { type: 'FETCH_SELECTED_LISTING', payload: id },
             { type: 'FETCH_CONDITIONS' },
-            { type: 'FETCH_GRADING_SERVICES' }
+            { type: 'FETCH_GRADING_SERVICES' },
+            { type: 'FETCH_LISTING_IMAGES' },
         )
     }, [])
+
+    console.log('selectedListing', selectedListing);
 
     return (
         <>
@@ -256,9 +265,9 @@ function CreateListingPage() {
 
                 {/* === SUBMIT BUTTON =================================================================================== */}
                 <Grid item xs={12}>
-                    <Button
-                        variant="outlined"
-                        fullWidth
+                    <Button 
+                        variant="outlined" 
+                        fullWidth 
                         sx={{ position: 'static' }}
                         onClick={handleCancel}
                     >
@@ -267,13 +276,13 @@ function CreateListingPage() {
                 </Grid>
                 {/* === SUBMIT BUTTON =================================================================================== */}
                 <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        fullWidth
+                    <Button 
+                        variant="contained" 
+                        fullWidth 
                         sx={{ position: 'static' }}
-                        onClick={handleSubmit}
+                        onClick={handleUpdate}
                     >
-                        Submit
+                        Update
                     </Button>
                 </Grid>
             </Grid>
@@ -281,4 +290,4 @@ function CreateListingPage() {
     )
 }
 
-export default CreateListingPage;
+export default EditPage;
