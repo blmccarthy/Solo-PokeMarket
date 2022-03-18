@@ -25,7 +25,7 @@ router.get('/selected/:id', (req, res) => {
   const id = req.params.id
   console.log('req.params', req.params);
   console.log('req.params.id', req.params.id);
-  
+
   const queryText = `SELECT * FROM listing WHERE id = $1;`;
   pool.query(queryText, [id]).then(response => {
     console.log('in SELECTED.get.then');
@@ -87,8 +87,8 @@ router.post('/', (req, res) => {
 
       pool.query(imagesQueryText, [req.user.id, createdListingId, listing.image_url])
         .then(res.sendStatus(201))
-        // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
-                                          // Error: "Cannot set headers after they are sent to the client"
+      // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
+      // Error: "Cannot set headers after they are sent to the client"
     }).catch(err => {
       console.log('in POST listing .catch', err);
       res.sendStatus(500);
@@ -126,10 +126,59 @@ router.put('/:id', (req, res) => {
 
       pool.query(imagesQueryText, [listing.image_url, listing.id])
         .then(res.sendStatus(201))
+      // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
+                                        // Error: "Cannot set headers after they are sent to the client"
+    }).catch(err => {
+      console.log('in POST listing .catch', err);
+      res.sendStatus(500);
+    })
+});
+
+
+// ================================================================================================ //
+//     DELETE
+// ================================================================================================ //
+
+// router.delete('/:id', (req, res) => {
+//   console.log('in DELETE listing');
+//   const listingId = req.params.id;
+//   const queryText = `
+//     DELETE FROM listing WHERE id = $1;
+//   `;
+//   pool.query(queryText, [listingId])
+//     .then(response => {
+//       console.log('in DELETE listing .then');
+
+//       imageDeleteQueryText = `
+//         DELETE FROM image WHERE listing_id = $1;
+//       `;
+//       pool.query(imageDeleteQueryText, [listingId])
+//         .then(res.sendStatus(200))
+//         .catch(res.sendStatus(500))
+//     }).catch(err => {
+//       console.log('in DELETE listing .catch', err);
+//       res.sendStatus(500);
+//     })
+// });
+
+router.delete('/:id', (req, res) => {
+  console.log('in DELETE listing');
+  const listingId = req.params.id;
+  const imageDeleteQueryText = `
+    DELETE FROM image WHERE listing_id = $1;
+  `;
+  pool.query(imageDeleteQueryText, [listingId])
+    .then(response => {
+      console.log('in DELETE listing .then');
+      queryText = `
+        DELETE FROM listing WHERE id = $1;
+      `;
+      pool.query(queryText, [listingId])
+        .then(res.sendStatus(200))
         // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
                                           // Error: "Cannot set headers after they are sent to the client"
     }).catch(err => {
-      console.log('in POST listing .catch', err);
+      console.log('in DELETE listing .catch', err);
       res.sendStatus(500);
     })
 });

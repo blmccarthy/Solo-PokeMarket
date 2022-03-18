@@ -122,6 +122,24 @@ function* updateListing(action) {
 }
 
 // ====================================================================================================================================
+//    DELETE LISTING
+// ====================================================================================================================================
+
+function* deleteListing(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    
+    axios.delete(`/api/listings/${action.payload}`, config);
+
+  } catch (error) {
+    console.log('User get request failed', error);
+  }
+}
+
+// ====================================================================================================================================
 //    SAGA LISTENERS
 // ====================================================================================================================================
 
@@ -132,6 +150,7 @@ function* listingSaga() {
   yield takeLatest('FETCH_LISTING_IMAGES', fetchListingImages);
   yield takeLatest('POST_LISTING', postListing);
   yield takeLatest('UPDATE_LISTING', updateListing);
+  yield takeLatest('DELETE_LISTING', deleteListing);
 }
 
 export default listingSaga;

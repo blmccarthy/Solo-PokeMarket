@@ -86,6 +86,7 @@ function EditPage() {
     
     const handleDelete = () => {
         dispatch({ type: 'DELETE_LISTING', payload: id})
+        history.push('/my-listings')
     }
 
     console.log('selectedListing:', selectedListing);
