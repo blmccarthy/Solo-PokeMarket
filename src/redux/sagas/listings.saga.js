@@ -51,7 +51,7 @@ function* fetchSelectedImage(action) {
     };
     
     const selectedImage = yield axios.get(`/api/listings/images/${action.payload}`, config);
-    yield put({ type: 'SET_SELECTED_IMAGE', payload: selectedListing.data[0] });
+    yield put({ type: 'SET_SELECTED_IMAGE', payload: selectedImage.data[0] });
 
   } catch (error) {
     console.log('User get request failed', error);

@@ -42,7 +42,7 @@ const imageReducer = (state = [], action) => {
   }
 };
 
-const selectedImageReducer = (state = {}, action) => {
+const selectedImageReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_SELECTED_IMAGE':
       return action.payload;
