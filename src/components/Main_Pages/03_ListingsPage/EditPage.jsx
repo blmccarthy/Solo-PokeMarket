@@ -47,16 +47,6 @@ function EditPage() {
             type: 'UPDATE_IMAGE',
             payload: selectedImage
         })
-        // setNewCardName('');
-        // setNewSet('');
-        // setNewCondition('');
-        // setNewAskingPrice('');
-        // setIsGraded('');
-        // setNewGradingService('');
-        // setNewImage('');
-        // setNewNotes('');
-        // setIsOfferEligible('');
-        // setIsTradeEligible('');
 
         history.push('/my-listings');
     }

@@ -12,30 +12,28 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Container from '@mui/material/Container';
 
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUncheckedRounded';
 
-
-
 function Details() {
 
-    // store page params
     const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch({ type: 'FETCH_SELECTED_IMAGES', payload: id });
+        dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
+        dispatch({ type: 'FETCH_CONDITIONS' });
+    }, [])
+
+
     const conditions = useSelector(store => store.conditions)
-    const listings = useSelector(store => store.listings.listingReducer);
-    const images = useSelector(store => store.listings.imageReducer);
+    // const images = useSelector(store => store.listings.imageReducer);
     const user = useSelector(store => store.user);
     const selectedListing = useSelector(store => store.listings.selectedListingReducer)
-
-
-    const selectedItem = listings.filter(listing => listing.id == id)[0];
-    const selectedImage = images.filter(image => image.listing_id == id)[0];
+    const selectedImage = useSelector(store => store.listings.selectedImageReducer)
 
     const handleBack = () => {
         console.log('in go back');
@@ -49,52 +47,47 @@ function Details() {
     const handleEdit = () => {
         dispatch({ type: 'FETCH_SELECTED_IMAGES', payload: id });
         dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
-        history.push(`/edit/${selectedItem.id}`)
+        history.push(`/edit/${selectedListing.id}`)
     }
 
     return (
         <div>
             <div className="detail-img">
-                <img src={selectedImage.url} alt={selectedItem.card_name} />
+                <img src={selectedImage?.url} alt={selectedListing?.card_name} />
             </div>
 
-            {/* <Container sx={{ my: 2 }}>
-                <Typography variant="h4" sx={{ fontWeight: 100, letterSpacing: -1 }}>{selectedItem.card_name}</Typography>
-                <Typography variant="h6" sx={{ mt: 1 }}><b>${selectedItem.asking_price}</b></Typography>
-            </Container> */}
-
-            <TableContainer /* component={Paper} */ sx={{ mt: 2 }}>
+            <TableContainer sx={{ mt: 2 }}>
                 <Table aria-label="details-table" size="small">
                     <TableHead>
                         <TableRow >
-                            <TableCell align="left" sx={{ fontSize: 24, pb: 2 }}><b>{selectedItem.card_name}</b></TableCell>
-                            <TableCell align="right" sx={{ fontSize: 24, pb: 2 }}>${selectedItem.asking_price}</TableCell>
+                            <TableCell align="left" sx={{ fontSize: 24, pb: 2 }}><b>{selectedListing?.card_name}</b></TableCell>
+                            <TableCell align="right" sx={{ fontSize: 24, pb: 2 }}>${selectedListing?.asking_price}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         <TableRow >
                             <TableCell align="left" sx={{ py: 1.3 }}>Set</TableCell>
-                            <TableCell align="right">{selectedItem.set}</TableCell>
+                            <TableCell align="right">{selectedListing?.set}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="left" sx={{ py: 1.3 }}>Condition</TableCell>
-                            <TableCell align="right">{(conditions.filter(c => c.id == selectedItem.condition)[0]).description}</TableCell>
+                            <TableCell align="right">{(conditions?.filter(c => c.id == selectedListing?.condition)[0])?.description}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="left" sx={{ py: 1.3 }}>Graded</TableCell>
-                            <TableCell align="right">{selectedItem.graded ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
+                            <TableCell align="right">{selectedListing?.graded ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="left" sx={{ py: 1.3 }}>Open to Offers</TableCell>
-                            <TableCell align="right">{selectedItem.offer_eligible ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
+                            <TableCell align="right">{selectedListing?.offer_eligible ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="left" sx={{ py: 1.3 }}>Open to Trades</TableCell>
-                            <TableCell align="right">{selectedItem.trade_eligible ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
+                            <TableCell align="right">{selectedListing?.trade_eligible ? <CheckCircleRoundedIcon /> : <RadioButtonUncheckedRoundedIcon />}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="left" sx={{ py: 1.3}}>Seller Notes:</TableCell>
-                            <TableCell align="left">{selectedItem.notes}</TableCell>
+                            <TableCell align="left">{selectedListing?.notes}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -107,7 +100,7 @@ function Details() {
                 </Grid>
                 <Grid item xs={6}>
                 {/* If this listing belongs to signed-in user, they will see [EDIT], else [SEND OFFER] */}
-                {user.id == selectedItem.user_id 
+                {user.id == selectedListing?.user_id 
                     ? <Button variant="contained" onClick={handleEdit} sx={{ width: "100%", position: 'static' }}>Edit</Button>
                     : <Button variant="contained" onClick={handleSendOffer} sx={{ width: "100%", position: 'static' }}>Send Offer</Button>}
                 </Grid>

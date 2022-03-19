@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 function ListingItem({ listing }) {
