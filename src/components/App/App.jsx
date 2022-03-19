@@ -21,6 +21,7 @@ import MyListingsPage from '../Main_Pages/03_ListingsPage/MyListingsPage';
 import CreateListingPage from '../Main_Pages/03_ListingsPage/CreateListingPage';
 import EditPage from '../Main_Pages/03_ListingsPage/EditPage';
 import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
+import OfferPage from '../Main_Pages/02_HomePage/OfferPage';
 
 import './App.css';
 
@@ -109,6 +110,14 @@ function App() {
             path="/edit/:id"
           >
             <EditPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows DetailsPage else shows LoginPage
+            exact
+            path="/offer"
+          >
+            <OfferPage />
           </ProtectedRoute>
 
           <Route
