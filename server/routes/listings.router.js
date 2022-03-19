@@ -25,7 +25,7 @@ router.get('/selected/:id', (req, res) => {
   const id = req.params.id
   console.log('req.params', req.params);
   console.log('req.params.id', req.params.id);
-  
+
   const queryText = `SELECT * FROM listing WHERE id = $1;`;
   pool.query(queryText, [id]).then(response => {
     console.log('in SELECTED.get.then');
@@ -62,6 +62,19 @@ router.get('/images', (req, res) => {
   })
 });
 
+// GET SELECTED IMAGES
+router.get('/images/:id', (req, res) => {
+  const listingId = req.params.id
+  const queryText = `SELECT * FROM image WHERE listing_id = $1;`;
+  pool.query(queryText, [listingId]).then(response => {
+    console.log('in SELECTED IMAGE .get.then');
+    res.send(response.rows);
+  }).catch(err => {
+    console.log('in SELECTED IMAGE.get.catch');
+    res.sendStatus(500);
+  })
+});
+
 // ================================================================================================ //
 //     POST
 // ================================================================================================ //
@@ -87,10 +100,88 @@ router.post('/', (req, res) => {
 
       pool.query(imagesQueryText, [req.user.id, createdListingId, listing.image_url])
         .then(res.sendStatus(201))
-        // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
-                                          // "Cannot set headers after they are sent to the client"
+      // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
+      // Error: "Cannot set headers after they are sent to the client"
     }).catch(err => {
       console.log('in POST listing .catch', err);
+      res.sendStatus(500);
+    })
+});
+
+
+// ================================================================================================ //
+//     UPDATE
+// ================================================================================================ //
+
+router.put('/:id', (req, res) => {
+  console.log('in UPDATE listing');
+  const listing = req.body;
+  const queryText = `
+    UPDATE listing 
+    SET 
+      card_name = $2, 
+      set = $3, 
+      condition = $4, 
+      graded = $5, 
+      grading_service = $6, 
+      asking_price = $7, 
+      notes = $8, 
+      offer_eligible = $9, 
+      trade_eligible = $10 
+    WHERE 
+      id = $1;
+  `;
+  pool.query(queryText, [listing.id, listing.card_name, listing.set, listing.condition, listing.graded, listing.grading_service, listing.asking_price, listing.notes, listing.offer_eligible, listing.trade_eligible])
+    .then(response => {
+      console.log('in POST listing .then');
+      res.sendStatus(200);
+    }).catch(err => {
+      console.log('in POST listing .catch', err);
+      res.sendStatus(500);
+    })
+});
+
+router.put('/images/:id', (req, res) => {
+  console.log('in UPDATE image');
+
+  const imageUrl = req.body.url;
+  const imageId = req.params.id;
+  const queryText = `UPDATE image SET url = $1 WHERE id = $2`;
+
+  pool.query(queryText, [imageUrl, imageId])
+    .then(response => {
+      console.log('in POST listing .then');
+      res.sendStatus(200);
+    }).catch(err => {
+      console.log('in POST listing .catch', err);
+      res.sendStatus(500);
+    })
+});
+
+
+// ================================================================================================ //
+//     DELETE
+// ================================================================================================ //
+
+// DELETE SELECTED LISTING & IMAGES
+router.delete('/:id', (req, res) => {
+  console.log('in DELETE listing');
+  const listingId = req.params.id;
+  const imageDeleteQueryText = `
+    DELETE FROM image WHERE listing_id = $1;
+  `;
+  pool.query(imageDeleteQueryText, [listingId])
+    .then(response => {
+      console.log('in DELETE listing .then');
+      queryText = `
+        DELETE FROM listing WHERE id = $1;
+      `;
+      pool.query(queryText, [listingId])
+        .then(res.sendStatus(200))
+        // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
+                                          // Error: "Cannot set headers after they are sent to the client"
+    }).catch(err => {
+      console.log('in DELETE listing .catch', err);
       res.sendStatus(500);
     })
 });

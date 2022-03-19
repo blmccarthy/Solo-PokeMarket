@@ -19,53 +19,44 @@ import Typography from '@mui/material/Typography';
 function EditPage() {
 
     const { id } = useParams();
+
+    useEffect(() => {
+        dispatch(
+            { type: 'FETCH_CONDITIONS' },
+            { type: 'FETCH_GRADING_SERVICES' },
+            { type: 'FETCH_LISTING_IMAGES' },
+        )
+    }, []);
+
     const history = useHistory();
     const dispatch = useDispatch();
+
+    // USE SELECTOR
     const user = useSelector(store => store.user)
     const conditions = useSelector(store => store.conditions)
     const gradingServices = useSelector(store => store.gradingServices)
     const selectedListing = useSelector(store => store.listings.selectedListingReducer)
-    const images = useSelector(store => store.listings.imageReducer)
-    const selectedImage = images.filter(image => image.listing_id == id)[0];
-
-
-    const [newCardName, setNewCardName] = useState(selectedListing.card_name);
-    const [newSet, setNewSet] = useState(selectedListing.set);
-    const [newCondition, setNewCondition] = useState(selectedListing.condition);
-    const [newAskingPrice, setNewAskingPrice] = useState(selectedListing.asking_price);
-    const [isGraded, setIsGraded] = useState(selectedListing.graded);
-    const [newGradingService, setNewGradingService] = useState(selectedListing.grading_service);
-    const [newImage, setNewImage] = useState(selectedImage.url);
-    const [newNotes, setNewNotes] = useState(selectedListing.notes);
-    const [isOfferEligible, setIsOfferEligible] = useState(selectedListing.offer_eligible);
-    const [isTradeEligible, setIsTradeEligible] = useState(selectedListing.trade_eligible);
+    const selectedImage = useSelector(store => store.listings.selectedImageReducer)
 
     const handleUpdate = () => {
         dispatch({
             type: 'UPDATE_LISTING',
-            payload: {
-                card_name: newCardName,
-                set: newSet,
-                condition: newCondition,
-                asking_price: newAskingPrice,
-                graded: isGraded,
-                grading_service: newGradingService,
-                notes: newNotes,
-                offer_eligible: isOfferEligible,
-                trade_eligible: isTradeEligible,
-                image_url: newImage
-            }
+            payload: selectedListing
         })
-        setNewCardName('');
-        setNewSet('');
-        setNewCondition('');
-        setNewAskingPrice('');
-        setIsGraded('');
-        setNewGradingService('');
-        setNewImage('');
-        setNewNotes('');
-        setIsOfferEligible('');
-        setIsTradeEligible('');
+        dispatch({
+            type: 'UPDATE_IMAGE',
+            payload: selectedImage
+        })
+        // setNewCardName('');
+        // setNewSet('');
+        // setNewCondition('');
+        // setNewAskingPrice('');
+        // setIsGraded('');
+        // setNewGradingService('');
+        // setNewImage('');
+        // setNewNotes('');
+        // setIsOfferEligible('');
+        // setIsTradeEligible('');
 
         history.push('/my-listings');
     }
@@ -74,16 +65,10 @@ function EditPage() {
         history.push('/my-listings')
     }
 
-    useEffect(() => {
-        dispatch(
-            { type: 'FETCH_SELECTED_LISTING', payload: id },
-            { type: 'FETCH_CONDITIONS' },
-            { type: 'FETCH_GRADING_SERVICES' },
-            { type: 'FETCH_LISTING_IMAGES' },
-        )
-    }, [])
-
-    console.log('selectedListing', selectedListing);
+    const handleDelete = () => {
+        dispatch({ type: 'DELETE_LISTING', payload: id })
+        history.push('/my-listings')
+    }
 
     return (
         <>
@@ -98,8 +83,10 @@ function EditPage() {
                     <TextField
                         label="Card Name"
                         autoComplete="off"
-                        value={newCardName}
-                        onChange={(event) => setNewCardName(event.target.value)}
+                        value={selectedListing.card_name}
+                        onChange={e => dispatch(
+                            { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'card_name', value: e.target.value } }
+                        )}
                         required
                         fullWidth
                     />
@@ -110,8 +97,10 @@ function EditPage() {
                         id="outlined-required"
                         label="Set"
                         autoComplete="off"
-                        value={newSet}
-                        onChange={(event) => setNewSet(event.target.value)}
+                        value={selectedListing.set}
+                        onChange={e => dispatch(
+                            { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'set', value: e.target.value } }
+                        )}
                         required
                         fullWidth
                     />
@@ -123,9 +112,11 @@ function EditPage() {
                         <Select
                             labelId="condition"
                             id="condition"
-                            value={newCondition}
                             label="Condition"
-                            onChange={(event) => setNewCondition(event.target.value)}
+                            value={selectedListing.condition}
+                            onChange={e => dispatch(
+                                { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'condition', value: e.target.value } }
+                            )}
                             required
                         >
                             {conditions.map(condition => (
@@ -141,8 +132,10 @@ function EditPage() {
                         <OutlinedInput
                             id="asking-price"
                             type="number"
-                            value={newAskingPrice}
-                            onChange={(event) => setNewAskingPrice(event.target.value)}
+                            value={selectedListing.asking_price}
+                            onChange={e => dispatch(
+                                { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'asking_price', value: e.target.value } }
+                            )}
                             startAdornment={<InputAdornment position="start">$</InputAdornment>}
                             label="Amount"
                             required
@@ -163,9 +156,11 @@ function EditPage() {
                         <Select
                             labelId="is-graded"
                             id="is-graded"
-                            value={isGraded}
                             label="is-graded"
-                            onChange={(event) => setIsGraded(event.target.value)}
+                            value={selectedListing.graded}
+                            onChange={e => dispatch(
+                                { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'graded', value: e.target.value } }
+                            )}
                             required
                         >
                             <MenuItem key="true" value="true">Yes</MenuItem>
@@ -180,9 +175,11 @@ function EditPage() {
                         <Select
                             labelId="grading-service"
                             id="grading-service"
-                            value={newGradingService}
                             label="Grading Service"
-                            onChange={(event) => setNewGradingService(event.target.value)}
+                            value={selectedListing.grading_service}
+                            onChange={e => dispatch(
+                                { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'grading_service', value: e.target.value } }
+                            )}
                             required
                         >
                             {gradingServices.map(service => (
@@ -197,8 +194,10 @@ function EditPage() {
                         id="outlined"
                         label="Image URL"
                         autoComplete="off"
-                        value={newImage}
-                        onChange={(event) => setNewImage(event.target.value)}
+                        value={selectedImage.url}
+                        onChange={e => dispatch(
+                            { type: 'CHANGE_SELECTED_IMAGE', payload: { property: 'url', value: e.target.value } }
+                        )}
                         fullWidth
                     />
                 </Grid>
@@ -208,8 +207,10 @@ function EditPage() {
                         id="outlined-required"
                         label="Notes"
                         autoComplete="off"
-                        value={newNotes}
-                        onChange={(event) => setNewNotes(event.target.value)}
+                        value={selectedListing.notes}
+                        onChange={e => dispatch(
+                            { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'notes', value: e.target.value } }
+                        )}
                         fullWidth
                         multiline
                         inputProps={{ maxLength: 144 }}
@@ -229,9 +230,11 @@ function EditPage() {
                         <Select
                             labelId="is-offer-eligible"
                             id="is-offer-eligible"
-                            value={isOfferEligible}
                             label="is-offer-eligible"
-                            onChange={(event) => setIsOfferEligible(event.target.value)}
+                            value={selectedListing.offer_eligible}
+                            onChange={e => dispatch(
+                                { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'offer_eligible', value: e.target.value } }
+                            )}
                             required
                         >
                             <MenuItem key="true" value="true">Yes</MenuItem>
@@ -246,9 +249,11 @@ function EditPage() {
                         <Select
                             labelId="is-trade-eligible"
                             id="is-trade-eligible"
-                            value={isTradeEligible}
-                            label="is-trade-eligibl"
-                            onChange={(event) => setIsTradeEligible(event.target.value)}
+                            label="is-trade-eligible"
+                            value={selectedListing.trade_eligible}
+                            onChange={e => dispatch(
+                                { type: 'CHANGE_SELECTED_LISTING', payload: { property: 'trade_eligible', value: e.target.value } }
+                            )}
                             required
                         >
                             <MenuItem key="true" value="true">Yes</MenuItem>
@@ -263,11 +268,22 @@ function EditPage() {
 
 
 
-                {/* === SUBMIT BUTTON =================================================================================== */}
+                {/* === DELETE BUTTON =================================================================================== */}
                 <Grid item xs={12}>
-                    <Button 
-                        variant="outlined" 
-                        fullWidth 
+                    <Button
+                        variant="outlined"
+                        fullWidth
+                        sx={{ position: 'static' }}
+                        onClick={handleDelete}
+                    >
+                        Delete
+                    </Button>
+                </Grid>
+                {/* === CANCEL BUTTON =================================================================================== */}
+                <Grid item xs={12}>
+                    <Button
+                        variant="outlined"
+                        fullWidth
                         sx={{ position: 'static' }}
                         onClick={handleCancel}
                     >
@@ -276,9 +292,9 @@ function EditPage() {
                 </Grid>
                 {/* === SUBMIT BUTTON =================================================================================== */}
                 <Grid item xs={12}>
-                    <Button 
-                        variant="contained" 
-                        fullWidth 
+                    <Button
+                        variant="contained"
+                        fullWidth
                         sx={{ position: 'static' }}
                         onClick={handleUpdate}
                     >
