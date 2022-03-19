@@ -115,7 +115,7 @@ function App() {
           <ProtectedRoute
             // logged in shows DetailsPage else shows LoginPage
             exact
-            path="/offer"
+            path="/offer/:id"
           >
             <OfferPage />
           </ProtectedRoute>
