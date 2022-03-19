@@ -134,13 +134,24 @@ router.put('/:id', (req, res) => {
   pool.query(queryText, [listing.id, listing.card_name, listing.set, listing.condition, listing.graded, listing.grading_service, listing.asking_price, listing.notes, listing.offer_eligible, listing.trade_eligible])
     .then(response => {
       console.log('in POST listing .then');
+      res.sendStatus(200);
+    }).catch(err => {
+      console.log('in POST listing .catch', err);
+      res.sendStatus(500);
+    })
+});
 
-      const imagesQueryText = `UPDATE image SET url = $1 WHERE listing_id = $2`
+router.put('/images/:id', (req, res) => {
+  console.log('in UPDATE image');
 
-      pool.query(imagesQueryText, [listing.image_url, listing.id])
-        .then(res.sendStatus(201))
-      // .catch(res.sendStatus(500))    // Commented out due to getting dupe response error?
-                                        // Error: "Cannot set headers after they are sent to the client"
+  const imageUrl = req.body.url;
+  const imageId = req.params.id;
+  const queryText = `UPDATE image SET url = $1 WHERE id = $2`;
+
+  pool.query(queryText, [imageUrl, imageId])
+    .then(response => {
+      console.log('in POST listing .then');
+      res.sendStatus(200);
     }).catch(err => {
       console.log('in POST listing .catch', err);
       res.sendStatus(500);
@@ -152,28 +163,7 @@ router.put('/:id', (req, res) => {
 //     DELETE
 // ================================================================================================ //
 
-// router.delete('/:id', (req, res) => {
-//   console.log('in DELETE listing');
-//   const listingId = req.params.id;
-//   const queryText = `
-//     DELETE FROM listing WHERE id = $1;
-//   `;
-//   pool.query(queryText, [listingId])
-//     .then(response => {
-//       console.log('in DELETE listing .then');
-
-//       imageDeleteQueryText = `
-//         DELETE FROM image WHERE listing_id = $1;
-//       `;
-//       pool.query(imageDeleteQueryText, [listingId])
-//         .then(res.sendStatus(200))
-//         .catch(res.sendStatus(500))
-//     }).catch(err => {
-//       console.log('in DELETE listing .catch', err);
-//       res.sendStatus(500);
-//     })
-// });
-
+// DELETE SELECTED LISTING & IMAGES
 router.delete('/:id', (req, res) => {
   console.log('in DELETE listing');
   const listingId = req.params.id;

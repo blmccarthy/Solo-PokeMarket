@@ -37,47 +37,26 @@ function EditPage() {
     const gradingServices = useSelector(store => store.gradingServices)
     const selectedListing = useSelector(store => store.listings.selectedListingReducer)
     const selectedImage = useSelector(store => store.listings.selectedImageReducer)
-    // const images = useSelector(store => store.listings.imageReducer)
-
-    // LOCAL STATE FROM USE SELECTOR
-    // const [newImage, setNewImage] = useState(selectedImage.url);
-    // const [newCardName, setNewCardName] = useState(selectedListing.card_name);
-    // const [newSet, setNewSet] = useState(selectedListing.set);
-    // const [newCondition, setNewCondition] = useState(selectedListing.condition);
-    // const [newAskingPrice, setNewAskingPrice] = useState(selectedListing.asking_price);
-    // const [isGraded, setIsGraded] = useState(selectedListing.graded);
-    // const [newGradingService, setNewGradingService] = useState(selectedListing.grading_service);
-    // const [newNotes, setNewNotes] = useState(selectedListing.notes);
-    // const [isOfferEligible, setIsOfferEligible] = useState(selectedListing.offer_eligible);
-    // const [isTradeEligible, setIsTradeEligible] = useState(selectedListing.trade_eligible);
 
     const handleUpdate = () => {
         dispatch({
             type: 'UPDATE_LISTING',
-            payload: {
-                id: id,
-                card_name: newCardName,
-                set: newSet,
-                condition: newCondition,
-                asking_price: newAskingPrice,
-                graded: isGraded,
-                grading_service: newGradingService,
-                notes: newNotes,
-                offer_eligible: isOfferEligible,
-                trade_eligible: isTradeEligible,
-                image_url: newImage
-            }
+            payload: selectedListing
         })
-        setNewCardName('');
-        setNewSet('');
-        setNewCondition('');
-        setNewAskingPrice('');
-        setIsGraded('');
-        setNewGradingService('');
-        setNewImage('');
-        setNewNotes('');
-        setIsOfferEligible('');
-        setIsTradeEligible('');
+        dispatch({
+            type: 'UPDATE_IMAGE',
+            payload: selectedImage
+        })
+        // setNewCardName('');
+        // setNewSet('');
+        // setNewCondition('');
+        // setNewAskingPrice('');
+        // setIsGraded('');
+        // setNewGradingService('');
+        // setNewImage('');
+        // setNewNotes('');
+        // setIsOfferEligible('');
+        // setIsTradeEligible('');
 
         history.push('/my-listings');
     }
@@ -216,7 +195,9 @@ function EditPage() {
                         label="Image URL"
                         autoComplete="off"
                         value={selectedImage.url}
-                        onChange={(event) => setNewImage(event.target.value)}
+                        onChange={e => dispatch(
+                            { type: 'CHANGE_SELECTED_IMAGE', payload: { property: 'url', value: e.target.value } }
+                        )}
                         fullWidth
                     />
                 </Grid>
