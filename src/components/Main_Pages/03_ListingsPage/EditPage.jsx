@@ -47,7 +47,9 @@ function EditPage() {
             type: 'UPDATE_IMAGE',
             payload: selectedImage
         })
-
+        dispatch({
+            type: 'FETCH_MY_LISTINGS'
+        })
         history.push('/my-listings');
     }
 

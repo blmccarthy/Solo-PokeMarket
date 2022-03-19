@@ -19,6 +19,7 @@ function ListingPage() {
   } 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch({ type: 'FETCH_MY_LISTINGS' })
     dispatch({ type: 'FETCH_CONDITIONS' })
     dispatch({ type: 'FETCH_LISTING_IMAGES' })

@@ -51,16 +51,20 @@ function CreateListingPage() {
                 image_url: newImage
             }
         })
-        setNewCardName('');
-        setNewSet('');
-        setNewCondition('');
-        setNewAskingPrice('');
-        setIsGraded('');
-        setNewGradingService('');
-        setNewImage('');
-        setNewNotes('');
-        setIsOfferEligible('');
-        setIsTradeEligible('');
+        dispatch(
+            { type: 'FETCH_MY_LISTINGS' },
+            { type: 'FETCH_LISTING_IMAGES' }
+        )
+        // setNewCardName('');
+        // setNewSet('');
+        // setNewCondition('');
+        // setNewAskingPrice('');
+        // setIsGraded('');
+        // setNewGradingService('');
+        // setNewImage('');
+        // setNewNotes('');
+        // setIsOfferEligible('');
+        // setIsTradeEligible('');
 
         history.push('/my-listings');
     }

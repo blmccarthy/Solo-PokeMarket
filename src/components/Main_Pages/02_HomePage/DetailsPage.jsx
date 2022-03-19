@@ -23,6 +23,7 @@ function Details() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch({ type: 'FETCH_SELECTED_IMAGES', payload: id });
         dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
         dispatch({ type: 'FETCH_CONDITIONS' });
