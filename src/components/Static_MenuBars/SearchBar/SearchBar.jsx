@@ -1,5 +1,6 @@
 import './SearchBar.css'
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
@@ -10,17 +11,19 @@ import Grid from '@mui/material/Grid';
 
 function SearchBar() {
 
+    const dispatch = useDispatch();
     const [search, setSearch] = useState('')
 
-    const handleSearch = () => {
-        dispatchEvent({ type: 'FETCH_SEARCH', payload: search })
+    const handleSearch = (event) => {
+        event.preventDefault();
+        dispatch({ type: 'FETCH_SEARCH', payload: search })
     }
 
     return (
         <div className="searchbar">
             <Paper
                 component="form"
-                onSubmit={handleSearch}
+                onSubmit={(e) => handleSearch(e)}
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '88%' }}
             >
                 <InputBase
