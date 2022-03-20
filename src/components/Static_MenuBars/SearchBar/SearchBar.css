@@ -3,8 +3,10 @@
     display: flex;
     background-color: #c4c4c4;
     justify-content: center;
+    width: 100%;
+    /* Necessary so that MUI Elements do not overlap nav & search bars */
     position: fixed;
-    width: 100%
+    z-index: 10; 
 }
 
 .search-input {

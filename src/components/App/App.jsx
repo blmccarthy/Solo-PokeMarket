@@ -22,6 +22,7 @@ import CreateListingPage from '../Main_Pages/03_ListingsPage/CreateListingPage';
 import EditPage from '../Main_Pages/03_ListingsPage/EditPage';
 import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
 import OfferPage from '../Main_Pages/02_HomePage/OfferPage';
+import SearchPage from '../Main_Pages/02_HomePage/SearchPage';
 
 import './App.css';
 
@@ -118,6 +119,14 @@ function App() {
             path="/offer/:id"
           >
             <OfferPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows DetailsPage else shows LoginPage
+            exact
+            path="/home/filter/:search"
+          >
+            <SearchPage />
           </ProtectedRoute>
 
           <Route

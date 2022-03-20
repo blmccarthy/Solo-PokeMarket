@@ -4,7 +4,7 @@ import user from './user.reducer';
 import listings from './listings.reducer';
 import conditions from './conditions.reducer';
 import gradingServices from './grading-services.reducer';
-// import offers from './offers.reducer'
+import filterResults from './filter.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   listings, 
   conditions,
   gradingServices,
-  // offers,
+  filterResults,
 });
 
 export default rootReducer;
