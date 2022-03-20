@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const listingsRouter = require('./routes/listings.router');
 const conditionsRouter = require('./routes/conditions.router');
 const gradingServiceRouter = require('./routes/grading-services.router');
+const offerRouter = require('./routes/offer.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter);
 app.use('/api/listings', listingsRouter);
 app.use('/api/conditions', conditionsRouter);
 app.use('/api/grading-services', gradingServiceRouter);
+app.use('/api/offers', offerRouter);
 
 // Serve static files
 app.use(express.static('build'));

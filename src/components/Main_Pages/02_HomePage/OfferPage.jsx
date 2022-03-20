@@ -30,15 +30,20 @@ function OfferPage() {
     const dispatch = useDispatch();
     const { id } = useParams();
 
+    const selectedListing = useSelector(store => store.listings.selectedListingReducer)
+    const user = useSelector(store => store.user)
+    const conditions = useSelector(store => store.conditions)
+    // const offer = useSelector(store => store.offers.currentOfferReducer)
+
     useEffect(() => {
         dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
-        dispatch({ type: 'FETCH_CONDITIONS', payload: id });
+        dispatch({ type: 'FETCH_CONDITIONS' });
     }, [])
 
-    const conditions = useSelector(store => store.conditions)
-    const selectedListing = useSelector(store => store.listings.selectedListingReducer)
-
     const [offerType, setOfferType] = useState('')
+    const [offerAmount, setOfferAmount] = useState(null)
+    const [offerDesc, setOfferDesc] = useState('')
+    const [tradeDesc, setTradeDesc] = useState('')
 
     const handleCancel = () => {
         history.push(`/details/${id}`)
@@ -46,6 +51,22 @@ function OfferPage() {
 
     const handlePurchase = () => {
         console.log('in handlePurchase');
+    }
+
+    const handleSendOffer = () => {
+        dispatch({
+            type: 'POST_OFFER',
+            payload: {
+                listing_id: id,
+                buyer_user_id: user.id,
+                seller_user_id: selectedListing.user_id,
+                offer_amount: offerAmount,
+                notes: offerDesc,
+                trade_desc: tradeDesc,
+                offer_type: offerType,
+                status: 'pending'
+            }
+        })
     }
 
     return (
@@ -69,14 +90,17 @@ function OfferPage() {
             ==================================================================================================================
             */}
 
+            {/* ----- NONE ----- */}
+
             {offerType == '' &&
                 <Button variant="outlined" fullWidth onClick={handleCancel}>Cancel</Button>
             }
 
+            {/* ----- PURCHASE ----- */}
 
             {offerType == 'purchase' &&
                 <>
-                    <TableContainer sx={{ mt: 2 }}>
+                    <TableContainer>
                         <Table aria-label="details-table" size="small">
                             <TableHead>
                                 <TableRow >
@@ -115,50 +139,81 @@ function OfferPage() {
                 </>
             }
 
+            {/* ----- OFFER ----- */}
 
             {offerType == 'offer' &&
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sx={{ mb: 1 }}>
-                        <FormControl fullWidth>
+                <FormControl >
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sx={{ mb: 1 }}>
                             <InputLabel htmlFor="asking-price">Offer Amount</InputLabel>
                             <OutlinedInput
                                 id="asking-price"
                                 type="number"
-                                // value={newAskingPrice}
-                                // onChange={(event) => setNewAskingPrice(event.target.value)}
                                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                 label="OfferAmount"
+                                placeholder='0.00'
                                 required
+                                fullWidth
+                                onChange={e => setOfferAmount(e.target.value)}
+                                // onChange={e => dispatch(
+                                //     { type: 'SET_OFFER', payload: { property: 'offer_amount', value: e.target.value } }
+                                // )}
                             />
-                        </FormControl>
+
+                        </Grid>
+                        <Grid item xs={12} sx={{ mb: 1 }}>
+                            <TextField
+                                id="outlined-required"
+                                label="Additional Notes..."
+                                autoComplete="off"
+                                fullWidth
+                                minRows={3}
+                                multiline
+                                inputProps={{ maxLength: 144 }}
+                                value={offerDesc}
+                                onChange={e => setOfferDesc(e.target.value)}
+                                // onChange={e => dispatch(
+                                //     { type: 'SET_OFFER', payload: { property: 'notes', value: e.target.value } }
+                                // )}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="outlined" fullWidth onClick={handleCancel}>Cancel</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="contained" fullWidth onClick={handleSendOffer}>Send Offer</Button>
+                        </Grid>
                     </Grid>
+                </FormControl>
+            }
+
+            {/* ----- TRADE ----- */}
+
+            {offerType == 'trade' &&
+                <Grid container spacing={2}>
                     <Grid item xs={12} sx={{ mb: 1 }}>
                         <TextField
                             id="outlined-required"
-                            label="Additional Notes..."
+                            label="Trade Description..."
                             autoComplete="off"
-                            // value={newNotes}
-                            // onChange={(event) => setNewNotes(event.target.value)}
                             fullWidth
                             minRows={3}
                             multiline
                             inputProps={{ maxLength: 144 }}
+                            value={tradeDesc}
+                            onChange={e => setTradeDesc(e.target.value)}
+                            // onChange={e => dispatch(
+                            //     { type: 'SET_OFFER', payload: { property: 'trade_desc', value: e.target.value } }
+                            // )}
                         />
                     </Grid>
                     <Grid item xs={6}>
-                            <Button variant="outlined" fullWidth onClick={handleCancel}>Cancel</Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button variant="contained" fullWidth onClick={handlePurchase}>Send Offer</Button>
-                        </Grid>
+                        <Button variant="outlined" fullWidth onClick={handleCancel}>Cancel</Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button variant="contained" fullWidth onClick={handleSendOffer}>Send Trade Offer</Button>
+                    </Grid>
                 </Grid>
-
-            }
-
-
-            {
-                offerType == 'trade' &&
-                <h1>Trade</h1>
             }
         </>
     );

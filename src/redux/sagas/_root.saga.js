@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import listingSaga from './listings.saga'
 import conditionSaga from './conditions.saga';
 import gradingServiceSaga from './grading-services.saga.js';
+import offerSaga from './offer.saga.js';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     listingSaga(),
     conditionSaga(),
     gradingServiceSaga(),
+    offerSaga(),
   ]);
 }
