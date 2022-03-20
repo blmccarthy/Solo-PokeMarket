@@ -41,7 +41,6 @@ function OfferPage() {
     const [offerType, setOfferType] = useState('')
 
     const handleCancel = () => {
-        console.log('in handleCancel');
         history.push(`/details/${id}`)
     }
 
@@ -57,7 +56,7 @@ function OfferPage() {
                 aria-label="outlined button group"
                 fullWidth
                 onClick={(e) => setOfferType(e.target.value)}
-                sx={{ mb: 2 }}
+                sx={{ mb: 4 }}
             >
                 <Button value="purchase" variant={offerType == 'purchase' ? 'contained' : 'outlined'} >Purchase</Button>
                 <Button value="offer" variant={offerType == 'offer' ? 'contained' : 'outlined'} >Offer</Button>
@@ -71,7 +70,7 @@ function OfferPage() {
             */}
 
             {offerType == '' &&
-                <Button variant="outlined">Go Back</Button>
+                <Button variant="outlined" fullWidth onClick={handleCancel}>Cancel</Button>
             }
 
 
@@ -118,11 +117,47 @@ function OfferPage() {
 
 
             {offerType == 'offer' &&
-                <h1>Offer</h1>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sx={{ mb: 1 }}>
+                        <FormControl fullWidth>
+                            <InputLabel htmlFor="asking-price">Offer Amount</InputLabel>
+                            <OutlinedInput
+                                id="asking-price"
+                                type="number"
+                                // value={newAskingPrice}
+                                // onChange={(event) => setNewAskingPrice(event.target.value)}
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                label="OfferAmount"
+                                required
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sx={{ mb: 1 }}>
+                        <TextField
+                            id="outlined-required"
+                            label="Additional Notes..."
+                            autoComplete="off"
+                            // value={newNotes}
+                            // onChange={(event) => setNewNotes(event.target.value)}
+                            fullWidth
+                            minRows={3}
+                            multiline
+                            inputProps={{ maxLength: 144 }}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                            <Button variant="outlined" fullWidth onClick={handleCancel}>Cancel</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button variant="contained" fullWidth onClick={handlePurchase}>Send Offer</Button>
+                        </Grid>
+                </Grid>
+
             }
 
 
-            {offerType == 'trade' &&
+            {
+                offerType == 'trade' &&
                 <h1>Trade</h1>
             }
         </>
