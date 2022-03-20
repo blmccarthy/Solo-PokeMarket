@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
-import ListingItem from './ListingItem';
+import HomeItem from './HomeItem';
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -23,7 +23,7 @@ function HomePage() {
   return (
     <>
       {listings.map(listing => (
-        <ListingItem 
+        <HomeItem 
           key={listing.id} 
           listing={listing} 
         />

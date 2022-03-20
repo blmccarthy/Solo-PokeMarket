@@ -3,11 +3,13 @@
   background-color: #c4c4c4;
   overflow: hidden;
   justify-content: space-evenly;
-  
-  position: fixed;
   bottom: 0;
   width: 100%;
-  height: 75px
+  height: 75px;
+  
+  /* Necessary so that MUI Elements do not overlap nav & search bars */
+  position: fixed;
+  z-index: 10;
 }
 
 /* .nav a {

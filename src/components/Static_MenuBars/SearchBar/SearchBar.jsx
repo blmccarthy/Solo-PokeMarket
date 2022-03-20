@@ -1,6 +1,7 @@
 import './SearchBar.css'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
@@ -12,11 +13,13 @@ import Grid from '@mui/material/Grid';
 function SearchBar() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const [search, setSearch] = useState('')
 
     const handleSearch = (event) => {
         event.preventDefault();
         dispatch({ type: 'FETCH_SEARCH', payload: search })
+        history.push(`/home/filter/${search}`)
     }
 
     return (
