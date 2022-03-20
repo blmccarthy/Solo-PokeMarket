@@ -43,6 +43,7 @@ function Details() {
 
     const handleSendOffer = () => {
         console.log('I do nothing right now, stay tuned...');
+        history.push(`/offer/${selectedListing.id}`)
     }
 
     const handleEdit = () => {

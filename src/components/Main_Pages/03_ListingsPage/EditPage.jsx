@@ -32,7 +32,6 @@ function EditPage() {
     const dispatch = useDispatch();
 
     // USE SELECTOR
-    const user = useSelector(store => store.user)
     const conditions = useSelector(store => store.conditions)
     const gradingServices = useSelector(store => store.gradingServices)
     const selectedListing = useSelector(store => store.listings.selectedListingReducer)
