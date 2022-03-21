@@ -53,7 +53,7 @@ function EditPage() {
     }
 
     const handleCancel = () => {
-        history.push('/my-listings')
+        history.goBack();
     }
 
     const handleDelete = () => {

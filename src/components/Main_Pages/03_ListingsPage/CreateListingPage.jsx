@@ -70,7 +70,7 @@ function CreateListingPage() {
     }
 
     const handleCancel = () => {
-        history.push('/my-listings')
+        history.goBack();
     }
 
     useEffect(() => {

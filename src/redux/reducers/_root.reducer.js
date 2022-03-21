@@ -5,6 +5,7 @@ import listings from './listings.reducer';
 import conditions from './conditions.reducer';
 import gradingServices from './grading-services.reducer';
 import filterResults from './filter.reducer';
+import profile from './profile.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   conditions,
   gradingServices,
   filterResults,
+  profile,
 });
 
 export default rootReducer;
