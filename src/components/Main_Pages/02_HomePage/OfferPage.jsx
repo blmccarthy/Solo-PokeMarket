@@ -45,6 +45,14 @@ function OfferPage() {
     const [offerDesc, setOfferDesc] = useState('')
     const [tradeDesc, setTradeDesc] = useState('')
 
+    const isDisabled = (eligible) => {
+        if (!eligible) {
+            return 'disabled';
+        } else {
+            return;
+        }
+    }
+
     const handleCancel = () => {
         history.push(`/details/${id}`)
     }
@@ -69,7 +77,13 @@ function OfferPage() {
         })
     }
 
+    console.log('-----------------> ', selectedListing.trade_eligible);
+
     return (
+        // ================================================================================================================== 
+        //     BUTTON GROUP
+        // ==================================================================================================================
+
         <>
             <Typography variant="h6" sx={{ fontWeight: 100, mb: 2 }}>Select an offer type:</Typography>
             <ButtonGroup
@@ -79,9 +93,26 @@ function OfferPage() {
                 onClick={(e) => setOfferType(e.target.value)}
                 sx={{ mb: 4 }}
             >
-                <Button value="purchase" variant={offerType == 'purchase' ? 'contained' : 'outlined'} >Purchase</Button>
-                <Button value="offer" variant={offerType == 'offer' ? 'contained' : 'outlined'} >Offer</Button>
-                <Button value="trade" variant={offerType == 'trade' ? 'contained' : 'outlined'} >Trade</Button>
+                <Button 
+                    value="purchase" 
+                    variant={offerType == 'purchase' ? 'contained' : 'outlined'} 
+                >
+                    Purchase
+                </Button>
+                <Button 
+                    value="offer" 
+                    variant={offerType == 'offer' ? 'contained' : 'outlined'} 
+                    disabled={!selectedListing.offer_eligible}
+                >
+                    Offer
+                </Button>
+                <Button 
+                    value="trade" 
+                    variant={offerType == 'trade' ? 'contained' : 'outlined'} 
+                    disabled={!selectedListing.trade_eligible}
+                >
+                    Trade
+                </Button>
             </ButtonGroup>
 
             {/* 
