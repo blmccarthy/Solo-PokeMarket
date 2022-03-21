@@ -24,6 +24,11 @@ function SearchBar() {
          } 
     }
 
+    const handleSearchClick = (event) => {
+        event.preventDefault();
+        history.push('/')
+    }
+
 
     
     // Returns ALL listings if there is no search query
@@ -35,7 +40,7 @@ function SearchBar() {
         <div className="searchbar">
             <Paper
                 component="form"
-                onSubmit={(e) => handleSearchClick(event)}
+                onSubmit={(event) => handleSearchClick(event)}
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '88%' }}
             >
                 <InputBase

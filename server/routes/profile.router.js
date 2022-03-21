@@ -50,12 +50,33 @@ router.get('/offers-in-count', (req, res) => {
   });
 
 // ================================================================================================ //
-//     POST
+//     PUT
 // ================================================================================================ //
 
-// POST OFFER
-router.post('/', (req, res) => {
-// post here
+// UPDATE PROFILE
+router.put('/', (req, res) => {
+  const profile = req.body;
+  const userId = req.user.id;
+  const queryText = `
+    UPDATE 
+      "user" 
+    SET 
+      first_name = $1, 
+      last_name = $2, 
+      city = $3, 
+      state = $4, 
+      profile_pic = $5 
+    WHERE 
+      id = $6;
+  `;
+  pool.query(queryText, [profile.first_name, profile.last_name, profile.city, profile.state, profile.profile_pic, userId])
+  .then(response => {
+    console.log('in PROFILE UPDATE .then', response.rows);
+    res.sendStatus(200)
+  }).catch(err => {
+    console.log('in PROFILE UPDATE .catch', err);
+    res.sendStatus(500)
+  })
 });
 
 module.exports = router;
