@@ -4,7 +4,7 @@ import user from './user.reducer';
 import listings from './listings.reducer';
 import conditions from './conditions.reducer';
 import gradingServices from './grading-services.reducer';
-import filterResults from './filter.reducer';
+import filters from './filter.reducer';
 import profile from './profile.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   listings, 
   conditions,
   gradingServices,
-  filterResults,
+  filters,
   profile,
 });
 

@@ -124,7 +124,7 @@ function App() {
           <ProtectedRoute
             // logged in shows DetailsPage else shows LoginPage
             exact
-            path="/home/filter/:search"
+            path="/home/filter"
           >
             <SearchPage />
           </ProtectedRoute>
