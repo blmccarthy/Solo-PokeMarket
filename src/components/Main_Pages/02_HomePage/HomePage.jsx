@@ -12,12 +12,13 @@ function HomePage() {
 
   const dispatch = useDispatch();
   const listings = useSelector(store => store.listings.listingReducer)
+  const searchQuery = useSelector(store => store.filters.searchQueryReducer)
 
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch({ type: 'FETCH_LISTINGS' });
     dispatch({ type: 'FETCH_LISTING_IMAGES' });
-  }, [])
+  }, [!searchQuery])
 
   return (
     <>

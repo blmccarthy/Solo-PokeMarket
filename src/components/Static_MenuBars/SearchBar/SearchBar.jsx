@@ -1,6 +1,6 @@
 import './SearchBar.css'
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Paper from '@mui/material/Paper';
@@ -14,26 +14,39 @@ function SearchBar() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const [search, setSearch] = useState('')
+    const searchQuery = useSelector(store => store.filters.searchQueryReducer)
 
     const handleSearch = (event) => {
         event.preventDefault();
-        dispatch({ type: 'FETCH_SEARCH', payload: search })
-        history.push(`/home/filter/${search}`)
+        dispatch({ type: 'SET_SEARCH_QUERY', payload: event.target.value })
+        if (searchQuery) {
+            dispatch({ type: 'FETCH_SEARCH', payload: searchQuery })
+         } 
     }
+
+    const handleSearchClick = (event) => {
+        event.preventDefault();
+        history.push('/')
+    }
+
+
+    
+    // Returns ALL listings if there is no search query
+    useEffect(() => {
+        dispatch({ type: 'FETCH_LISTINGS' });
+    }, [!searchQuery])
 
     return (
         <div className="searchbar">
             <Paper
                 component="form"
-                onSubmit={(e) => handleSearch(e)}
+                onSubmit={(event) => handleSearchClick(event)}
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '88%' }}
             >
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}
                     placeholder="Search ..."
-                    // inputProps={{ 'aria-label': 'search google maps' }}
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={event => handleSearch(event)}
                 />
                 <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                     <SearchIcon />

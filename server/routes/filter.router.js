@@ -10,9 +10,10 @@ const router = express.Router();
 // RETURN SEARCH RESULTS 
 router.get('/:search', (req, res) => {
   const searchFromUser = req.params.search;
+  console.log('searchFromUser ------------->', searchFromUser);
   const queryText = `SELECT * FROM listing WHERE card_name ILIKE ('%' || $1 || '%');`;
   pool.query(queryText, [searchFromUser]).then(response => {
-    console.log('in SEARCH.get.then');
+    console.log('in SEARCH.get.then', response.rows);
     res.send(response.rows);
   }).catch(err => {
     console.log('in SEARCH.get.catch', err);

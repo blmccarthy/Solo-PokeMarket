@@ -57,82 +57,43 @@ function App() {
             Visiting localhost:3000/user will show the FilterPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
-            // logged in shows FilterPage else shows LoginPage
-            exact
-            path="/filter"
-          >
+          <ProtectedRoute exact path="/filter">
             <FilterPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows HomePage else shows LoginPage
-            exact
-            path="/home"
-          >
+          <ProtectedRoute exact path="/home">
             <HomePage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // shows ListingsPage at all times (logged in or not)
-            exact
-            path="/my-listings"
-          >
+          <ProtectedRoute exact path="/my-listings">
             <MyListingsPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows ProfilePage else shows LoginPage
-            exact
-            path="/profile"
-          >
+          <ProtectedRoute exact path="/profile">
             <ProfilePage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows DetailsPage else shows LoginPage
-            exact
-            path="/details/:id"
-          >
+          <ProtectedRoute exact path="/details/:id">
             <DetailsPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows DetailsPage else shows LoginPage
-            exact
-            path="/create-listing"
-          >
+          <ProtectedRoute exact path="/create-listing">
             <CreateListingPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows DetailsPage else shows LoginPage
-            exact
-            path="/edit/:id"
-          >
+          <ProtectedRoute exact path="/edit/:id">
             <EditPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows DetailsPage else shows LoginPage
-            exact
-            path="/offer/:id"
-          >
+          <ProtectedRoute exact path="/offer/:id">
             <OfferPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows DetailsPage else shows LoginPage
-            exact
-            path="/home/filter/:search"
-          >
+          <ProtectedRoute exact path="/home/filter">
             <SearchPage />
           </ProtectedRoute>
 
-          <Route
-            exact
-            path="/login"
-          >
+          <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
@@ -143,10 +104,7 @@ function App() {
             }
           </Route>
 
-          <Route
-            exact
-            path="/registration"
-          >
+          <Route exact path="/registration">
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page

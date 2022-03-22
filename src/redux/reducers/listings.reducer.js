@@ -18,6 +18,7 @@ const myListingReducer = (state = [], action) => {
   }
 };
 
+
 const selectedListingReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_SELECTED_LISTING':

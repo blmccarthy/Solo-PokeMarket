@@ -13,7 +13,7 @@ function SearchPage() {
 
     const { search } = useParams();
     const dispatch = useDispatch();
-    const filterResults = useSelector(store => store.filterResults)
+    const filterResults = useSelector(store => store.filters.searchResultsReducer)
 
     useEffect(() => {
         window.scrollTo(0, 0);
