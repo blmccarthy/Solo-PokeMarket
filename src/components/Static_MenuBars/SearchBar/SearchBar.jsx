@@ -34,7 +34,7 @@ function SearchBar() {
     // Returns ALL listings if there is no search query
     useEffect(() => {
         dispatch({ type: 'FETCH_LISTINGS' });
-    }, [!searchQuery])
+    }, [!searchQuery]) // Fetches all listing if nothing entered in search
 
     return (
         <div className="searchbar">

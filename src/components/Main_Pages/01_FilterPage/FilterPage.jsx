@@ -1,113 +1,199 @@
-import React from 'react';
-import LogOutButton from '../../Login_Register/LogOutButton';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-import FilterListIcon from '@mui/icons-material/FilterList';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
+import ConditionItem from './ConditionItem';
+
+import { styled } from '@mui/material/styles';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
-function UserPage() {
 
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector((store) => store.user);
-  const [expanded, setExpanded] = React.useState(false);
+// ===============================================================================
+// MUI CUSTOM ACCORDION THEMES
+// ===============================================================================
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+// -------- ACCORDION --------- //
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `0px solid ${theme.palette.divider}`,
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&:before': {
+    display: 'none',
+  },
+}));
+
+// ----- ACCORDION SUMMARY ----- //
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  // backgroundColor:
+  //   theme.palette.mode === 'dark'
+  //     ? 'rgba(255, 255, 255, .05)'
+  //     : 'rgba(0, 0, 0, .03)',
+  flexDirection: 'row-reverse',
+  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+    transform: 'rotate(90deg)',
+  },
+  '& .MuiAccordionSummary-content': {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+// ----- ACCORDION DETAILS ----- //
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: '1px solid rgba(0, 0, 0, .125)',
+}));
+
+// ===============================================================================
+// FILTER PAGE
+// ===============================================================================
+
+function FilterPage() {
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const conditions = useSelector(store => store.conditions);
+  const filterSelection = useSelector(store => store.filters.searchQueryReducer);
+
+  const [expandedFilter1, setExpandedFilter1] = useState(false);
+  const [expandedFilter2, setExpandedFilter2] = useState(false);
+  const [expandedFilter3, setExpandedFilter3] = useState(false);
+
+  const handleGoBack = () => {
+    history.goBack();
+  }
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_CONDITIONS' })
+  }, [])
 
   return (
-    // <div className="container">
-    //   <FilterListIcon sx={{ fontSize: 50 }}/>
-    //   <h1>FILTER</h1>
-    //   <h2>Welcome, {user.username}!</h2>
-    //   <p>Your ID is: {user.id}</p>
-    //   <p>Your name is: {user.first_name} {user.last_name}</p>
-    //   <LogOutButton className="btn" />
-    // </div>
 
     <div>
-      <Typography variant="h5">Filters</Typography>
-      <hr />
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
+      {/* ===== FILTER SET =============================================================== */}
+      <Accordion expanded={expandedFilter1}>
+        <AccordionSummary 
+          aria-controls="panel1d-content" 
+          id="panel1d-header"
+          onClick={() => setExpandedFilter1(!expandedFilter1)}
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            General settings
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>I am an accordion</Typography>
+          <Typography>Set</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-            Aliquam eget maximus est, id dignissim quam.
-          </Typography>
+          <TextField 
+            variant="outlined" 
+            placeholder="Enter Set Name..." 
+            fullWidth 
+            onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'set', value:e.target.value}})}
+          />
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
+
+      {/* ===== FILTER CONDITION =============================================================== */}
+      <Accordion expanded={expandedFilter2}>
+        <AccordionSummary 
+          aria-controls="panel2d-content" 
+          id="panel2d-header"
+          onClick={() => setExpandedFilter2(!expandedFilter2)}
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Users</Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            You are currently not an owner
-          </Typography>
+          <Typography>Condition</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus,
-            varius pulvinar diam eros in elit. Pellentesque convallis laoreet
-            laoreet.
-          </Typography>
+          <FormGroup>
+            {conditions.map(condition => (
+              <ConditionItem key={condition.id} condition={condition} />
+            ))}
+          </FormGroup>
         </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3bh-content"
-          id="panel3bh-header"
+      </Accordion >
+
+      {/* ===== FILTER PRICE =============================================================== */}
+      <Accordion expanded={expandedFilter3}>
+        <AccordionSummary 
+          aria-controls="panel3d-content" 
+          id="panel3d-header"
+          onClick={() => setExpandedFilter3(!expandedFilter3)}
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            Advanced settings
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            Filtering has been entirely disabled for whole web server
-          </Typography>
+          <Typography>Price</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-            amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          <Grid container sx={{ mt: 1}}>
+            <Grid item xs={5.5}>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="min">Min</InputLabel>
+                <OutlinedInput
+                  id="min"
+                  type="number"
+                  placeholder="0.00"
+
+                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                  label="min"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={1}>
+              <Typography sx={{ textAlign: "center", mt: 1, fontSize: '24px' }}>-</Typography>
+            </Grid>
+            <Grid item xs={5.5}>
+            <FormControl fullWidth>
+                <InputLabel htmlFor="max">Max</InputLabel>
+                <OutlinedInput
+                  id="max"
+                  type="number"
+                  placeholder="0.00"
+                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                  label="max"
+                  
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-            amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
+
+      {/* ===== SUBMIT BUTTONS ============================================================= */}
+      <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Grid item xs={6}>
+          <Button 
+            variant="outlined" 
+            fullWidth
+            onClick={handleGoBack}
+          >
+            Go Back
+          </Button>
+        </Grid>
+        <Grid item xs={6}>
+          <Button variant="contained" fullWidth>Search</Button>
+        </Grid>
+      </Grid>
+
+    </div >
 
   );
 }
 
 // this allows us to use <App /> in index.js
-export default UserPage;
+export default FilterPage;

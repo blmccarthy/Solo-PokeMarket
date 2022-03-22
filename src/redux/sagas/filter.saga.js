@@ -12,7 +12,7 @@ function* fetchSearch(action) {
       withCredentials: true,
     };
 
-    const searchResults = yield axios.get(`/api/filter/${action.payload}`, config);
+    const searchResults = yield axios.get(`/api/filter/${action.payload.search_query}`, config);
     yield console.log('searchResults', searchResults);
 
     yield put({ type: 'SET_SEARCH_RESULTS', payload: searchResults.data }); // Specified Reducer
