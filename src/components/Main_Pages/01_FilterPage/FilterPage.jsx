@@ -81,6 +81,7 @@ function FilterPage() {
   const [expandedFilter1, setExpandedFilter1] = useState(false);
   const [expandedFilter2, setExpandedFilter2] = useState(false);
   const [expandedFilter3, setExpandedFilter3] = useState(false);
+  const [expandedFilter4, setExpandedFilter4] = useState(false);
 
   const handleGoBack = () => {
     history.goBack();
@@ -93,6 +94,26 @@ function FilterPage() {
   return (
 
     <div>
+
+      {/* ===== FILTER SET =============================================================== */}
+      <Accordion expanded={expandedFilter4}>
+        <AccordionSummary 
+          aria-controls="panel4d-content" 
+          id="panel4d-header"
+          onClick={() => setExpandedFilter4(!expandedFilter4)}
+        >
+          <Typography>Keyword</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <TextField 
+            variant="outlined" 
+            placeholder="Enter Card Name" 
+            fullWidth 
+            onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'card_name', value:e.target.value}})}
+          />
+        </AccordionDetails>
+      </Accordion>
+
       {/* ===== FILTER SET =============================================================== */}
       <Accordion expanded={expandedFilter1}>
         <AccordionSummary 
@@ -146,11 +167,12 @@ function FilterPage() {
                 <InputLabel htmlFor="min">Min</InputLabel>
                 <OutlinedInput
                   id="min"
+                  label="min"
                   type="number"
                   placeholder="0.00"
-
                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                  label="min"
+                  value={filterSelection.min_price}
+                  onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'min_price', value: e.target.value}})}
                 />
               </FormControl>
             </Grid>
@@ -162,11 +184,12 @@ function FilterPage() {
                 <InputLabel htmlFor="max">Max</InputLabel>
                 <OutlinedInput
                   id="max"
+                  label="max"
                   type="number"
                   placeholder="0.00"
                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                  label="max"
-                  
+                  value={filterSelection.max_price}
+                  onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'max_price', value: e.target.value}})}
                 />
               </FormControl>
             </Grid>
@@ -175,7 +198,7 @@ function FilterPage() {
       </Accordion>
 
       {/* ===== SUBMIT BUTTONS ============================================================= */}
-      <Grid container spacing={2} sx={{ mt: 2 }}>
+      <Grid container spacing={2} sx={{ my: 2 }}>
         <Grid item xs={6}>
           <Button 
             variant="outlined" 
