@@ -49,6 +49,20 @@ router.get('/my-listings', (req, res) => {
   })
 });
 
+// GET MY LISTINGS COUNT
+router.get('/my-listings-count', (req, res) => {
+  const userId = req.user.id;
+  console.log('userId', userId);
+  const queryText = `SELECT COUNT(id) FROM listing WHERE user_id = $1;`;
+  pool.query(queryText, [userId]).then(response => {
+    console.log('in MY COUNT .then');
+    res.send(response.rows);
+  }).catch(err => {
+    console.log('in MY COUNT .catch');
+    res.sendStatus(500);
+  })
+});
+
 // GET IMAGES
 router.get('/images', (req, res) => {
   console.log('in GET listings/images router');

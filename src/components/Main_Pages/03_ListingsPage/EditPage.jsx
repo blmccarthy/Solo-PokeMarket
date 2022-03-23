@@ -21,11 +21,11 @@ function EditPage() {
     const { id } = useParams();
 
     useEffect(() => {
-        dispatch(
-            { type: 'FETCH_CONDITIONS' },
-            { type: 'FETCH_GRADING_SERVICES' },
-            { type: 'FETCH_LISTING_IMAGES' },
-        )
+        window.scrollTo(0, 0);
+        dispatch({ type: 'FETCH_CONDITIONS' });
+        dispatch({ type: 'FETCH_GRADING_SERVICES' });
+        dispatch({ type: 'FETCH_LISTING_IMAGES' });
+        dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id })
     }, []);
 
     const history = useHistory();
@@ -53,7 +53,7 @@ function EditPage() {
     }
 
     const handleCancel = () => {
-        history.push('/my-listings')
+        history.goBack();
     }
 
     const handleDelete = () => {
@@ -264,7 +264,7 @@ function EditPage() {
                     <Button
                         variant="outlined"
                         fullWidth
-                        sx={{ position: 'static' }}
+                        color="warning"
                         onClick={handleDelete}
                     >
                         Delete
@@ -275,7 +275,6 @@ function EditPage() {
                     <Button
                         variant="outlined"
                         fullWidth
-                        sx={{ position: 'static' }}
                         onClick={handleCancel}
                     >
                         Cancel
@@ -286,7 +285,6 @@ function EditPage() {
                     <Button
                         variant="contained"
                         fullWidth
-                        sx={{ position: 'static' }}
                         onClick={handleUpdate}
                     >
                         Update

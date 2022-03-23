@@ -55,22 +55,12 @@ function CreateListingPage() {
             { type: 'FETCH_MY_LISTINGS' },
             { type: 'FETCH_LISTING_IMAGES' }
         )
-        // setNewCardName('');
-        // setNewSet('');
-        // setNewCondition('');
-        // setNewAskingPrice('');
-        // setIsGraded('');
-        // setNewGradingService('');
-        // setNewImage('');
-        // setNewNotes('');
-        // setIsOfferEligible('');
-        // setIsTradeEligible('');
 
         history.push('/my-listings');
     }
 
     const handleCancel = () => {
-        history.push('/my-listings')
+        history.goBack();
     }
 
     useEffect(() => {
@@ -136,6 +126,7 @@ function CreateListingPage() {
                         <OutlinedInput
                             id="asking-price"
                             type="number"
+                            placeholder="0.00"
                             value={newAskingPrice}
                             onChange={(event) => setNewAskingPrice(event.target.value)}
                             startAdornment={<InputAdornment position="start">$</InputAdornment>}
@@ -152,7 +143,8 @@ function CreateListingPage() {
             </div>
             <Grid container rowSpacing={2} columnSpacing={2} sx={{ mb: 4 }}>
                 {/* === GRADED ======================================================================================== */}
-                <Grid item xs={6}>
+                {/* Would like this to display with conditional rendering - IS WORKING - xs={isGraded ? '6' : '12'} */}
+                <Grid item xs={isGraded ? '6' : '12'} >
                     <FormControl fullWidth>
                         <InputLabel id="is-graded">Graded?</InputLabel>
                         <Select
@@ -169,7 +161,7 @@ function CreateListingPage() {
                     </FormControl>
                 </Grid>
                 {/* === GRADING SERVICE ======================================================================================== */}
-                <Grid item xs={6}>
+                <Grid item xs={6} sx={{ display: (isGraded ? '' : 'none' ) }} > 
                     <FormControl fullWidth>
                         <InputLabel id="grading-service">Grading Service</InputLabel>
                         <Select
@@ -179,6 +171,7 @@ function CreateListingPage() {
                             label="Grading Service"
                             onChange={(event) => setNewGradingService(event.target.value)}
                             required
+                            disabled={!isGraded}
                         >
                             {gradingServices.map(service => (
                                 <MenuItem key={service.id} value={service.id}>({service.code}) {service.description}</MenuItem>
@@ -251,12 +244,6 @@ function CreateListingPage() {
                         </Select>
                     </FormControl>
                 </Grid>
-
-
-
-
-
-
 
                 {/* === SUBMIT BUTTON =================================================================================== */}
                 <Grid item xs={12}>

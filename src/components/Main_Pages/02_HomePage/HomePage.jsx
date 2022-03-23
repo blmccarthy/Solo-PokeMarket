@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
-import ListingItem from './ListingItem';
+import HomeItem from './HomeItem';
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -12,18 +12,18 @@ function HomePage() {
 
   const dispatch = useDispatch();
   const listings = useSelector(store => store.listings.listingReducer)
+  const searchQuery = useSelector(store => store.filters.searchQueryReducer)
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch({ type: 'FETCH_LISTINGS' })
-    dispatch({ type: 'FETCH_CONDITIONS' })
-    dispatch({ type: 'FETCH_LISTING_IMAGES' })
-  }, [])
+    dispatch({ type: 'FETCH_LISTINGS' });
+    dispatch({ type: 'FETCH_LISTING_IMAGES' });
+  }, [!searchQuery])
 
   return (
     <>
       {listings.map(listing => (
-        <ListingItem 
+        <HomeItem 
           key={listing.id} 
           listing={listing} 
         />
