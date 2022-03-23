@@ -10,16 +10,28 @@ const router = express.Router();
 // RETURN SEARCH RESULTS 
 router.get('/:search', (req, res) => {
   const searchFromUser = req.params.search;
-  console.log('searchFromUser ------------->', searchFromUser);
   const queryText = `SELECT * FROM listing WHERE card_name ILIKE ('%' || $1 || '%');`;
   pool.query(queryText, [searchFromUser]).then(response => {
-    console.log('in SEARCH.get.then', response.rows);
     res.send(response.rows);
   }).catch(err => {
     console.log('in SEARCH.get.catch', err);
     res.sendStatus(500);
   })
 });
+
+// ! NOT FUNCTIONAL CURRENTLY - JUST TESTING
+// RETURN FILTERED SEARCH RESULTS 
+router.get('/', (req, res) => {
+  pool.query(`SELECT * FROM listing;`)
+  .then(response => {
+    console.log('FILLLLTTTERRRED');
+    res.send(response.rows);
+  }).catch(err => {
+    console.log('FILLLLTTTERRRED ERRRRR', err);
+    res.sendStatus(500);
+  })
+});
+// ! ///////////////////////////////////////
 
 // ================================================================================================ //
 //     POST

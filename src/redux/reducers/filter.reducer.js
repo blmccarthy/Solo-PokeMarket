@@ -2,11 +2,6 @@ import { combineReducers } from 'redux';
 
 const searchQueryReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_SEARCH_QUERY':
-      return {
-        ...state,
-        search_query: action.payload
-      }
       case 'SET_FILTER':
       return {
         ...state,
@@ -14,7 +9,17 @@ const searchQueryReducer = (state = [], action) => {
         [action.payload.property]: action.payload.value
       }
     default:
-      return state;
+      return {
+        search_query: '',
+        set: '',
+        search_NM: false,
+        search_LP: false,
+        search_MP: false,
+        search_HP: false,
+        search_DMG: false,
+        min_price: '',
+        max_price: '',
+      }
   }
 };
 

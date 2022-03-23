@@ -81,10 +81,15 @@ function FilterPage() {
   const [expandedFilter1, setExpandedFilter1] = useState(false);
   const [expandedFilter2, setExpandedFilter2] = useState(false);
   const [expandedFilter3, setExpandedFilter3] = useState(false);
-  const [expandedFilter4, setExpandedFilter4] = useState(false);
+  const [expandedFilter4, setExpandedFilter4] = useState(true);
 
   const handleGoBack = () => {
     history.goBack();
+  }
+
+  const handleSearch = () => {
+    dispatch({ type: 'FETCH_FILTERED_SEARCH' , payload: filterSelection });
+    // history.push('/home')
   }
 
   useEffect(() => {
@@ -94,7 +99,8 @@ function FilterPage() {
   return (
 
     <div>
-
+      {/* <Typography variant="h5">Filters</Typography>
+      <hr /> */}
       {/* ===== FILTER SET =============================================================== */}
       <Accordion expanded={expandedFilter4}>
         <AccordionSummary 
@@ -109,6 +115,7 @@ function FilterPage() {
             variant="outlined" 
             placeholder="Enter Card Name" 
             fullWidth 
+            value={filterSelection.card_name}
             onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'card_name', value:e.target.value}})}
           />
         </AccordionDetails>
@@ -209,7 +216,13 @@ function FilterPage() {
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="contained" fullWidth>Search</Button>
+          <Button 
+            variant="contained" 
+            fullWidth
+            onClick={handleSearch}
+            >
+              Search
+          </Button>
         </Grid>
       </Grid>
 
