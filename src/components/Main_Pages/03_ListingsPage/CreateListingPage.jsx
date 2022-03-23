@@ -52,7 +52,7 @@ function CreateListingPage() {
             }
         })
         dispatch(
-            { type: 'FETCH_MY_LISTINGS' },
+            { type: 'FETCH_MY_LISTINGS' },      // unnecessary ? Could delete for clean up
             { type: 'FETCH_LISTING_IMAGES' }
         )
 

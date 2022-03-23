@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // ====================================================================================================================================
-//    GET INCOMING OFFERS
+//    GET: INCOMING OFFERS
 // ====================================================================================================================================
 
 function* fetchMyIncomingOffers() {
@@ -21,7 +21,7 @@ function* fetchMyIncomingOffers() {
 }
 
 // ====================================================================================================================================
-//    GET OUTGOING OFFERS
+//    GET: OUTGOING OFFERS
 // ====================================================================================================================================
 
 function* fetchMyOutgoingOffers() {
@@ -41,7 +41,7 @@ function* fetchMyOutgoingOffers() {
 
 
 // ====================================================================================================================================
-//    POST CURRENT OFFER
+//    POST: CURRENT OFFER
 // ====================================================================================================================================
 
 function* postOffer(action) {
@@ -51,7 +51,45 @@ function* postOffer(action) {
         withCredentials: true,
       };
 
-      axios.post('/api/offers', action.payload, config);
+      axios.post('/api/offers', action.payload, config);  // Post offer
+      
+    } catch (error) {
+      console.log('User get request failed', error);
+    }
+  }
+
+// ====================================================================================================================================
+//    UPDATE: ACCEPT OFFER
+// ====================================================================================================================================
+
+function* UpdateAcceptOffer(action) {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+
+      axios.put(`/api/offers/${action.payload}`, config);
+      yield put({ type: 'FETCH_INCOMING_OFFERS' })        // Gets updated Incoming offers
+      
+    } catch (error) {
+      console.log('User get request failed', error);
+    }
+  }
+
+// ====================================================================================================================================
+//    DELETE: DECLINE OFFER
+// ====================================================================================================================================
+
+function* UpdateDeclineOffer(action) {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+
+      axios.delete(`/api/offers/${action.payload}`, config);
+      yield put({ type: 'FETCH_INCOMING_OFFERS' })        // Gets updated Incoming offers
       
     } catch (error) {
       console.log('User get request failed', error);
@@ -62,6 +100,8 @@ function* offerSaga() {
   yield takeLatest('POST_OFFER', postOffer);
   yield takeLatest('FETCH_INCOMING_OFFERS', fetchMyIncomingOffers);
   yield takeLatest('FETCH_OUTGOING_OFFERS', fetchMyOutgoingOffers);
+  yield takeLatest('UPDATE_ACCEPT_OFFER', UpdateAcceptOffer);
+  yield takeLatest('UPDATE_DECLINE_OFFER', UpdateDeclineOffer);
 }
 
 export default offerSaga;
