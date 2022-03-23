@@ -116,7 +116,7 @@ function FilterPage() {
             placeholder="Enter Card Name" 
             fullWidth 
             value={filterSelection.card_name}
-            onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'card_name', value:e.target.value}})}
+            onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'card_name', value: e.target.value}})}
           />
         </AccordionDetails>
       </Accordion>

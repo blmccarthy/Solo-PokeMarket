@@ -12,6 +12,8 @@ function* fetchSearch(action) {
       withCredentials: true,
     };
 
+    console.log('action.payload.search_query', action.payload.search_query);
+    
     const searchResults = yield axios.get(`/api/filter/${action.payload.search_query}`, config);
     yield console.log('searchResults', searchResults);
 

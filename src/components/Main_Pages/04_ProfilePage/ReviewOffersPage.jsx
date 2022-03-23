@@ -114,7 +114,7 @@ function ReviewOffersPage() {
                                         <Typography><b>Trade Request</b></Typography>
                                     }
                                     {listing.offer_amount &&
-                                        <Typography>Offer: {listing?.offer_amount}</Typography>
+                                        <Typography>Offer: ${listing?.offer_amount}</Typography>
                                     }
                                     {listing.trade_desc &&
                                         <Typography>Buyer Notes: {listing?.trade_desc}</Typography>
