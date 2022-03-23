@@ -7,8 +7,40 @@ const router = express.Router();
 //     GET
 // ================================================================================================ //
 
-router.get('/', (req, res) => {
-    // POST route code here
+// ===== INCOMING ===== //
+router.get('/incoming', (req, res) => {
+    const userId = req.user.id;
+    const sqlText = `
+        SELECT * FROM offer JOIN listing 
+        ON offer.listing_id = listing.id
+        WHERE seller_user_id = $1
+        ORDER BY timestamp_created;
+    `;
+    pool.query(sqlText, [userId])
+        .then(result => {
+            res.send(result.rows);
+        }).catch(err => {
+            console.log('Incoming Offers Error:', err);
+            res.sendStatus(500);
+        })
+});
+
+// ===== OUTGOING ===== //
+router.get('/outgoing', (req, res) => {
+    const userId = req.user.id;
+    const sqlText = `
+        SELECT * FROM offer JOIN listing 
+        ON offer.listing_id = listing.id
+        WHERE buyer_user_id = $1
+        ORDER BY timestamp_created;
+    `;
+    pool.query(sqlText, [userId])
+        .then(result => {
+            res.send(result.rows);
+        }).catch(err => {
+            console.log('Incoming Offers Error:', err);
+            res.sendStatus(500);
+        })
 });
 
 // ================================================================================================ //

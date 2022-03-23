@@ -17,7 +17,7 @@ function HomePage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch({ type: 'FETCH_LISTINGS' });
-    dispatch({ type: 'FETCH_LISTING_IMAGES' });
+    // dispatch({ type: 'FETCH_LISTING_IMAGES' }); // moved to 'HomeItem
   }, [!searchQuery])
 
   return (

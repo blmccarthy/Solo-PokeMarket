@@ -14,15 +14,17 @@ import Nav from '../Static_MenuBars/Nav/Nav';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import LoginPage from '../Login_Register/LoginPage';
 import RegisterPage from '../Login_Register/RegisterPage';
+
 import FilterPage from '../Main_Pages/01_FilterPage/FilterPage';
 import HomePage from '../Main_Pages/02_HomePage/HomePage';
 import DetailsPage from '../Main_Pages/02_HomePage/DetailsPage';
+import OfferPage from '../Main_Pages/02_HomePage/OfferPage';
+import SearchPage from '../Main_Pages/02_HomePage/SearchPage';
 import MyListingsPage from '../Main_Pages/03_ListingsPage/MyListingsPage';
 import CreateListingPage from '../Main_Pages/03_ListingsPage/CreateListingPage';
 import EditPage from '../Main_Pages/03_ListingsPage/EditPage';
 import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
-import OfferPage from '../Main_Pages/02_HomePage/OfferPage';
-import SearchPage from '../Main_Pages/02_HomePage/SearchPage';
+import ReviewOffersPage from '../Main_Pages/04_ProfilePage/ReviewOffersPage';
 
 import './App.css';
 
@@ -91,6 +93,10 @@ function App() {
 
           <ProtectedRoute exact path="/home/filter">
             <SearchPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/review-offers">
+            <ReviewOffersPage />
           </ProtectedRoute>
 
           <Route exact path="/login">

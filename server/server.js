@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -12,7 +13,7 @@ const userRouter = require('./routes/user.router');
 const listingsRouter = require('./routes/listings.router');
 const conditionsRouter = require('./routes/conditions.router');
 const gradingServiceRouter = require('./routes/grading-services.router');
-const offerRouter = require('./routes/offer.router');
+const offerRouter = require('./routes/offer.router.js');
 const filterRouter = require('./routes/filter.router');
 const profileRouter = require('./routes/profile.router');
 
