@@ -18,7 +18,7 @@ function SearchBar() {
 
     const handleSearch = (event) => {
         event.preventDefault();
-        dispatch({ type: 'SET_SEARCH_QUERY', payload: event.target.value })
+        dispatch({ type: 'SET_FILTER', payload: { property: 'search_query', value: event.target.value }})
         if (searchQuery) {
             dispatch({ type: 'FETCH_SEARCH', payload: searchQuery })
          } 
@@ -34,7 +34,7 @@ function SearchBar() {
     // Returns ALL listings if there is no search query
     useEffect(() => {
         dispatch({ type: 'FETCH_LISTINGS' });
-    }, [!searchQuery])
+    }, [!searchQuery]) // Fetches all listing if nothing entered in search
 
     return (
         <div className="searchbar">
