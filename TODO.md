@@ -9,11 +9,11 @@ Core Features
 Clean Up
 -------------
 [] -  `Home` - Listing Details - `My Listing` also
-[] - `Offer` - Outgoing - update offer accepted text
+[x] - `Offer` - Outgoing - update offer accepted text
 
 Feature
 -------------
-[] -  `Home`    - Omit user listings from home
+[X] -  `Home`    - Omit user listings from home
 [] -  `Filter`  - Fuzzy Search
 [] -            - App drawer
 [] -  `Details` - Add Additional fields

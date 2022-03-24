@@ -33,7 +33,9 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/home">
-              <HomeOutlinedIcon sx={{ fontSize: 35 }}/>
+              <HomeOutlinedIcon sx={{ fontSize: 35 }}
+                onClick={() => dispatch({ type: 'FETCH_LISTINGS' })}
+              />
             </Link>
 
             <Link className="navLink" to="/my-listings">

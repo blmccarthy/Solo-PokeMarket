@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
+// MUI
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Box from '@mui/material/Box';
 
+// MUI Modal
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -12,13 +18,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Box from '@mui/material/Box';
-
+// MUI Icons
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 
+// MUI Animation
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -142,8 +145,7 @@ function ListIncoming({ listing }) {
 
             {/* ------- MODAL RENDERING ---------------------------------------------------------------- */}
 
-
-            {/* ------ ACCEPT DIALOGUE ------ */}
+            {/* ------ Accept Dialogue ------ */}
             <Dialog
                 open={openAcceptModal}
                 TransitionComponent={Transition}
@@ -168,7 +170,7 @@ function ListIncoming({ listing }) {
                 </DialogActions>
             </Dialog>
 
-            {/* ------ DECLINE DIALOGUE ------ */}
+            {/* ------ Decline Dialogue ------ */}
             <Dialog
                 open={openDeclineModal}
                 TransitionComponent={Transition}
