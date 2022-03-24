@@ -57,21 +57,21 @@ router.post('/', (req, res) => {
   pool.query(queryText).then(response => {
     let filteredArray = response.rows;
 
-    console.log('Filter: None', filteredArray);
+    console.log('Filter: None');
 
     // ----- Filter: Card Name ------------------------------------------------------------------------------
     if (userSearch.card_name) {
       filteredArray = filteredArray.filter(card => 
         card.card_name.toLowerCase() == userSearch.card_name.toLowerCase()
       );
-      console.log('Filter: card_name', filteredArray);
+      console.log('Filter: card_name');
     }
     // ----- Filter: Set -----------------------------------------------------------------------------------
     if (userSearch.set) {
       filteredArray = filteredArray.filter(card => 
         card.set.toLowerCase() == userSearch.set.toLowerCase()
       );
-      console.log('Filter: set', filteredArray);
+      console.log('Filter: set');
     }
     // ----- Filter: Condition ------------------------------------------------------------------------------
     if (!userSearch.search_NM) {
@@ -96,12 +96,12 @@ router.post('/', (req, res) => {
     }
     // ----- Filter: Min Price ------------------------------------------------------------------------------
     if (userSearch.min_price) {
-      filteredArray = filteredArray.filter(card => card.min_price > userSearch.min_price);
+      filteredArray = filteredArray.filter(card => Number(card.asking_price) > Number(userSearch.min_price));
       console.log('Filter: min_price');
     }
     // ----- Filter: Max Price ------------------------------------------------------------------------------
     if (userSearch.max_price) {
-      filteredArray = filteredArray.filter(card => card.max_price < userSearch.max_price);
+      filteredArray = filteredArray.filter(card => Number(card.max_price) < Number(userSearch.max_price));
       console.log('Filter: max_price');
     }
     // ----- Return Filtered Array -------------------------------------------------------------------------
@@ -110,6 +110,7 @@ router.post('/', (req, res) => {
     console.log('in SEARCH.get.catch', err);
     res.sendStatus(500);
   })
+
 });
 
 module.exports = router;
