@@ -15,7 +15,7 @@ router.get('/incoming', (req, res) => {
         FROM offer JOIN listing 
         ON offer.listing_id = listing.id
         WHERE seller_user_id = $1
-        ORDER BY timestamp_created;
+        ORDER BY status DESC, timestamp_created;
     `;
     pool.query(sqlText, [userId])
         .then(result => {
@@ -30,10 +30,11 @@ router.get('/incoming', (req, res) => {
 router.get('/outgoing', (req, res) => {
     const userId = req.user.id;
     const sqlText = `
-        SELECT * FROM offer JOIN listing 
+        SELECT *, offer.id AS offer_id
+        FROM offer JOIN listing 
         ON offer.listing_id = listing.id
         WHERE buyer_user_id = $1
-        ORDER BY timestamp_created;
+        ORDER BY status DESC, timestamp_created;
     `;
     pool.query(sqlText, [userId])
         .then(result => {

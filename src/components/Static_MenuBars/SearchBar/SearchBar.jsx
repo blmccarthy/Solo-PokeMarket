@@ -19,8 +19,8 @@ function SearchBar() {
     const handleSearch = (event) => {
         event.preventDefault();
         // Sets Search Query Reducer
-        dispatch({ type: 'SET_FILTER', payload: { property: 'search_query', value: event.target.value }})
-        if (searchQuery.search_query) {
+        dispatch({ type: 'SET_FILTER', payload: { property: 'card_name', value: event.target.value }})
+        if (searchQuery.card_name) {
             dispatch({ type: 'FETCH_SEARCH', payload: searchQuery })
          } 
     }

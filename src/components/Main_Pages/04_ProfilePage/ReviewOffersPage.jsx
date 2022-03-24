@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
 import ListIncoming from './ListIncoming';
+import ListOutgoing from './ListOutgoing';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';

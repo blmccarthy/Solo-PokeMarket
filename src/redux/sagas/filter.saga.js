@@ -12,9 +12,9 @@ function* fetchSearch(action) {
       withCredentials: true,
     };
 
-    console.log('action.payload.search_query', action.payload.search_query);
-    
-    const searchResults = yield axios.get(`/api/filter/${action.payload.search_query}`, config);
+    console.log('action.payload.card_name', action.payload.card_name);
+
+    const searchResults = yield axios.get(`/api/filter/${action.payload.card_name}`, config);
     yield console.log('searchResults', searchResults);
 
     yield put({ type: 'SET_SEARCH_RESULTS', payload: searchResults.data }); // Specified Reducer
@@ -24,25 +24,19 @@ function* fetchSearch(action) {
   }
 }
 
-// ! NOT FUNCTIONAL CURRENTLY - JUST TESTING
+// ! TESTING POST --------------------------------------
 function* fetchFilteredSearch(action) {
+
   try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    };
+    const response = yield axios.post(`/api/filter`, action.payload);
+    yield console.log('response.data', response.data);
 
-    console.log('action.payload', action.payload);
-    
-    axios.get('/api/filter', config);
-
-    // yield put({ type: 'SET_SEARCH_RESULTS', payload: searchResults.data }); // Specified Reducer
-    // yield put({ type: 'SET_LISTINGS', payload: searchResults.data });       // Home Reducer
   } catch (error) {
     console.log('User get request failed', error);
   }
 }
-// ! ///////////////////////////////////////
+// ! TESTING POST --------------------------------------
+
 
 
 
