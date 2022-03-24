@@ -3,10 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import HomeItem from './HomeItem';
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
+import Typography from '@mui/material/Typography';
 
 function HomePage() {
 
@@ -16,9 +13,8 @@ function HomePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch({ type: 'FETCH_LISTINGS' });
-    dispatch({ type: 'FETCH_LISTING_IMAGES' });
-  }, [!searchQuery])
+    // dispatch({ type: 'FETCH_LISTINGS' });
+  }, [])
 
   return (
     <>
@@ -28,6 +24,7 @@ function HomePage() {
           listing={listing} 
         />
       ))}
+      {listings.length == 0 && <Typography sx={{ textAlign: "center", mt: 10 }}>No Results Found :(</Typography>}
     </>
   );
 }

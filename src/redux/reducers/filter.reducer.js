@@ -10,13 +10,13 @@ const searchQueryReducer = (state = [], action) => {
       }
     default:
       return {
-        search_query: '',
+        card_name: '',
         set: '',
-        search_NM: false,
-        search_LP: false,
-        search_MP: false,
-        search_HP: false,
-        search_DMG: false,
+        search_NM: true,
+        search_LP: true,
+        search_MP: true,
+        search_HP: true,
+        search_DMG: true,
         min_price: '',
         max_price: '',
       }

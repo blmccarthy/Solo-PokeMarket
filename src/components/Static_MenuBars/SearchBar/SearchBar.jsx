@@ -18,8 +18,9 @@ function SearchBar() {
 
     const handleSearch = (event) => {
         event.preventDefault();
-        dispatch({ type: 'SET_FILTER', payload: { property: 'search_query', value: event.target.value }})
-        if (searchQuery) {
+        // Sets Search Query Reducer
+        dispatch({ type: 'SET_FILTER', payload: { property: 'card_name', value: event.target.value }})
+        if (searchQuery.card_name) {
             dispatch({ type: 'FETCH_SEARCH', payload: searchQuery })
          } 
     }
@@ -34,7 +35,7 @@ function SearchBar() {
     // Returns ALL listings if there is no search query
     useEffect(() => {
         dispatch({ type: 'FETCH_LISTINGS' });
-    }, [!searchQuery]) // Fetches all listing if nothing entered in search
+    }, [!searchQuery]) // Fetches all listings if nothing entered in search
 
     return (
         <div className="searchbar">

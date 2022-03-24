@@ -38,7 +38,7 @@ function Details() {
 
     const handleBack = () => {
         console.log('in go back');
-        history.goBack();
+        history.push('/home');
     }
 
     const handleSendOffer = () => {

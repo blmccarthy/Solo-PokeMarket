@@ -33,7 +33,6 @@ function OfferPage() {
     const selectedListing = useSelector(store => store.listings.selectedListingReducer)
     const user = useSelector(store => store.user)
     const conditions = useSelector(store => store.conditions)
-    // const offer = useSelector(store => store.offers.currentOfferReducer)
 
     useEffect(() => {
         dispatch({ type: 'FETCH_SELECTED_LISTING', payload: id });
@@ -42,16 +41,8 @@ function OfferPage() {
 
     const [offerType, setOfferType] = useState('')
     const [offerAmount, setOfferAmount] = useState(null)
-    const [offerDesc, setOfferDesc] = useState('')
     const [tradeDesc, setTradeDesc] = useState('')
-
-    const isDisabled = (eligible) => {
-        if (!eligible) {
-            return 'disabled';
-        } else {
-            return;
-        }
-    }
+    const [offerDesc, setOfferDesc] = useState('')
 
     const handleCancel = () => {
         history.push(`/details/${id}`)
@@ -75,11 +66,11 @@ function OfferPage() {
                 status: 'pending'
             }
         })
+        history.goBack();
     }
 
-    console.log('-----------------> ', selectedListing.trade_eligible);
-
     return (
+
         // ================================================================================================================== 
         //     BUTTON GROUP
         // ==================================================================================================================
@@ -201,8 +192,8 @@ function OfferPage() {
                                 minRows={3}
                                 multiline
                                 inputProps={{ maxLength: 144 }}
-                                value={offerDesc}
-                                onChange={e => setOfferDesc(e.target.value)}
+                                value={tradeDesc}
+                                onChange={e => setTradeDesc(e.target.value)}
                                 // onChange={e => dispatch(
                                 //     { type: 'SET_OFFER', payload: { property: 'notes', value: e.target.value } }
                                 // )}

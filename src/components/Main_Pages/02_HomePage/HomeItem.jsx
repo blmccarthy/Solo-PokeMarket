@@ -21,6 +21,7 @@ function ListingItem({ listing }) {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CONDITIONS' });
+        dispatch({ type: 'FETCH_LISTING_IMAGES' });
     }, [])
 
     return (

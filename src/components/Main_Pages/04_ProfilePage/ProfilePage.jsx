@@ -182,7 +182,13 @@ function ProfilePage() {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" fullWidth>Review Offers</Button>
+            <Button 
+              variant="contained" 
+              fullWidth
+              onClick={() => history.push('/review-offers')}
+            >
+              Review Offers
+            </Button>
           </Grid>
         </Grid>
       </>

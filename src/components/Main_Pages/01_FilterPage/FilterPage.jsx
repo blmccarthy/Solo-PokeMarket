@@ -89,7 +89,7 @@ function FilterPage() {
 
   const handleSearch = () => {
     dispatch({ type: 'FETCH_FILTERED_SEARCH' , payload: filterSelection });
-    // history.push('/home')
+    history.push('/home')
   }
 
   useEffect(() => {
@@ -99,8 +99,8 @@ function FilterPage() {
   return (
 
     <div>
-      {/* <Typography variant="h5">Filters</Typography>
-      <hr /> */}
+      <Typography variant="h5">Filters</Typography>
+      <hr />
       {/* ===== FILTER SET =============================================================== */}
       <Accordion expanded={expandedFilter4}>
         <AccordionSummary 
@@ -116,7 +116,7 @@ function FilterPage() {
             placeholder="Enter Card Name" 
             fullWidth 
             value={filterSelection.card_name}
-            onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'card_name', value:e.target.value}})}
+            onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'card_name', value: e.target.value}})}
           />
         </AccordionDetails>
       </Accordion>

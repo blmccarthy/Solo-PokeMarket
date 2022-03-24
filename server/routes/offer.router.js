@@ -7,8 +7,42 @@ const router = express.Router();
 //     GET
 // ================================================================================================ //
 
-router.get('/', (req, res) => {
-    // POST route code here
+// ===== INCOMING ===== //
+router.get('/incoming', (req, res) => {
+    const userId = req.user.id;
+    const sqlText = `
+        SELECT *, offer.id AS offer_id
+        FROM offer JOIN listing 
+        ON offer.listing_id = listing.id
+        WHERE seller_user_id = $1
+        ORDER BY status DESC, timestamp_created;
+    `;
+    pool.query(sqlText, [userId])
+        .then(result => {
+            res.send(result.rows);
+        }).catch(err => {
+            console.log('Incoming Offers Error:', err);
+            res.sendStatus(500);
+        })
+});
+
+// ===== OUTGOING ===== //
+router.get('/outgoing', (req, res) => {
+    const userId = req.user.id;
+    const sqlText = `
+        SELECT *, offer.id AS offer_id
+        FROM offer JOIN listing 
+        ON offer.listing_id = listing.id
+        WHERE buyer_user_id = $1
+        ORDER BY status DESC, timestamp_created;
+    `;
+    pool.query(sqlText, [userId])
+        .then(result => {
+            res.send(result.rows);
+        }).catch(err => {
+            console.log('Incoming Offers Error:', err);
+            res.sendStatus(500);
+        })
 });
 
 // ================================================================================================ //
@@ -17,9 +51,8 @@ router.get('/', (req, res) => {
 
 // POST OFFER
 router.post('/', (req, res) => {
-    console.log('in POST offer router');
     const offer = req.body;
-    queryText = `
+    const queryText = `
     INSERT INTO offer (
         listing_id, 
         buyer_user_id, 
@@ -40,6 +73,42 @@ router.post('/', (req, res) => {
             console.log('in OFFER.post.catch', err);
             res.sendStatus(500);
         })
+});
+
+// ================================================================================================ //
+//     UPDATE
+// ================================================================================================ //
+
+// ACCEPT OFFER
+router.put('/:id', (req, res) => {
+    const offerId = req.params.id;
+    const sqlText = `UPDATE offer SET status = 'accepted' WHERE id = $1;`;
+    pool.query(sqlText, [offerId])
+    .then(result => {
+        console.log('in ACCEPT OFFER .put.then');
+        res.sendStatus(200)
+    }).catch(err => {
+        console.log('in ACCEPT OFFER .put.catch', err);
+        res.sendStatus(500);
+    })
+});
+
+// ================================================================================================ //
+//     DELETE
+// ================================================================================================ //
+
+// DECLINE OFFER (Delete offer)
+router.delete('/:id', (req, res) => {
+    const offerId = req.params.id;
+    const sqlText = `DELETE FROM offer WHERE id = $1;`;
+    pool.query(sqlText, [offerId])
+    .then(result => {
+        console.log('in DELETE offer .then');
+        res.sendStatus(200)
+    }).catch(err => {
+        console.log('in DELETE offer .catch', err);
+        res.sendStatus(500);
+    })
 });
 
 module.exports = router;
