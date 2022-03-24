@@ -2,14 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../../Login_Register/LogOutButton';
 import './Nav.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import GridViewIcon from '@mui/icons-material/GridView';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 function Nav() {
+
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
   return (
@@ -41,7 +44,12 @@ function Nav() {
               <AccountCircleOutlinedIcon sx={{ fontSize: 35 }}/>
             </Link>
 
-            <LogOutButton className="navLink" />
+            <Link className="navLink" to="/login">
+              <LogoutOutlinedIcon sx={{ fontSize: 35 }}
+                onClick={() => dispatch({ type: 'LOGOUT' })}
+              />
+            </Link>
+
           </>
         )}
 

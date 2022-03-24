@@ -17,11 +17,14 @@ import Typography from '@mui/material/Typography';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function ListOutgoing({listing}) {
+function ListOutgoing({ listing }) {
 
     // ----- Modal Functions -----------------------------------
 
@@ -74,6 +77,29 @@ function ListOutgoing({listing}) {
         <div
             value={listing.id}
         >
+            {/* ------- SHOW STATUS -------------------------------------------------------------------- */}
+
+            {listing.status == 'accepted' &&
+                <Box sx={{ textAlign: 'center', mb: 2 }}>
+                    <Typography>Status:</Typography>
+                    <Box sx={{ color: '#00ab06', display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                        <CheckCircleOutlineOutlinedIcon /> &nbsp;&nbsp;
+                        <Typography sx={{ textAlign: 'center', fontWeight: 'bold' }}>SELLER ACCEPTED OFFER</Typography>
+                    </Box>
+                </Box>
+            }
+            {listing.status == 'pending' &&
+                <Box sx={{ textAlign: 'center', mb: 2 }}>
+                    <Typography>Status:</Typography>
+                    <Box sx={{ color: '#d18f00', display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                        <AccessTimeOutlinedIcon /> &nbsp;&nbsp;
+                        <Typography sx={{ textAlign: 'center', fontWeight: 'bold' }}>PENDING OFFER</Typography>
+                    </Box>
+                </Box>
+            }
+
+            {/* ------- OFFER DETAILS -------------------------------------------------------------------- */}
+
             <Grid container spacing={3} sx={{ py: 0.5 }}>
                 <Grid item xs={5}>
                     <div className="home_img">
@@ -99,23 +125,12 @@ function ListOutgoing({listing}) {
                         {listing.trade_desc &&
                             <Typography>{listing?.trade_desc}</Typography>
                         }
-
-
                     </Box>
                 </Grid>
             </Grid>
 
-            {/* ------- SHOW STATUS -------------------------------------------------------------------- */}
-
-            {listing.status == 'accepted' &&
-                <Typography sx={{ textAlign: 'center', mt: 2, color: '#00ab06', fontWeight: 'bold' }}>✅ OFFER ACCEPTED</Typography>
-            }
-            {listing.status == 'declined' &&
-                <Typography sx={{ textAlign: 'center', mt: 2, color: '#bf1d00', fontWeight: 'bold' }}>❌ OFFER DECLINED</Typography>
-            }
-
             {/* ---- Divider --------- */}
-            <Box sx={{ my: 4 }}> 
+            <Box sx={{ my: 3 }}>
                 <hr />
             </Box>
 

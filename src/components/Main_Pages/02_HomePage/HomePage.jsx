@@ -13,7 +13,7 @@ function HomePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // dispatch({ type: 'FETCH_LISTINGS' });
+    // dispatch({ type: 'FETCH_LISTINGS' }); 
   }, [])
 
   return (
