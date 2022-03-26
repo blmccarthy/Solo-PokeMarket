@@ -49,7 +49,7 @@ function EditPage() {
         dispatch({
             type: 'FETCH_MY_LISTINGS'
         })
-        history.push('/my-listings');
+        history.goBack();
     }
 
     const handleCancel = () => {

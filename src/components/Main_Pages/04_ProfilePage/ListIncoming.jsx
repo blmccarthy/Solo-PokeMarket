@@ -50,7 +50,7 @@ function ListIncoming({ listing }) {
 
     // Accepts offer
     const handleModalAccept = () => {
-        dispatch({ type: 'UPDATE_ACCEPT_OFFER', payload: listing.offer_id })
+        dispatch({ type: 'UPDATE_ACCEPT_OFFER', payload: listing.offer_id})
         console.log('in handleModalAccept');
         setOpenAcceptModal(false);
     }
@@ -194,6 +194,8 @@ function ListIncoming({ listing }) {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            
 
         </div>
     )

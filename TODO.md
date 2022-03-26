@@ -27,4 +27,5 @@ Bugs
 [] -  `Filter`  - Min Max filter not working
 [] -  `Home`    - Update - Condition not Displaying after submit
 [] -            - Update - Graded not Displaying after submit
+[] -            - User Listings do not immediately update
 [] -  `Offers`  - Incoming - Declined offer doesn't go away

@@ -16,14 +16,14 @@ function ReviewOffersPage() {
     const dispatch = useDispatch();
     const incomingOffers = useSelector(store => store.offers.incomingOffersReducer)
     const outgoingOffers = useSelector(store => store.offers.outgoingOffersReducer)
-    const [offerType, setOfferType] = useState('')
+    const [offerType, setOfferType] = useState('incoming');
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INCOMING_OFFERS' });
         dispatch({ type: 'FETCH_OUTGOING_OFFERS' });
         dispatch({ type: 'FETCH_LISTING_IMAGES' });
         dispatch({ type: 'FETCH_CONDITIONS' });
-    }, [dispatch])
+    }, []);
 
     return (
         <>
@@ -72,6 +72,7 @@ function ReviewOffersPage() {
                     <ListOutgoing key={i} listing={listing} />
                 )))
             }
+            {/* <Button onClick={dispatch({ type: 'FETCH_INCOMING_OFFERS' })}></Button> */}
         </>
     )
 }
