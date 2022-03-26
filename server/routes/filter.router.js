@@ -48,14 +48,15 @@ router.post('/', (req, res) => {
     // ----- Filter: Card Name ------------------------------------------------------------------------------
     if (userSearch.card_name) {
       filteredArray = filteredArray.filter(card => 
-        card.card_name.toLowerCase() == userSearch.card_name.toLowerCase()
+        // card.card_name.toLowerCase() == userSearch.card_name.toLowerCase()
+        card.card_name.toLowerCase().includes(userSearch.card_name.toLowerCase())
       );
       console.log('Filter: card_name');
     }
     // ----- Filter: Set -----------------------------------------------------------------------------------
     if (userSearch.set) {
       filteredArray = filteredArray.filter(card => 
-        card.set.toLowerCase() == userSearch.set.toLowerCase()
+        card.set.toLowerCase().includes(userSearch.set.toLowerCase())
       );
       console.log('Filter: set');
     }
@@ -100,3 +101,4 @@ router.post('/', (req, res) => {
 });
 
 module.exports = router;
+
