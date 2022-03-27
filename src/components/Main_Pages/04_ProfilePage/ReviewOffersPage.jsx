@@ -56,9 +56,16 @@ function ReviewOffersPage() {
             */}
 
             {offerType == 'incoming' &&
-                (incomingOffers.map((listing, i) => (
-                    <ListIncoming key={i} listing={listing} />
-                )))
+                <>
+                    {incomingOffers.length == 0
+                        ? // If No Incoming Offers
+                        <Typography sx={{textAlign: 'center' }}>No Incoming Offers Found</Typography>
+                        : // If Incoming Offers > 0
+                        (incomingOffers.map((listing, i) => (
+                            <ListIncoming key={i} listing={listing} />
+                        )))
+                    }
+                </>
             }
 
             {/* 
@@ -68,11 +75,18 @@ function ReviewOffersPage() {
             */}
 
             {offerType == 'outgoing' &&
-                (outgoingOffers.map((listing, i) => (
-                    <ListOutgoing key={i} listing={listing} />
-                )))
+                <>
+                    {outgoingOffers.length == 0
+                        ? // If No Outgoing Offers
+                        <Typography sx={{textAlign: 'center' }}>No Outgoing Offers Found</Typography>
+                        : // If Outgoing Offers > 0
+                        (outgoingOffers.map((listing, i) => (
+                            <ListIncoming key={i} listing={listing} />
+                        )))
+                    }
+                </>
             }
-            {/* <Button onClick={dispatch({ type: 'FETCH_INCOMING_OFFERS' })}></Button> */}
+
         </>
     )
 }
