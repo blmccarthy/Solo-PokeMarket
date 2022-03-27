@@ -81,7 +81,7 @@ function ReviewOffersPage() {
                         <Typography sx={{textAlign: 'center' }}>No Outgoing Offers Found</Typography>
                         : // If Outgoing Offers > 0
                         (outgoingOffers.map((listing, i) => (
-                            <ListIncoming key={i} listing={listing} />
+                            <ListOutgoing key={i} listing={listing} />
                         )))
                     }
                 </>

@@ -19,11 +19,6 @@ function ListingItem({ listing }) {
         history.push(`/details/${listing.id}`)
     }
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_CONDITIONS' });
-        dispatch({ type: 'FETCH_LISTING_IMAGES' });
-    }, [])
-
     return (
 
         <div
