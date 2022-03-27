@@ -15,14 +15,15 @@ function SearchBar() {
     const dispatch = useDispatch();
     const history = useHistory();
     const searchQuery = useSelector(store => store.filters.searchQueryReducer)
+    const user = useSelector(store => store.user)
 
     const handleSearch = (event) => {
         event.preventDefault();
         // Sets Search Query Reducer
-        dispatch({ type: 'SET_FILTER', payload: { property: 'card_name', value: event.target.value }})
+        dispatch({ type: 'SET_FILTER', payload: { property: 'card_name', value: event.target.value } })
         if (searchQuery.card_name) {
             dispatch({ type: 'FETCH_SEARCH', payload: searchQuery })
-         } 
+        }
     }
 
     const handleSearchClick = (event) => {
@@ -31,7 +32,7 @@ function SearchBar() {
     }
 
 
-    
+
     // Returns ALL listings if there is no search query
     useEffect(() => {
         dispatch({ type: 'FETCH_LISTINGS' });
@@ -47,6 +48,7 @@ function SearchBar() {
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}
                     placeholder="Search ..."
+                    // value={searchQuery.card_name}
                     onChange={event => handleSearch(event)}
                 />
                 <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
