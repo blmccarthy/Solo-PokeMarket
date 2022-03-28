@@ -152,9 +152,9 @@ function ProfilePage() {
           <Grid item xs={6}>
             <Typography sx={{ color: '#707070' }}>Active Listings:</Typography>
             <Typography sx={{ mb: .75, fontWeight: 500,}}>{profile.listing_count}</Typography>
-            <Typography sx={{ color: '#707070' }}>Outgoing Offers:</Typography>
-            <Typography sx={{ mb: .75, fontWeight: 500 }}>{profile.offer_in_count}</Typography>
             <Typography sx={{ color: '#707070' }}>Incoming Offers:</Typography>
+            <Typography sx={{ mb: .75, fontWeight: 500 }}>{profile.offer_in_count}</Typography>
+            <Typography sx={{ color: '#707070' }}>Outgoing Offers:</Typography>
             <Typography sx={{ mb: .75, fontWeight: 500 }}>{profile.offer_out_count}</Typography>
           </Grid>
         </Grid>
