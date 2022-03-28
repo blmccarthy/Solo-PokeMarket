@@ -42,7 +42,7 @@ function AboutPage() {
                 </Box>
                 <Box sx={{ display: 'flex' }}>
                     <img src={sql_logo} alt="react logo" className="about-logo"/>
-                    <Typography>SQL</Typography>
+                    <Typography>PostgresSQL</Typography>
                 </Box>
                 <Box sx={{ display: 'flex' }}>
                     <img src={mui_logo} alt="react logo" className="about-logo"/>
