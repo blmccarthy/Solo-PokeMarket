@@ -38,7 +38,7 @@ function AboutPage() {
                 </Box>
                 <Box sx={{ display: 'flex' }}>
                     <img src={express_logo} alt="react logo" className="about-logo"/>
-                    <Typography>Express JS</Typography>
+                    <Typography>Express</Typography>
                 </Box>
                 <Box sx={{ display: 'flex' }}>
                     <img src={sql_logo} alt="react logo" className="about-logo"/>
@@ -65,7 +65,7 @@ function AboutPage() {
 
             <Typography variant="h5" sx={{ mb: 1 }}>Special Thanks</Typography>
             <Typography>Prime Academy</Typography>
-            <Typography>Instructors: Liz, Dane, Matt, & Kris</Typography>
+            <Typography>Instructors: Liz, Dane, Matt, Edan, & Kris</Typography>
             <Typography>Adams Cohort</Typography>
 
         </Box>

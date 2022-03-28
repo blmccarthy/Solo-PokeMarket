@@ -36,7 +36,7 @@ function ListingItem({ listing }) {
                     <Box>
                         <Typography>Set: {listing.set}</Typography>
                         <Typography>Condition: {(conditions?.filter(c => c.id == listing?.condition)[0])?.description}</Typography>
-                        <Typography>Graded: {listing.graded ? 'Yes' : 'No'}</Typography>
+                        {/* <Typography>Graded: {listing.graded ? 'Yes' : 'No'}</Typography> */}
                         <Typography>Asking Price: ${listing.asking_price}</Typography>
                     </Box>
                 </Grid>

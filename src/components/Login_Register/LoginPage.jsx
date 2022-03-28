@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 
 
 
@@ -32,7 +34,7 @@ function LoginPage() {
 
   return (
     <div>
-      <h2>Login</h2>
+      <Typography variant="h5" sx={{ mb: 2, ml: 2, fontWeight: '300' }}>Login:</Typography>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
