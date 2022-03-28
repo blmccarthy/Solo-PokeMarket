@@ -116,6 +116,7 @@ function FilterPage() {
             placeholder="Enter Card Name" 
             fullWidth 
             value={filterSelection.card_name}
+            autoComplete="off"
             onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'card_name', value: e.target.value}})}
           />
         </AccordionDetails>
@@ -135,6 +136,7 @@ function FilterPage() {
             variant="outlined" 
             placeholder="Enter Set Name..." 
             fullWidth 
+            autoComplete="off"
             onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'set', value:e.target.value}})}
           />
         </AccordionDetails>
@@ -177,6 +179,7 @@ function FilterPage() {
                   label="min"
                   type="number"
                   placeholder="0.00"
+                  autoComplete="off"
                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
                   value={filterSelection.min_price}
                   onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'min_price', value: e.target.value}})}
@@ -194,6 +197,7 @@ function FilterPage() {
                   label="max"
                   type="number"
                   placeholder="0.00"
+                  autoComplete="off"
                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
                   value={filterSelection.max_price}
                   onChange={e => dispatch({ type: 'SET_FILTER', payload: {property: 'max_price', value: e.target.value}})}

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -26,7 +28,7 @@ function RegisterPage() {
 
   return (
     <div>
-      <h2>Register</h2>
+      <Typography variant="h5" sx={{ mb: 2, ml: 2, fontWeight: '300' }}>Register:</Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}

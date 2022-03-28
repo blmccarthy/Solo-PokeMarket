@@ -13,3 +13,8 @@
     padding: 5px;
     width: 80%
 }
+
+.pokeball-logo {
+    max-height: 40px;
+    margin-right: 4px;
+}

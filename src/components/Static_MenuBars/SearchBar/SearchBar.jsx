@@ -7,7 +7,10 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
+import pokeball_logo from './pokeball.png'
 
 function SearchBar() {
 
@@ -46,24 +49,34 @@ function SearchBar() {
         history.push('/')
     }
 
+    console.log('user', user);
+
     return (
         <div className="searchbar">
-            <Paper
-                component="form"
-                onSubmit={(event) => handleSearchClick(event)}
-                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '88%' }}
-            >
-                <InputBase
-                    sx={{ ml: 1, flex: 1 }}
-                    placeholder="Search ..."
-                    // value={searchQuery.card_name}
-                    onChange={event => handleSearch(event)}
-                />
-                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-                    <SearchIcon />
-                </IconButton>
+            {user.id ?
+                <Paper
+                    component="form"
+                    onSubmit={(event) => handleSearchClick(event)}
+                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '88%' }}
+                >
+                    <InputBase
+                        sx={{ ml: 1, flex: 1 }}
+                        placeholder="Search ..."
+                        // value={searchQuery.card_name}
+                        onChange={event => handleSearch(event)}
+                    />
+                    <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                        <SearchIcon />
+                    </IconButton>
 
-            </Paper>
+                </Paper>
+                :
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Typography variant="h4" sx={{ fontFamily: 'Varela Round', letterSpacing: 6 }}>P</Typography>
+                    <img src={pokeball_logo} alt="pokeball logo" className="pokeball-logo" />
+                    <Typography variant="h4" sx={{ fontFamily: 'Varela Round', letterSpacing: 6 }}>KÉBAY</Typography>
+                </Box>
+            }
         </div>
     )
 }
