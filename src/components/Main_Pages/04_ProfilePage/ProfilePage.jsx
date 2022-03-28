@@ -8,6 +8,8 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 function ProfilePage() {
 
@@ -162,14 +164,14 @@ function ProfilePage() {
             <Button variant="outlined" fullWidth
               onClick={handleEdit}
             >
-              Edit
+              <EditOutlinedIcon/> &nbsp; Edit
             </Button>
           </Grid>
           <Grid item xs={6}>
             <Button variant="outlined" fullWidth
               onClick={() => dispatch({ type: 'LOGOUT' })}
             >
-              Sign Out
+              <LogoutOutlinedIcon /> &nbsp; Sign Out
             </Button>
           </Grid>
           <Grid item xs={12} sx={{ mt: 4}}>

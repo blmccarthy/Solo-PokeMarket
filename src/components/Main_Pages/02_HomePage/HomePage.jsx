@@ -13,15 +13,17 @@ function HomePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // dispatch({ type: 'FETCH_LISTINGS' });
+    // dispatch({ type: 'FETCH_LISTINGS' }); 
+    dispatch({ type: 'FETCH_CONDITIONS' });
+    dispatch({ type: 'FETCH_LISTING_IMAGES' });
   }, [])
 
   return (
     <>
       {listings.map(listing => (
-        <HomeItem 
-          key={listing.id} 
-          listing={listing} 
+        <HomeItem
+          key={listing.id}
+          listing={listing}
         />
       ))}
       {listings.length == 0 && <Typography sx={{ textAlign: "center", mt: 10 }}>No Results Found :(</Typography>}

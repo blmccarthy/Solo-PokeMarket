@@ -80,18 +80,39 @@ router.post('/', (req, res) => {
 // ================================================================================================ //
 
 // ACCEPT OFFER
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     const offerId = req.params.id;
-    const sqlText = `UPDATE offer SET status = 'accepted' WHERE id = $1;`;
-    pool.query(sqlText, [offerId])
-    .then(result => {
-        console.log('in ACCEPT OFFER .put.then');
-        res.sendStatus(200)
-    }).catch(err => {
-        console.log('in ACCEPT OFFER .put.catch', err);
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN');
+        // update offer status to 'status: accepted' in offer table
+        const sqlUpdateOfferStatus = `UPDATE offer SET status = 'accepted' WHERE id = $1 RETURNING listing_id;`;
+        const result = await connection.query(sqlUpdateOfferStatus, [offerId]);
+        const listingId = result.rows[0].listing_id;
+        // update listing to 'active: false' in listing table
+        const sqlUpdateListingActive = `UPDATE listing SET active = 'FALSE' WHERE id = $1;`;
+        await connection.query(sqlUpdateListingActive, [listingId]);
+        await connection.query('COMMIT');
+        res.sendStatus(200);
+    } catch (error) {
+        await connection.query('ROLLBACK');
+        console.log('TRANSACTION ERROR', error);
         res.sendStatus(500);
-    })
+    } finally {
+        connection.release();
+    }
 });
+// const sqlText = `UPDATE offer SET status = 'accepted' WHERE id = $1;`;
+// pool.query(sqlText, [offerId])
+// .then(result => {
+//     console.log('in ACCEPT OFFER .put.then');
+//     res.sendStatus(200)
+// }).catch(err => {
+//     console.log('in ACCEPT OFFER .put.catch', err);
+//     res.sendStatus(500);
+// })
+// });
 
 // ================================================================================================ //
 //     DELETE
@@ -102,13 +123,13 @@ router.delete('/:id', (req, res) => {
     const offerId = req.params.id;
     const sqlText = `DELETE FROM offer WHERE id = $1;`;
     pool.query(sqlText, [offerId])
-    .then(result => {
-        console.log('in DELETE offer .then');
-        res.sendStatus(200)
-    }).catch(err => {
-        console.log('in DELETE offer .catch', err);
-        res.sendStatus(500);
-    })
+        .then(result => {
+            console.log('in DELETE offer .then');
+            res.sendStatus(200)
+        }).catch(err => {
+            console.log('in DELETE offer .catch', err);
+            res.sendStatus(500);
+        })
 });
 
 module.exports = router;

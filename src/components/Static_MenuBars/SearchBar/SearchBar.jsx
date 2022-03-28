@@ -15,27 +15,37 @@ function SearchBar() {
     const dispatch = useDispatch();
     const history = useHistory();
     const searchQuery = useSelector(store => store.filters.searchQueryReducer)
+    const user = useSelector(store => store.user)
 
     const handleSearch = (event) => {
         event.preventDefault();
         // Sets Search Query Reducer
-        dispatch({ type: 'SET_FILTER', payload: { property: 'card_name', value: event.target.value }})
+        dispatch({ type: 'SET_FILTER', payload: { property: 'card_name', value: event.target.value } })
         if (searchQuery.card_name) {
             dispatch({ type: 'FETCH_SEARCH', payload: searchQuery })
-         } 
+        }
     }
+
+
+    // TODO: only for testing FETCH_SEARCH
+    // ! // For whatever reason, FETCH Search runs twice. Troubleshooting....
+    // useEffect(() => {
+    //     console.log('in useEffect', searchQuery.card_name.length);
+    //     // dispatch({ type: 'FETCH_SEARCH', payload: searchQuery})
+    // }, [searchQuery.card_name.length])
+    // ! // ------------------------------------------------------------------
+
+
+    // Returns ALL listings if there is no search query
+    useEffect(() => {
+        dispatch({ type: 'FETCH_LISTINGS' });
+    }, [])
+
 
     const handleSearchClick = (event) => {
         event.preventDefault();
         history.push('/')
     }
-
-
-    
-    // Returns ALL listings if there is no search query
-    useEffect(() => {
-        dispatch({ type: 'FETCH_LISTINGS' });
-    }, [!searchQuery]) // Fetches all listings if nothing entered in search
 
     return (
         <div className="searchbar">
@@ -47,6 +57,7 @@ function SearchBar() {
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}
                     placeholder="Search ..."
+                    // value={searchQuery.card_name}
                     onChange={event => handleSearch(event)}
                 />
                 <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">

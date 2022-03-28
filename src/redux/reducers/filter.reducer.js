@@ -2,14 +2,20 @@ import { combineReducers } from 'redux';
 
 const searchQueryReducer = (state = [], action) => {
   switch (action.type) {
-      case 'SET_FILTER':
+    case 'SET_FILTER':
       return {
         ...state,
         // brackets represent a string of whatever value is passed (i.e. 'min_price')
         [action.payload.property]: action.payload.value
       }
+    case 'CLEAR_FILTER':
+      return {
+        ...state,
+        card_name: ''
+      }
     default:
       return {
+        ...state,
         card_name: '',
         set: '',
         search_NM: true,

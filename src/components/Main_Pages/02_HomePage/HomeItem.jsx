@@ -19,11 +19,6 @@ function ListingItem({ listing }) {
         history.push(`/details/${listing.id}`)
     }
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_CONDITIONS' });
-        dispatch({ type: 'FETCH_LISTING_IMAGES' });
-    }, [])
-
     return (
 
         <div
@@ -38,11 +33,11 @@ function ListingItem({ listing }) {
                 </Grid>
                 <Grid item xs={7}>
                     <Typography sx={{ mb: 1 }}><b>{listing.card_name}</b></Typography>
-                    <Box sx={{ fontStyle: 'oblique' }}>
+                    <Box>
                         <Typography>Set: {listing.set}</Typography>
                         <Typography>Condition: {(conditions?.filter(c => c.id == listing?.condition)[0])?.description}</Typography>
                         <Typography>Graded: {listing.graded ? 'Yes' : 'No'}</Typography>
-                        <Typography>Asking Price: {listing.asking_price}</Typography>
+                        <Typography>Asking Price: ${listing.asking_price}</Typography>
                     </Box>
                 </Grid>
             </Grid>

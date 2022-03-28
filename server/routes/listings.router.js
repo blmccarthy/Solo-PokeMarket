@@ -7,11 +7,17 @@ const router = express.Router();
 //     GET
 // ================================================================================================ //
 
-// GET ALL LISTINGS
+// GET ALL ACTIVE LISTINGS (MINUS ACTIVE USER'S)
 router.get('/', (req, res) => {
   console.log('in GET listings router');
-  const queryText = `SELECT * FROM listing ORDER BY id DESC;`
-  pool.query(queryText).then(response => {
+  const userId = req.user.id;
+  const queryText = `
+    SELECT * FROM listing 
+    WHERE active = TRUE 
+    AND user_id != $1 
+    ORDER BY id DESC;
+  `;
+  pool.query(queryText, [userId]).then(response => {
     console.log('in listings.get.then');
     res.send(response.rows);
   }).catch(err => {
@@ -20,7 +26,7 @@ router.get('/', (req, res) => {
   })
 });
 
-// GET SELECTED LISTINGS
+// GET SELECTED LISTING
 router.get('/selected/:id', (req, res) => {
   const id = req.params.id
   console.log('req.params', req.params);
@@ -36,10 +42,10 @@ router.get('/selected/:id', (req, res) => {
   })
 });
 
-// GET MY LISTINGS
+// GET MY ACTIVE LISTINGS
 router.get('/my-listings', (req, res) => {
   const userId = req.user.id
-  const queryText = `SELECT * FROM listing WHERE user_id = $1 ORDER BY id DESC;`
+  const queryText = `SELECT * FROM listing WHERE active = TRUE AND user_id = $1 ORDER BY id DESC;`
   pool.query(queryText, [userId]).then(response => {
     console.log('in MY LISTINGS .then');
     res.send(response.rows);
@@ -49,11 +55,11 @@ router.get('/my-listings', (req, res) => {
   })
 });
 
-// GET MY LISTINGS COUNT
+// GET MY ACTIVE LISTINGS COUNT
 router.get('/my-listings-count', (req, res) => {
   const userId = req.user.id;
   console.log('userId', userId);
-  const queryText = `SELECT COUNT(id) FROM listing WHERE user_id = $1;`;
+  const queryText = `SELECT COUNT(id) FROM listing WHERE active = TRUE AND user_id = $1;`;
   pool.query(queryText, [userId]).then(response => {
     console.log('in MY COUNT .then');
     res.send(response.rows);

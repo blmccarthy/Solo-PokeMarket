@@ -1,10 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
+// MUI
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Typography from '@mui/material/Typography';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
+//MUI Table
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,17 +21,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Grid from '@mui/material/Grid';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
+// MUI Modal
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
 
-
+// MUI Animation
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function OfferPage() {
 
@@ -48,10 +58,6 @@ function OfferPage() {
         history.push(`/details/${id}`)
     }
 
-    const handlePurchase = () => {
-        console.log('in handlePurchase');
-    }
-
     const handleSendOffer = () => {
         dispatch({
             type: 'POST_OFFER',
@@ -69,6 +75,27 @@ function OfferPage() {
         history.goBack();
     }
 
+    // ------ Modal Functions -----------------------
+
+    const [isOpenPurchaseModal, setIsOpenPurchaseModal] = useState(false);
+    const [isOpenOfferModal, setIsOpenOfferModal] = useState(false);
+    const [isOpenTradeModal, setIsOpenTradeModal] = useState(false);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+
+    const handlePurchase = () => {
+        console.log('Purchase');
+        setIsModalOpen(false);
+    }
+
+
     return (
 
         // ================================================================================================================== 
@@ -84,22 +111,22 @@ function OfferPage() {
                 onClick={(e) => setOfferType(e.target.value)}
                 sx={{ mb: 4 }}
             >
-                <Button 
-                    value="purchase" 
-                    variant={offerType == 'purchase' ? 'contained' : 'outlined'} 
+                <Button
+                    value="purchase"
+                    variant={offerType == 'purchase' ? 'contained' : 'outlined'}
                 >
                     Purchase
                 </Button>
-                <Button 
-                    value="offer" 
-                    variant={offerType == 'offer' ? 'contained' : 'outlined'} 
+                <Button
+                    value="offer"
+                    variant={offerType == 'offer' ? 'contained' : 'outlined'}
                     disabled={!selectedListing.offer_eligible}
                 >
                     Offer
                 </Button>
-                <Button 
-                    value="trade" 
-                    variant={offerType == 'trade' ? 'contained' : 'outlined'} 
+                <Button
+                    value="trade"
+                    variant={offerType == 'trade' ? 'contained' : 'outlined'}
                     disabled={!selectedListing.trade_eligible}
                 >
                     Trade
@@ -155,7 +182,7 @@ function OfferPage() {
                             <Button variant="outlined" fullWidth onClick={handleCancel}>Cancel</Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant="contained" fullWidth onClick={handlePurchase}>Purchase</Button>
+                            <Button variant="contained" fullWidth onClick={openModal}>Purchase</Button>
                         </Grid>
                     </Grid>
                 </>
@@ -177,9 +204,6 @@ function OfferPage() {
                                 required
                                 fullWidth
                                 onChange={e => setOfferAmount(e.target.value)}
-                                // onChange={e => dispatch(
-                                //     { type: 'SET_OFFER', payload: { property: 'offer_amount', value: e.target.value } }
-                                // )}
                             />
 
                         </Grid>
@@ -194,9 +218,6 @@ function OfferPage() {
                                 inputProps={{ maxLength: 144 }}
                                 value={tradeDesc}
                                 onChange={e => setTradeDesc(e.target.value)}
-                                // onChange={e => dispatch(
-                                //     { type: 'SET_OFFER', payload: { property: 'notes', value: e.target.value } }
-                                // )}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -224,9 +245,6 @@ function OfferPage() {
                             inputProps={{ maxLength: 144 }}
                             value={tradeDesc}
                             onChange={e => setTradeDesc(e.target.value)}
-                            // onChange={e => dispatch(
-                            //     { type: 'SET_OFFER', payload: { property: 'trade_desc', value: e.target.value } }
-                            // )}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -237,6 +255,36 @@ function OfferPage() {
                     </Grid>
                 </Grid>
             }
+
+            {/* ------ MODAL RENDERING ------------------------------- */}
+
+            <Dialog
+                open={isModalOpen}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={closeModal}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                {offerType == 'purchase' &&
+                    <>
+                        <DialogTitle>{"Accept this offer?"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                                You're once click away from solidifying the deal!
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={closeModal}>Cancel</Button>
+                            <Button
+                            onClick={handlePurchase}
+                            value={id}
+                            >
+                                Purchase
+                            </Button>
+                        </DialogActions>
+                    </>
+                }
+            </Dialog>
         </>
     );
 }

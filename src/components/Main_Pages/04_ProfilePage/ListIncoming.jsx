@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
+// MUI
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Box from '@mui/material/Box';
 
+// MUI Modal
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -12,16 +18,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Box from '@mui/material/Box';
+// MUI Icons
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 
+// MUI Animation
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function ListIncoming({listing}) {
+function ListIncoming({ listing }) {
 
     // ----- Modal Functions -----------------------------------
 
@@ -45,7 +50,7 @@ function ListIncoming({listing}) {
 
     // Accepts offer
     const handleModalAccept = () => {
-        dispatch({ type: 'UPDATE_ACCEPT_OFFER', payload: listing.offer_id })
+        dispatch({ type: 'UPDATE_ACCEPT_OFFER', payload: listing.offer_id})
         console.log('in handleModalAccept');
         setOpenAcceptModal(false);
     }
@@ -74,6 +79,20 @@ function ListIncoming({listing}) {
         <div
             value={listing.id}
         >
+            {/* ------- SHOW STATUS -------------------------------------------------------------------- */}
+
+            {listing.status == 'accepted' &&
+                <Box sx={{ textAlign: 'center', mb: 2 }}>
+                    <Typography>Status:</Typography>
+                    <Box sx={{ color: '#00ab06', display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                        <CheckCircleOutlineOutlinedIcon /> &nbsp;&nbsp;
+                        <Typography sx={{ textAlign: 'center', fontWeight: 'bold' }}>YOU ACCEPTED THE OFFER</Typography>
+                    </Box>
+                </Box>
+            }
+
+            {/* ------- CARD DETAILS -------------------------------------------------------------------- */}
+
             <Grid container spacing={3} sx={{ py: 0.5 }}>
                 <Grid item xs={5}>
                     <div className="home_img">
@@ -118,25 +137,15 @@ function ListIncoming({listing}) {
                 </Grid>
             }
 
-            {/* ------- SHOW STATUS -------------------------------------------------------------------- */}
-
-            {listing.status == 'accepted' &&
-                <Typography sx={{ textAlign: 'center', mt: 2, color: '#00ab06', fontWeight: 'bold' }}>✅ OFFER ACCEPTED</Typography>
-            }
-            {listing.status == 'declined' &&
-                <Typography sx={{ textAlign: 'center', mt: 2, color: '#bf1d00', fontWeight: 'bold' }}>❌ OFFER DECLINED</Typography>
-            }
-
             {/* ---- Divider --------- */}
-            <Box sx={{ my: 4 }}> 
+            <Box sx={{ my: 3 }}>
                 <hr />
             </Box>
 
-        
+
             {/* ------- MODAL RENDERING ---------------------------------------------------------------- */}
 
-
-            {/* ------ ACCEPT DIALOGUE ------ */}
+            {/* ------ Accept Dialogue ------ */}
             <Dialog
                 open={openAcceptModal}
                 TransitionComponent={Transition}
@@ -161,7 +170,7 @@ function ListIncoming({listing}) {
                 </DialogActions>
             </Dialog>
 
-            {/* ------ DECLINE DIALOGUE ------ */}
+            {/* ------ Decline Dialogue ------ */}
             <Dialog
                 open={openDeclineModal}
                 TransitionComponent={Transition}
@@ -185,6 +194,8 @@ function ListIncoming({listing}) {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            
 
         </div>
     )

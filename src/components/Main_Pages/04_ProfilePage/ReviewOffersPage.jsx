@@ -16,14 +16,14 @@ function ReviewOffersPage() {
     const dispatch = useDispatch();
     const incomingOffers = useSelector(store => store.offers.incomingOffersReducer)
     const outgoingOffers = useSelector(store => store.offers.outgoingOffersReducer)
-    const [offerType, setOfferType] = useState('')
+    const [offerType, setOfferType] = useState('incoming');
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INCOMING_OFFERS' });
         dispatch({ type: 'FETCH_OUTGOING_OFFERS' });
         dispatch({ type: 'FETCH_LISTING_IMAGES' });
         dispatch({ type: 'FETCH_CONDITIONS' });
-    }, [dispatch])
+    }, []);
 
     return (
         <>
@@ -56,9 +56,16 @@ function ReviewOffersPage() {
             */}
 
             {offerType == 'incoming' &&
-                (incomingOffers.map((listing, i) => (
-                    <ListIncoming key={i} listing={listing} />
-                )))
+                <>
+                    {incomingOffers.length == 0
+                        ? // If No Incoming Offers
+                        <Typography sx={{textAlign: 'center' }}>No Incoming Offers Found</Typography>
+                        : // If Incoming Offers > 0
+                        (incomingOffers.map((listing, i) => (
+                            <ListIncoming key={i} listing={listing} />
+                        )))
+                    }
+                </>
             }
 
             {/* 
@@ -68,10 +75,18 @@ function ReviewOffersPage() {
             */}
 
             {offerType == 'outgoing' &&
-                (outgoingOffers.map((listing, i) => (
-                    <ListOutgoing key={i} listing={listing} />
-                )))
+                <>
+                    {outgoingOffers.length == 0
+                        ? // If No Outgoing Offers
+                        <Typography sx={{textAlign: 'center' }}>No Outgoing Offers Found</Typography>
+                        : // If Outgoing Offers > 0
+                        (outgoingOffers.map((listing, i) => (
+                            <ListOutgoing key={i} listing={listing} />
+                        )))
+                    }
+                </>
             }
+
         </>
     )
 }
