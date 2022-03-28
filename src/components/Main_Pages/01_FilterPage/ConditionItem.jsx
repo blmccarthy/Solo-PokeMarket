@@ -1,7 +1,8 @@
+// React ------------------------------------------------------
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-
+// MUI --------------------------------------------------------
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
@@ -13,7 +14,9 @@ export default function ConditionItem({condition}) {
 
     useEffect(() => {
         dispatch({type: 'SET_FILTER', payload: {property: `search_${condition.code}`, value: isChecked}})
-    }, [])
+    }, []);
+
+    // Loops over 'condition' table to display Condition options in dropdown menu
 
     return (
         <FormControlLabel

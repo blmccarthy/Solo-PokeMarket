@@ -1,13 +1,12 @@
+// React Imports --------------------------------------------------------------
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+// MUI -----------------------------------------------------------------------
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-
-
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -30,16 +29,21 @@ function LoginPage() {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
   }; // end login
+  
   const history = useHistory();
 
   return (
     <div>
       <Typography variant="h5" sx={{ mb: 2, ml: 2, fontWeight: '300' }}>Login:</Typography>
+
+      {/* ----- Error Messages ---------------------------- */}
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
+
+      {/* ----- Username Input ---------------------------- */}
       <TextField
         sx={{
           mb: '20px'
@@ -52,10 +56,10 @@ function LoginPage() {
         required
         fullWidth
       />
+
+      {/* ----- Password Input ---------------------------- */}
       <TextField
-        sx={{
-          mb: '20px'
-        }}
+        sx={{ mb: '20px' }}
         id="outlined-password-input"
         label="Password"
         type="password"
@@ -65,17 +69,19 @@ function LoginPage() {
         required
         fullWidth
       />
-      <Button 
+
+      {/* ----- Login Button ---------------------------- */}
+      <Button
         sx={{
           mb: '20px'
         }}
-        variant="contained" 
+        variant="contained"
         fullWidth
         onClick={login}>
-          Log In
+        Log In
       </Button>
 
-
+      {/* ----- Register Button ---------------------------- */}
       <center>
         <button
           type="button"
@@ -86,6 +92,7 @@ function LoginPage() {
         >
           Register
         </button>
+
       </center>
     </div>
   );

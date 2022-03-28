@@ -1,7 +1,9 @@
+// React Imports --------------------------------------------------------------
 import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// MUI -----------------------------------------------------------------------
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -29,12 +31,15 @@ function RegisterPage() {
   return (
     <div>
       <Typography variant="h5" sx={{ mb: 2, ml: 2, fontWeight: '300' }}>Register:</Typography>
+
+      {/* ----- Error Messages ---------------------------- */}
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
 
+      {/* ----- Username Input ---------------------------- */}
       <TextField
         sx={{
           mb: '20px'
@@ -46,6 +51,8 @@ function RegisterPage() {
         required
         fullWidth
       />
+
+      {/* ----- Password Input ---------------------------- */}
       <TextField
         sx={{
           mb: '20px'
@@ -58,6 +65,8 @@ function RegisterPage() {
         required
         fullWidth
       />
+
+      {/* ----- Register Button ---------------------------- */}
       <Button
         sx={{
           mb: '20px'
@@ -65,9 +74,10 @@ function RegisterPage() {
         variant="contained"
         fullWidth
         onClick={registerUser}>
-          Register
+        Register
       </Button>
 
+      {/* ----- Login Button ---------------------------- */}
       <center>
         <button
           type="button"

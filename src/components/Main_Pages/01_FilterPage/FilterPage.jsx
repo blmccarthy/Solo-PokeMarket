@@ -1,9 +1,10 @@
+// React --------------------------------------------------------
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import ConditionItem from './ConditionItem';
 
+// MUI --------------------------------------------------------
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -13,16 +14,14 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
+// Componenet Imports ------------------------------------------
+import ConditionItem from './ConditionItem';
 
 // ===============================================================================
 // MUI CUSTOM ACCORDION THEMES
@@ -78,15 +77,16 @@ function FilterPage() {
   const conditions = useSelector(store => store.conditions);
   const filterSelection = useSelector(store => store.filters.searchQueryReducer);
 
-  const [expandedFilter1, setExpandedFilter1] = useState(false);
-  const [expandedFilter2, setExpandedFilter2] = useState(false);
-  const [expandedFilter3, setExpandedFilter3] = useState(false);
-  const [expandedFilter4, setExpandedFilter4] = useState(true);
+  const [expandedFilter1, setExpandedFilter1] = useState(false);  // expand set
+  const [expandedFilter2, setExpandedFilter2] = useState(false);  // expand condition
+  const [expandedFilter3, setExpandedFilter3] = useState(false);  // expand price
+  const [expandedFilter4, setExpandedFilter4] = useState(true);   // expand card_name
 
   const handleGoBack = () => {
     history.goBack();
   }
 
+  // on Search click  - returns user to home with filtered card list
   const handleSearch = () => {
     dispatch({ type: 'FETCH_FILTERED_SEARCH' , payload: filterSelection });
     history.push('/home')
@@ -235,5 +235,4 @@ function FilterPage() {
   );
 }
 
-// this allows us to use <App /> in index.js
 export default FilterPage;
