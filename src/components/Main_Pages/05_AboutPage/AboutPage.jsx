@@ -1,9 +1,5 @@
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 
 import './AboutPage.css'
 
@@ -53,6 +49,7 @@ function AboutPage() {
                     <Typography>Google Material UI</Typography>
                 </Box>
             </Box>
+
             <br /><hr /><br />
 
             <Typography variant="h5" sx={{ mb: 1 }}>Biggest Challenge</Typography>
@@ -70,6 +67,7 @@ function AboutPage() {
             <Typography>Prime Academy</Typography>
             <Typography>Instructors: Liz, Dane, Matt, & Kris</Typography>
             <Typography>Adams Cohort</Typography>
+
         </Box>
     )
 }
