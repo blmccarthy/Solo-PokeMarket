@@ -26,17 +26,26 @@ function SearchBar() {
         }
     }
 
-    const handleSearchClick = (event) => {
-        event.preventDefault();
-        history.push('/')
-    }
 
+    // TODO: only for testing FETCH_SEARCH
+    // ! // For whatever reason, FETCH Search runs twice. Troubleshooting....
+    // useEffect(() => {
+    //     console.log('in useEffect', searchQuery.card_name.length);
+    //     // dispatch({ type: 'FETCH_SEARCH', payload: searchQuery})
+    // }, [searchQuery.card_name.length])
+    // ! // ------------------------------------------------------------------
 
 
     // Returns ALL listings if there is no search query
     useEffect(() => {
         dispatch({ type: 'FETCH_LISTINGS' });
-    }, [!searchQuery]) // Fetches all listings if nothing entered in search
+    }, [])
+
+
+    const handleSearchClick = (event) => {
+        event.preventDefault();
+        history.push('/')
+    }
 
     return (
         <div className="searchbar">

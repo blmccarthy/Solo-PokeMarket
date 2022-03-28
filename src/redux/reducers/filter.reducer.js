@@ -15,6 +15,7 @@ const searchQueryReducer = (state = [], action) => {
       }
     default:
       return {
+        ...state,
         card_name: '',
         set: '',
         search_NM: true,
