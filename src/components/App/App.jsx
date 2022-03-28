@@ -25,6 +25,7 @@ import CreateListingPage from '../Main_Pages/03_ListingsPage/CreateListingPage';
 import EditPage from '../Main_Pages/03_ListingsPage/EditPage';
 import ProfilePage from '../Main_Pages/04_ProfilePage/ProfilePage';
 import ReviewOffersPage from '../Main_Pages/04_ProfilePage/ReviewOffersPage';
+import AboutPage from '../Main_Pages/05_AboutPage/AboutPage';
 
 import './App.css';
 
@@ -44,7 +45,7 @@ function App() {
       <div className="main">
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+          <Redirect exact from="/" to="/profile" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           {/* <Route
@@ -97,6 +98,10 @@ function App() {
 
           <ProtectedRoute exact path="/review-offers">
             <ReviewOffersPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/about">
+            <AboutPage />
           </ProtectedRoute>
 
           <Route exact path="/login">

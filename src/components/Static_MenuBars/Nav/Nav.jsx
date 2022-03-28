@@ -9,6 +9,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import GridViewIcon from '@mui/icons-material/GridView';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 function Nav() {
 
@@ -52,9 +53,9 @@ function Nav() {
             <AccountCircleOutlinedIcon sx={{ fontSize: 35 }} />
           </Link>
 
-          <Link className="navLink" to="/login">
-            <LogoutOutlinedIcon sx={{ fontSize: 35 }}
-              onClick={() => dispatch({ type: 'LOGOUT' })}
+          <Link className="navLink" to="/about">
+            <InfoOutlinedIcon sx={{ fontSize: 35 }}
+              // onClick={() => dispatch({ type: 'LOGOUT' })}
             />
           </Link>
 
