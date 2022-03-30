@@ -1,9 +1,12 @@
+// React Imports --------------------------------------------------------------
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
+// Components --------------------------------------------------------------
 import MyListingsItem from './MyListingsItem';
 
+// MUI --------------------------------------------------------------
 import Button from '@mui/material/Button';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 

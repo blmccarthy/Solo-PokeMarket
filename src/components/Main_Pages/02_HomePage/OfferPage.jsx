@@ -1,8 +1,9 @@
+// React ----------------------------------------------------
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
-// MUI
+// MUI ------------------------------------------------------
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,7 +14,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-//MUI Table
+//MUI Table ---------------------------------------------------
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -21,7 +22,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-// MUI Modal
+// MUI Modal ------------------------------------------------
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';

@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react';
+// React Imports --------------------------------------------------------------
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
 
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+// MUI
 import Slide from '@mui/material/Slide';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
@@ -30,35 +22,6 @@ function ListOutgoing({ listing }) {
 
     const [openAcceptModal, setOpenAcceptModal] = useState(false);
     const [openDeclineModal, setOpenDeclineModal] = useState(false);
-
-    // Opens 'ACCEPT' modal
-    const handleClickAccept = () => {
-        setOpenAcceptModal(true);
-    };
-    // Opens 'DECLINE' modal
-    const handleClickDecline = () => {
-        setOpenDeclineModal(true);
-    };
-
-    // Closes all modals
-    const exitModal = () => {
-        setOpenDeclineModal(false);
-        setOpenAcceptModal(false);
-    };
-
-    // Accepts offer
-    const handleModalAccept = () => {
-        dispatch({ type: 'UPDATE_ACCEPT_OFFER', payload: listing.offer_id })
-        console.log('in handleModalAccept');
-        setOpenAcceptModal(false);
-    }
-
-    // Declines offer
-    const handleModalDecline = () => {
-        dispatch({ type: 'UPDATE_DECLINE_OFFER', payload: listing.offer_id })
-        console.log('in handleModalDecline');
-        setOpenDeclineModal(false);
-    }
 
     // ----------------------------------------------------------
 

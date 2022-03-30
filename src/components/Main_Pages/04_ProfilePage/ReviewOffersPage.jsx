@@ -1,15 +1,15 @@
+// React Imports --------------------------------------------------------------
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
 
+// Components
 import ListIncoming from './ListIncoming';
 import ListOutgoing from './ListOutgoing';
 
-import TextField from '@mui/material/TextField';
+// MUI --------------------------------------------------------------
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import Box from '@mui/material/Box';
 
 function ReviewOffersPage() {
 

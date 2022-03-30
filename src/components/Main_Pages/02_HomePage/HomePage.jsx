@@ -1,9 +1,14 @@
+// React Imports --------------------------------------------------------------
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
-import HomeItem from './HomeItem';
+// MUI --------------------------------------------------------------
 
 import Typography from '@mui/material/Typography';
+
+// Components --------------------------------------------------------------
+
+import HomeItem from './HomeItem';
 
 function HomePage() {
 
@@ -13,7 +18,6 @@ function HomePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // dispatch({ type: 'FETCH_LISTINGS' }); 
     dispatch({ type: 'FETCH_CONDITIONS' });
     dispatch({ type: 'FETCH_LISTING_IMAGES' });
   }, [])
@@ -26,6 +30,8 @@ function HomePage() {
           listing={listing}
         />
       ))}
+      
+      {/* Displays if no listings are found in reducer */}
       {listings.length == 0 && <Typography sx={{ textAlign: "center", mt: 10 }}>No Results Found :(</Typography>}
     </>
   );

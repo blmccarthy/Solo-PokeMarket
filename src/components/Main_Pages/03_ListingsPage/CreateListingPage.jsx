@@ -1,11 +1,13 @@
+// React Imports --------------------------------------------------------------
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './_ListingPage.css'
 
+// MUI --------------------------------------------------------------
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
+import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -13,7 +15,6 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import Typography from '@mui/material/Typography';
 
 
 function CreateListingPage() {
@@ -52,7 +53,7 @@ function CreateListingPage() {
             }
         })
         dispatch(
-            { type: 'FETCH_MY_LISTINGS' },      // unnecessary ? Could delete for clean up
+            { type: 'FETCH_MY_LISTINGS' },    
             { type: 'FETCH_LISTING_IMAGES' }
         )
 
