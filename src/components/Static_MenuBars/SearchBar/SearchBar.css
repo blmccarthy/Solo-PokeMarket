@@ -7,6 +7,9 @@
     /* Necessary so that MUI Elements do not overlap nav & search bars */
     position: fixed;
     z-index: 10; 
+
+    /* Force iphone 12 aspect ratio */
+    max-width: 390px;
 }
 
 .search-input {

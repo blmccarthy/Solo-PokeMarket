@@ -2,16 +2,25 @@ html,
 body,
 #react-root {
   height: 100%;
+  background-color: #444;
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
+  margin: auto;
+
+  /* Force iphone 12 aspect ratio */
+  max-height: 844px;
+  max-width: 390px;
 }
 
 .main {
   /* Pushes content below Search Bar */
   padding: 120px 20px 75px 20px;
+
+  /* Force iphone 12 aspect ratio */
+  background-color: #ffffff;
+  min-height: 650px;
 }
 
 img {
@@ -30,39 +39,6 @@ Container
 /* --------------------------------------------------------------------------------
 Button
 -------------------------------------------------------------------------------- */
-
-/* .btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-color: #014041;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #00acb0;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-.btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
-}
-
-.btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
-}
-
-.btn_sizeFull {
-  display: block;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: #008183;
-  text-decoration: none;
-} */
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .btn_asLink {
@@ -99,17 +75,6 @@ Alert
 /* --------------------------------------------------------------------------------
 Form Treatment
 -------------------------------------------------------------------------------- */
-
-/* .formPanel {
-  box-sizing: border-box;
-  width: 400px;
-  max-width: 100%;
-  padding: 25px;
-  margin: 0 auto 20px;
-  background-color: #efefef;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
-} */
 
 input {
   margin: 5px;

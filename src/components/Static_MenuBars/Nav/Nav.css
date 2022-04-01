@@ -6,6 +6,9 @@
   bottom: 0;
   width: 100%;
   height: 75px;
+
+  /* Force iphone 12 aspect ratio */
+  max-width: 390px;
   
   /* Necessary so that MUI Elements do not overlap nav & search bars */
   position: fixed;
