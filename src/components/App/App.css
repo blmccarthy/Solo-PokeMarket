@@ -20,7 +20,8 @@ body {
 
   /* Force iphone 12 aspect ratio */
   background-color: #ffffff;
-  min-height: 650px;
+  min-height: 700px;
+  /* aspect-ratio: 19.5 / 9; */
 }
 
 img {
