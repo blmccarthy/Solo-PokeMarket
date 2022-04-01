@@ -5,6 +5,8 @@
 
 -- Create Database named 'prime_app'
 
+---- CREATE TABLES -------------------------------------------------
+
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
@@ -23,13 +25,17 @@ CREATE TABLE "listing" (
     "card_name" VARCHAR (100),
     "set" VARCHAR(100),
     "condition" VARCHAR(3),
-    "graded" BOOLEAN,
+    "graded" BOOLEAN DEFAULT FALSE,
+    "grading_service" INT REFERENCES grading_services_library,
+    "grade_value" INT,
     "asking_price" DECIMAL(12,2),
     "notes" VARCHAR(1000),
-    "offer_eligible" BOOLEAN,
-    "trade_eligible" BOOLEAN,
+    "offer_eligible" BOOLEAN DEFAULT FALSE,
+    "trade_eligible" BOOLEAN DEFAULT FALSE,
     "tcg_mkt_price" DECIMAL(12,2),
     "ebay_mkt_price" DECIMAL(12,2)
+    "timestamp_created" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    "active" BOOLEAN DEFAULT TRUE;
 );
 
 CREATE TABLE "offer" (
@@ -40,7 +46,8 @@ CREATE TABLE "offer" (
 	"offer_amount" DECIMAL(12,2),
 	"trade_desc" VARCHAR(1000),
 	"notes" VARCHAR(1000),
-	"status" VARCHAR(30)
+	"status" VARCHAR(30),
+	"offer_type" VARCHAR(30)
 );
 
 CREATE TABLE "condition_library" (
@@ -49,13 +56,6 @@ CREATE TABLE "condition_library" (
 	"code" VARCHAR(3)
 );
 
-INSERT INTO "condition_library" (description, code)
-VALUES ('Near Mint', 'NM'), 
-	('Light Play','LP'), 
-	('Moderate Play','MP'), 
-	('Heavy Play','HP'), 
-	('Damaged','DMG')
-;
 
 CREATE TABLE "grading_services_library" (
 	"id" SERIAL PRIMARY KEY,
@@ -63,12 +63,6 @@ CREATE TABLE "grading_services_library" (
 	"code" VARCHAR(5)
 );
 
-INSERT INTO "grading_services_library" (description, code)
-VALUES ('Professional Sports Authenticator', 'PSA'),
-	('Beckett Grading Services', 'BGS'),
-	('Certified Guaranty Company', 'CGC'),
-	('Other Service', 'OTHER')
-;
 
 CREATE TABLE "image" (
 	"id" SERIAL PRIMARY KEY,
@@ -76,3 +70,6 @@ CREATE TABLE "image" (
 	"user_id" INT REFERENCES "user" NOT NULL,
 	"url" VARCHAR(1000)
 );
+
+
+---- INSERT DATA FROM CSVs ------------------------------

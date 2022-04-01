@@ -1,0 +1,4 @@
+"id","username","password","first_name","last_name","city","state","profile_pic"
+4,"misty","$2a$10$USuK5Gdcp7wKBSlav9Y8dOqI269.J5JNa0.5I7d5/df7gojc6MCxu","Misty","Waverly","Cerulean City","KT","https://i.imgur.com/AjX1JD1.png"
+3,"garyO","$2a$10$uwFcrPvlsF4F3p0BOAMpWukcPBG0n7PRWoyGtfQVTX60NvnCnxm4K","Gary","Oak","Pallet Town","KT","https://i.imgur.com/tlKEBBj.png"
+1,"ashK","$2a$10$fTrlueyThW9VqpKubQq0X.XLu7IvGx2bLVsOObvbBlWXn0HUt7zf2","Ash","Ketchum","Pallet Town","KT","https://i.imgur.com/PfJMKxr.png"
