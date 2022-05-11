@@ -1,5 +1,5 @@
 import './SearchBar.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -16,17 +16,10 @@ function SearchBar() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const searchQuery = useSelector(store => store.filters.searchQueryReducer)
     const user = useSelector(store => store.user)
+    const searchQuery = useSelector(store => store.filters.searchQueryReducer.card_name)   
 
-
-    // TODO: only for testing FETCH_SEARCH
-    // ! // For whatever reason, FETCH Search runs twice. Troubleshooting....
-    // useEffect(() => {
-    //     console.log('in useEffect', searchQuery.card_name.length);
-    //     // dispatch({ type: 'FETCH_SEARCH', payload: searchQuery})
-    // }, [searchQuery.card_name.length])
-    // ! // ------------------------------------------------------------------
+    const [searchField, setSearchField] = useState(searchQuery)
 
 
     // Returns ALL listings if there is no search query
@@ -38,6 +31,8 @@ function SearchBar() {
     const handleSearch = (event) => {
         event.preventDefault();
 
+        setSearchField(event.target.value)
+
         if (event.target.value.length > 0) {
             dispatch({ type: 'FETCH_SEARCH', payload: {card_name: event.target.value} })
         }
@@ -48,10 +43,11 @@ function SearchBar() {
 
     const handleSearchClick = (event) => {
         event.preventDefault();
-        history.push('/home')
+        history.push('/home');
+        setSearchField('');
     }
 
-    console.log('user', user);
+    console.log('searchQuery', searchQuery);
 
     return (
         <div className="searchbar">
@@ -64,7 +60,7 @@ function SearchBar() {
                     <InputBase
                         sx={{ ml: 1, flex: 1 }}
                         placeholder="Search ..."
-                        // value={searchQuery.card_name}
+                        value={searchField}
                         onChange={event => handleSearch(event)}
                     />
                     <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">

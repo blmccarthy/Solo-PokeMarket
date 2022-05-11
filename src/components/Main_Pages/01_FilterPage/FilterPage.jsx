@@ -78,10 +78,12 @@ function FilterPage() {
   const conditions = useSelector(store => store.conditions);
   const filterSelection = useSelector(store => store.filters.searchQueryReducer);
 
-  const [expandedFilter1, setExpandedFilter1] = useState(false);
-  const [expandedFilter2, setExpandedFilter2] = useState(false);
-  const [expandedFilter3, setExpandedFilter3] = useState(false);
-  const [expandedFilter4, setExpandedFilter4] = useState(true);
+  const [keyword, setKeyword] = useState(filterSelection.card_name)
+
+  const [expandedFilter1, setExpandedFilter1] = useState(false);  // Set
+  const [expandedFilter2, setExpandedFilter2] = useState(false);  // Condition
+  const [expandedFilter3, setExpandedFilter3] = useState(false);  // Price
+  const [expandedFilter4, setExpandedFilter4] = useState(true);   // Card Name (Keyword)
 
   const handleGoBack = () => {
     history.goBack();
@@ -101,7 +103,7 @@ function FilterPage() {
     <div>
       <Typography variant="h5">Filters</Typography>
       <hr />
-      {/* ===== FILTER SET =============================================================== */}
+      {/* ===== FILTER BY CARD KEYWORD ==================================================== */}
       <Accordion expanded={expandedFilter4}>
         <AccordionSummary 
           aria-controls="panel4d-content" 

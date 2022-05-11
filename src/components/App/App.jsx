@@ -92,7 +92,7 @@ function App() {
             <OfferPage />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/home/filter">
+          <ProtectedRoute exact path="/home/filter">      {/* No longer used I believe */}
             <SearchPage />
           </ProtectedRoute>
 
