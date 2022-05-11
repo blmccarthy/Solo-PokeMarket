@@ -14,8 +14,8 @@ function* fetchSearch(action) {
     console.log('searchResults', searchResults);
        
 
-    // yield put({ type: 'SET_SEARCH_RESULTS', payload: searchResults.data });  // Specified Reducer
-    yield put({ type: 'SET_LISTINGS', payload: searchResults.data });           // Home Reducer
+    yield put({ type: 'SET_SEARCH_RESULTS', payload: searchResults.data });  // Specified Reducer
+    yield put({ type: 'SET_LISTINGS', payload: searchResults.data });        // Home Reducer
   } catch (error) {
     console.log('User get request failed', error);
   }

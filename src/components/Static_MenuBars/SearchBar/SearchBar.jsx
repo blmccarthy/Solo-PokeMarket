@@ -19,15 +19,6 @@ function SearchBar() {
     const searchQuery = useSelector(store => store.filters.searchQueryReducer)
     const user = useSelector(store => store.user)
 
-    const handleSearch = (event) => {
-        event.preventDefault();
-        // Sets Search Query Reducer
-        dispatch({ type: 'SET_FILTER', payload: { property: 'card_name', value: event.target.value } })
-        if (searchQuery.card_name) {
-            dispatch({ type: 'FETCH_SEARCH', payload: searchQuery })
-        }
-    }
-
 
     // TODO: only for testing FETCH_SEARCH
     // ! // For whatever reason, FETCH Search runs twice. Troubleshooting....
@@ -44,9 +35,20 @@ function SearchBar() {
     }, [])
 
 
+    const handleSearch = (event) => {
+        event.preventDefault();
+
+        if (event.target.value.length > 0) {
+            dispatch({ type: 'FETCH_SEARCH', payload: {card_name: event.target.value} })
+        }
+        else {
+            dispatch({ type: 'FETCH_LISTINGS' });
+        }
+    }
+
     const handleSearchClick = (event) => {
         event.preventDefault();
-        history.push('/')
+        history.push('/home')
     }
 
     console.log('user', user);

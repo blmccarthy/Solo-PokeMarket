@@ -17,7 +17,6 @@ import Typography from '@mui/material/Typography';
 
 
 function EditPage() {
-
     const { id } = useParams();
 
     useEffect(() => {
